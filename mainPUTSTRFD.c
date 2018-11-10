@@ -4,7 +4,7 @@
 int	main(void)
 {
 	int		i = open("fd", O_CREAT | O_RDWR);
-	ft_putchar_fd('a', i);
+	ft_putstr_fd("Aller !!! ok", i);
 	close(i);
 	return 0;
 }
