@@ -1,11 +1,10 @@
 #include "libft.h"
 
-int	main(void)
+int	main(int argc, char **argv)
 {
-	int	nb = -45874;
-	char	*str;
+	(void)argc;
+	int	nb = atoi(argv[1]);
 
-	str = ft_itoa(nb);
-	printf("NB = %s\n", str);
+	printf("NB = %s\n", ft_itoa(nb));
 	return (0);
 }
