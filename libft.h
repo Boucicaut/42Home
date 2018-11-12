@@ -11,12 +11,13 @@
 /*determine size of an array*/
 #define COUNT_OF(ptr) (sizeof(ptr) / sizeof((ptr)[0]))
 
-typedef struct struct	s_list
+typedef struct t_list t_list;
+struct t_list
 {
 	void			*content;
 	size_t			content_size;
-	struct	s_list	next;
-}						t_list;
+	t_list	*next;
+};
 
 void		ft_bzero(void *ptr, size_t n);
 void 		*ft_memset(void *ptr, int nb, size_t len);
