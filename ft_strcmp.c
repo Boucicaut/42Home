@@ -1,35 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/13 15:34:43 by bviollet          #+#    #+#             */
-/*   Updated: 2018/11/13 17:45:44 by bviollet         ###   ########.fr       */
+/*   Created: 2018/11/05 20:08:43 by bviollet          #+#    #+#             */
+/*   Updated: 2018/11/15 16:47:24 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void		ft_putnbr_fd(int n, int fd)
+int	ft_strcmp(char *s1, char *s2)
 {
-	if (n == -2147483648)
-	{
-		ft_putchar_fd('-', fd);
-		ft_putchar_fd('2', fd);
-		n = 147483648;
-	}
-	if (n < 0)
-	{
-		ft_putchar_fd('-', fd);
-		n = -n;
-	}
-	if (n <= 9)
-		ft_putchar_fd(n + '0', fd);
-	if (n > 9)
-	{
-		ft_putnbr_fd(n / 10, fd);
-		ft_putnbr_fd(n % 10, fd);
-	}
+	int	i;
+
+	i = 0;
+	while ((s1[i]) == *(s2 + i) && (s1[i] != '\0') && (*(s2 + i) != '\0'))
+		i++;
+	return (*(unsigned char *)(s1 + i) - *(unsigned char *)(s2 + i));
 }

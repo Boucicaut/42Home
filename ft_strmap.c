@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_strmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/13 15:34:43 by bviollet          #+#    #+#             */
-/*   Updated: 2018/11/13 17:45:44 by bviollet         ###   ########.fr       */
+/*   Created: 2018/11/13 15:28:15 by bviollet          #+#    #+#             */
+/*   Updated: 2018/11/16 16:09:06 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		ft_putnbr_fd(int n, int fd)
+char	*ft_strmap(const char *s, char (*f)(char))
 {
-	if (n == -2147483648)
+	int		i;
+	char	*str;
+
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	if ((str = malloc(sizeof(char) * i + 1)) == NULL)
+		return (NULL);
+	i = 0;
+	while (s[i] != '\0')
 	{
-		ft_putchar_fd('-', fd);
-		ft_putchar_fd('2', fd);
-		n = 147483648;
+		str[i] = f(s[i]);
+		i++;
 	}
-	if (n < 0)
-	{
-		ft_putchar_fd('-', fd);
-		n = -n;
-	}
-	if (n <= 9)
-		ft_putchar_fd(n + '0', fd);
-	if (n > 9)
-	{
-		ft_putnbr_fd(n / 10, fd);
-		ft_putnbr_fd(n % 10, fd);
-	}
+	str[i] = '\0';
+	return (str);
 }

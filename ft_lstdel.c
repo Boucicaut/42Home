@@ -1,12 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstdel.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/11/13 15:40:35 by bviollet          #+#    #+#             */
+/*   Updated: 2018/11/15 19:38:43 by bviollet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 {
 	t_list	*elem;
-	while (*alst != NULL)
+	t_list	*next;
+
+	elem = *alst;
+	while (elem != NULL)
 	{
-		elem = (*alst)->next;
-		ft_lstdelone(alst, del);
-		*alst = elem;
+		next = elem->next;
+		del(elem->content, elem->content_size);
+		free(elem);
+		elem = next;
 	}
+	*alst = NULL;
 }

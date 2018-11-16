@@ -1,38 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/13 15:38:48 by bviollet          #+#    #+#             */
-/*   Updated: 2018/11/15 20:47:59 by bviollet         ###   ########.fr       */
+/*   Created: 2018/11/13 15:24:38 by bviollet          #+#    #+#             */
+/*   Updated: 2018/11/16 16:03:25 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void const *content, size_t content_size)
+char	*ft_strnstr(const char *s1, const char *s2, size_t size)
 {
-	t_list	*elem;
+	int	i;
+	int	j;
 
-	if ((elem = (t_list*)malloc(sizeof(*elem))) == NULL)
+	i = 0;
+	j = 0;
+	if (ft_strlen((char *)s2) == 0)
+		return ((char *)s1);
+	if (ft_strlen((char *)s2) > size)
 		return (NULL);
-	if (content == NULL)
+	while ((s1[i] != '\0') && (i < (int)size))
 	{
-		elem->content = NULL;
-		elem->content_size = 0;
-	}
-	else
-	{
-		if ((elem->content = malloc(sizeof(content_size))) == NULL)
+		while ((s1[i] != '\0') && (s2[j] != '\0') && (s1[i] == s2[j])
+	&& (i < (int)size))
 		{
-			free(elem);
-			return (NULL);
+			i++;
+			j++;
 		}
-		ft_memcpy(elem->content, content, content_size);
-		elem->content_size = content_size;
+		if (j == ((int)ft_strlen(s2)))
+			return ((char *)s1 + i - j);
+		else
+			i = (i - j) + 1;
+		j = 0;
 	}
-	elem->next = NULL;
-	return (elem);
+	return (NULL);
 }

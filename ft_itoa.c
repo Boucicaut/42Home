@@ -1,112 +1,88 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/11/15 11:53:30 by bviollet          #+#    #+#             */
+/*   Updated: 2018/11/16 16:23:48 by bviollet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-<<<<<<< HEAD
-char	*ft_itoa(int n)
+static char		*positive(int n, char *nb, char *nb2)
 {
 	int		i;
-	char	*str;
-	int		neg;
+	int		j;
 
-	neg = 1;
 	i = 0;
-	if (n < 0)
-	{	
-		i++;
-		neg = -1;
-		n = -n;
-	}
-	while ((n / 10) > 0)
+	while (n)
 	{
-		i++;
+		nb[i] = (n % 10) + 48;
 		n = n / 10;
+		i++;
 	}
-	if ((str = malloc(sizeof(char) * i + 1)) == NULL)
-		return (NULL);
-	printf("i = %d", i);
-	str[i] = '\0';
-	if (neg == -1)
-		str[0] = '-';
-	while (n > 0)
+	nb[i] = 0;
+	i = 0;
+	j = ft_strlen(nb) - 1;
+	while (j >= 0)
 	{
-		if ((n % 10) == 0)
-			str[i--] = '0';
-		if (n > 9)
-		{
-			str[i--] = ((n % 10) - '0');
-			n = (n - (n % 10)) / 10;
-		}
-		if (n < 9)
-		{
-			str[i--] = (n - '0');
-			n = 0;
-		}
+		nb2[i] = nb[j];
+		i++;
+		j--;
 	}
-	return (str);
-=======
-int        nbDigits(int nb)
-{
-
-    int    i;
-
-    i = 1;
-    while ((nb / 10) > 0)
-    {
-        i++;
-        nb = nb / 10;
-    }
-    return (i);
+	nb2[i] = 0;
+	return (nb2);
 }
 
-char    *fillStr(int n, char *str, int i, int neg)
+static char		*negative(int n, char *nb, char *nb2)
 {
-	str[i--] = '\0';
-    if (neg == -1)
-        str[0] = '-';
-    while (n > 0)
-    {
-        if ((n % 10) == 0)
-        {
-            str[i--] = '0';
-            n = n / 10;
-        }
-        if (n > 9)
-        {
-            str[i--] = ((n % 10) + '0');
-            n = (n - (n % 10)) / 10;
-        }
-        if (n <= 9)
-        {
-            str[i--] = (n + '0');
-            n = 0;
-        }
-    }
-    return (str);
+	int		i;
+	int		j;
+
+	i = 0;
+	n = n * -1;
+	while (n)
+	{
+		nb[i] = n % 10 + 48;
+		n = n / 10;
+		i++;
+	}
+	nb[i++] = '-';
+	nb[i++] = 0;
+	i = 0;
+	j = ft_strlen(nb);
+	while (j >= 0)
+	{
+		nb2[i] = nb[--j];
+		i++;
+	}
+	nb2[i] = 0;
+	return (nb2);
 }
 
-char    *ft_itoa(int n)
+char			*ft_itoa(int n)
 {
-    int        i;
-    char    *str;
-    int        neg;
+	char	*nb;
+	char	*nb2;
 
-    if (n == 0)
-    {
-        str = malloc(sizeof(char) * 2);
-        str[0] = '0';
-        str[1] = '\0';
-        return (str);
-    }
-    neg = 1;
-    i = 1;
-    if (n < 0)
-    {
-        i++;
-        neg = -1;
-        n = -n;
-    }
-    i = nbDigits(n);
-    if ((str = malloc(sizeof(char) * i + 1)) == NULL)
-        return (NULL);
-    return (fillStr(n, str, i, neg));
->>>>>>> bbe1d56ff90addd1e430f5ebee91362e87f9b249
+	if ((nb = (char *)malloc(sizeof(char) * 12)) == NULL)
+		return (NULL);
+	if ((nb2 = (char *)malloc(sizeof(char) * 12)) == NULL)
+		return (NULL);
+	if (n == -2147483648)
+		return (ft_strdup("-2147483648"));
+	if (n >= 0 && n < 10)
+	{
+		nb[0] = n + 48;
+		nb[1] = '\0';
+		return (nb);
+	}
+	if (n > 9)
+		return (positive(n, nb, nb2));
+	if (n < 0)
+		return (negative(n, nb, nb2));
+	return (NULL);
 }
