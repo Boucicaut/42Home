@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnequ.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ademenet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/13 15:27:58 by bviollet          #+#    #+#             */
-/*   Updated: 2018/11/16 16:18:10 by bviollet         ###   ########.fr       */
+/*   Created: 2015/11/26 10:32:08 by ademenet          #+#    #+#             */
+/*   Updated: 2015/12/16 16:49:39 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,15 @@
 
 int	ft_strnequ(const char *s1, const char *s2, size_t n)
 {
-	int	i;
-
-	i = 0;
-	if ((n == 0)
-	|| ((s1[i] == s2[i]) && (s1[i + 1] == '\0') && (s2[i + 1] == '\0')))
-		return (1);
-	if ((s1[0] == '\0') && (s2[0] == '\0'))
+	if (s1 == NULL)
 		return (0);
-	if ((s1[i] != '\0') && (s2[i] != '\0') && (n > 0))
+	while ((n > 0) && (s1 != NULL) && (s2 != NULL))
 	{
-		i = 0;
-		while ((n > 0) && ((s2[i] != '\0') || (s1[i] != '\0')))
-		{
-			if ((s1[i] != s2[i]))
-				return (0);
-			i++;
-			n--;
-		}
-		return (1);
+		if (*s1 != *s2)
+			return (0);
+		s1++;
+		s2++;
+		n--;
 	}
-	return (0);
+	return (1);
 }

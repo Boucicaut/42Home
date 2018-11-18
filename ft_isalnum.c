@@ -14,13 +14,11 @@
 
 int	ft_isalnum(int c)
 {
-	unsigned char nb;
 
-	nb = (unsigned char)c;
-	if ((nb >= '0') && (nb <= '9'))
+	if ((c >= 48) && (c <= 57))
 		return (1);
-	if ((nb >= 65) && (nb <= 122))
-		if ((nb >= 97) || (nb <= 90))
+	if ((c >= 65) && (c <= 122))
+		if ((c >= 97) || (c <= 90))
 			return (1);
 	return (0);
 }

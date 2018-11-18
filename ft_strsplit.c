@@ -3,84 +3,72 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ademenet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/15 16:17:00 by bviollet          #+#    #+#             */
-/*   Updated: 2018/11/16 16:03:04 by bviollet         ###   ########.fr       */
+/*   Created: 2015/11/26 12:03:50 by ademenet          #+#    #+#             */
+/*   Updated: 2015/12/16 15:27:42 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		nbmot(const char *s, char c)
+static int		ft_nbwords(char *s, char c)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	word;
 
 	i = 0;
-	j = 0;
+	word = 0;
 	while (s[i] != '\0')
 	{
-		if ((s[i] == c) && (s[i - 1] != c) && (i != 0))
-			j++;
-		i++;
-		if ((s[i] == '\0') && (s[i - 1] != c))
-			j++;
+		if (word == 0 && *s != c)
+		{
+			word = 1;
+			i++;
+		}
+		else if (word == 1 && *s == c)
+			word = 0;
+		s++;
 	}
-	return (j);
+	return (i);
 }
 
-static char		**lgmot(const char *s, char c, char **str, int j)
+static int		ft_strlim(char *s, char c)
 {
-	int		i;
-	int		k;
+	int	len;
 
-	i = 0;
-	k = 0;
-	while (s[i] != '\0')
+	len = 0;
+	while (*s != c && *s != '\0')
 	{
-		j = 0;
-		while ((s[i] != c) && (s[i++] != '\0'))
-		{
-			j++;
-		}
-		if (i != 0)
-			if ((s[i] == c) || (s[i] == '\0'))
-			{
-				if ((str[k++] = (char *)malloc(sizeof(char) * j + 1)) == NULL)
-					return (0);
-			}
-		while ((s[i] == c) && (s[i] != '\0'))
-			i++;
+		len++;
+		s++;
 	}
-	return (str);
+	return (len);
 }
 
 char			**ft_strsplit(const char *s, char c)
 {
+	int		nbword;
+	char	**tab;
 	int		i;
-	char	**str;
-	int		j;
-	int		k;
 
-	j = nbmot(s, c);
-	if ((str = (char **)malloc(sizeof(char*) * (j + 1))) == NULL)
+	if (!s)
 		return (NULL);
-	str[j] = 0;
-	str = lgmot(s, c, str, j);
+	nbword = ft_nbwords((char *)s, c);
+	tab = (char **)malloc((nbword + 1) * sizeof(char*));
 	i = 0;
-	j = 0;
-	while (s[i] != 0)
+	if (tab == NULL)
+		return (NULL);
+	while (nbword-- > 0)
 	{
-		k = 0;
-		while ((s[i] != c) && (s[i] != '\0'))
-		{
-			str[j][k++] = s[i++];
-		}
-		if (i != 0)
-			str[j++][k] = '\0';
-		while ((s[i] == c) && (s[i] != '\0'))
-			i++;
+		while (*s == c && *s != '\0')
+			s++;
+		tab[i] = ft_strsub((char *)s, 0, ft_strlim((char *)s, c));
+		if (!tab[i])
+			return (NULL);
+		s = s + ft_strlim((char *)s, c);
+		i++;
 	}
-	return (str);
+	tab[i] = NULL;
+	return (tab);
 }
