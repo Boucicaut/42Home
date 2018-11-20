@@ -76,7 +76,7 @@ char			*ft_itoa(int n)
 		return (ft_strdup("-2147483648"));
 	if (n >= 0 && n < 10)
 	{
-		nb[0] = n + 48;
+		nb[0] = n + '0';
 		nb[1] = '\0';
 		return (nb);
 	}
