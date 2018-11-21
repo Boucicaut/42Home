@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 15:37:48 by bviollet          #+#    #+#             */
-/*   Updated: 2018/11/14 17:58:18 by bviollet         ###   ########.fr       */
+/*   Updated: 2018/11/21 20:56:44 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ void	ft_putstr_fd(const char *str, int fd)
 	int	i;
 
 	i = 0;
-	while (str[i] != '\0')
-		i++;
-	write(fd, str, i);
+	if (str != NULL)
+	{
+		while (str[i] != '\0')
+			i++;
+		write(fd, str, i);
+	}
 }

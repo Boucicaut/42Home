@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/15 11:53:30 by bviollet          #+#    #+#             */
-/*   Updated: 2018/11/16 16:23:48 by bviollet         ###   ########.fr       */
+/*   Updated: 2018/11/21 20:20:11 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ static char		*positive(int n, char *nb, char *nb2)
 	int		j;
 
 	i = 0;
-	while (n)
+	while (n > 0)
 	{
 		nb[i] = (n % 10) + 48;
 		n = n / 10;
 		i++;
 	}
-	nb[i] = 0;
+	nb[i] = '\0';
 	i = 0;
 	j = ft_strlen(nb) - 1;
 	while (j >= 0)
@@ -33,7 +33,7 @@ static char		*positive(int n, char *nb, char *nb2)
 		i++;
 		j--;
 	}
-	nb2[i] = 0;
+	nb2[i] = '\0';
 	return (nb2);
 }
 
@@ -59,8 +59,28 @@ static char		*negative(int n, char *nb, char *nb2)
 		nb2[i] = nb[--j];
 		i++;
 	}
-	nb2[i] = 0;
+	nb2[i] = '\0';
 	return (nb2);
+}
+
+static int		nbdigits(int n)
+{
+	int		i;
+
+	i = 0;
+	if (n == 0)
+		return (1);
+	if (n < 0)
+	{
+		i++;
+		n = -n;
+	}
+	while (n > 0)
+	{
+		n = n / 10;
+		i++;
+	}
+	return (i);
 }
 
 char			*ft_itoa(int n)
@@ -68,9 +88,9 @@ char			*ft_itoa(int n)
 	char	*nb;
 	char	*nb2;
 
-	if ((nb = (char *)malloc(sizeof(char) * 12)) == NULL)
+	if ((nb = (char *)malloc(sizeof(char) * (nbdigits(n) + 1))) == NULL)
 		return (NULL);
-	if ((nb2 = (char *)malloc(sizeof(char) * 12)) == NULL)
+	if ((nb2 = (char *)malloc(sizeof(char) * (nbdigits(n) + 1))) == NULL)
 		return (NULL);
 	if (n == -2147483648)
 		return (ft_strdup("-2147483648"));
