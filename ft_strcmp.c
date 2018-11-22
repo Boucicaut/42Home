@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 20:08:43 by bviollet          #+#    #+#             */
-/*   Updated: 2018/11/15 16:47:24 by bviollet         ###   ########.fr       */
+/*   Updated: 2018/11/21 19:08:03 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,5 @@ int	ft_strcmp(char *s1, char *s2)
 	while ((s1[i]) == *(s2 + i) && (s1[i] != '\0') && (*(s2 + i) != '\0'))
 		i++;
 	return (*(unsigned char *)(s1 + i) - *(unsigned char *)(s2 + i));
+	return (0);
 }

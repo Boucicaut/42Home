@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 15:34:56 by bviollet          #+#    #+#             */
-/*   Updated: 2018/11/14 18:00:02 by bviollet         ###   ########.fr       */
+/*   Updated: 2018/11/21 19:58:02 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@ void	ft_putendl_fd(const char *str, int fd)
 
 	c = '\n';
 	i = 0;
-	while (str[i] != '\0')
-		i++;
-	write(fd, str, i);
-	write(fd, &c, 1);
+	if (str != NULL)
+	{
+		while (str[i] != '\0')
+			i++;
+		write(fd, str, i);
+		write(fd, &c, 1);
+	}
 }

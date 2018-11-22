@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 15:24:38 by bviollet          #+#    #+#             */
-/*   Updated: 2018/11/16 16:03:25 by bviollet         ###   ########.fr       */
+/*   Updated: 2018/11/21 20:49:19 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,6 @@ char	*ft_strnstr(const char *s1, const char *s2, size_t size)
 
 	i = 0;
 	j = 0;
-	if (ft_strlen((char *)s2) == 0)
-		return ((char *)s1);
-	if (ft_strlen((char *)s2) > size)
-		return (NULL);
 	while ((s1[i] != '\0') && (i < (int)size))
 	{
 		while ((s1[i] != '\0') && (s2[j] != '\0') && (s1[i] == s2[j])

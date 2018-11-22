@@ -6,23 +6,33 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 15:27:33 by bviollet          #+#    #+#             */
-/*   Updated: 2018/11/15 18:20:20 by bviollet         ###   ########.fr       */
+/*   Updated: 2018/11/21 20:47:24 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strtrim(const char *s)
+static int			nbblanc(const char *s)
+{
+	int		sst;
+
+	sst = 0;
+	while ((s[sst] == ' ') || (s[sst] == '\n') || (s[sst] == '\t'))
+		sst++;
+	return (sst);
+}
+
+char				*ft_strtrim(const char *s)
 {
 	int		i;
 	int		j;
 	int		sst;
 	char	*str;
 
+	if (s == NULL)
+		return (NULL);
 	j = 0;
-	sst = 0;
-	while ((s[sst] == ' ') || (s[sst] == '\n') || (s[sst] == '\t'))
-		sst++;
+	sst = nbblanc(s);
 	i = ft_strlen(s);
 	while ((s[i] == ' ') || (s[i] == '\n') || (s[i] == '\t') || (s[i] == '\0'))
 		i--;
