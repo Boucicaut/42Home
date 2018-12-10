@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/12/10 18:51:43 by bviollet          #+#    #+#             */
+/*   Updated: 2018/12/10 18:52:17 by bviollet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillit.h"
 
 char	**input2(char **str)
@@ -11,16 +23,10 @@ char	**input2(char **str)
 	{
 		if (*str[i] == '\0')
 		{
-			ft_putchar('Q');
-			ft_putnbr(i);
-			ft_putchar('\n');
 			free(str[i]);
 			str[i] = malloc(sizeof(char) * 5);
 			ft_bzero(str[i], 5);
 		}
-		ft_putstr("Z : ");
-		ft_putchar(str[i][4]);
-		ft_putstr("|\n");
 		i++;
 	}
 	return (str);
@@ -50,5 +56,5 @@ char	**input(int fd)
 		i++;
 	}
 	line[i] = NULL;
-	return (input2(line));	/* AUCUN LEAKS, CHECK LE 6/12 */
+	return (input2(line));
 }
