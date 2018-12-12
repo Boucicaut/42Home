@@ -6,11 +6,27 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 18:51:43 by bviollet          #+#    #+#             */
-/*   Updated: 2018/12/10 18:52:17 by bviollet         ###   ########.fr       */
+/*   Updated: 2018/12/10 21:13:58 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+
+/*char	**delblank(char **str)
+{
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	while (str[i][0] == '\0')
+	{
+		tmp = str[i];
+		i++;
+		str = &str[i];
+		free(tmp);
+	}
+	return (str);
+}*/
 
 char	**input2(char **str)
 {
@@ -57,4 +73,5 @@ char	**input(int fd)
 	}
 	line[i] = NULL;
 	return (input2(line));
+	//return (delblank(input2(line)));
 }
