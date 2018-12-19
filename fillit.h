@@ -37,7 +37,7 @@ typedef struct	s_chain
 }				t_chain;
 
 char			**fin(t_carre *carre, t_piece *piece, int i, int j);
-int				nbpieceposee(t_piece *first, t_carre *carre);
+int				nbpieceposee(t_piece *first);
 void			movepiecea(t_carre *carre, t_piece *piece);
 void			again(int nbpiece, t_piece *first, t_carre *carre);
 void			fillprevious(t_chain *list);
