@@ -36,7 +36,7 @@ typedef struct	s_chain
 	struct s_piece		*first;
 }				t_chain;
 
-void			fin(t_carre *carre, t_piece *piece, int i, int j);
+char			**fin(t_carre *carre, t_piece *piece, int i, int j);
 int				nbpieceposee(t_piece *first, t_carre *carre);
 void			movepiecea(t_carre *carre, t_piece *piece);
 void			again(int nbpiece, t_piece *first, t_carre *carre);
