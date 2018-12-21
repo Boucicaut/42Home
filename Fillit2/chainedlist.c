@@ -113,5 +113,6 @@ void	fillprevious(t_chain *list)
 		if (piece->next)
 			previouspiece = piece;
 	}
+	piece->put = 0;
 	piece->previous = previouspiece;
 }
