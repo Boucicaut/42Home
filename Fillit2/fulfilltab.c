@@ -6,7 +6,7 @@
 /*   By: rkergast <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 15:31:42 by rkergast          #+#    #+#             */
-/*   Updated: 2018/12/22 12:13:44 by bviollet         ###   ########.fr       */
+/*   Updated: 2018/12/22 13:15:05 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	place_piece(t_piece *piece, t_carre *carre, t_pos *pos, int c) /* pos.x = i
 		}
 		i++;
 	}
+	if (pos)
+		free(pos);
 }
 
 int	check_piece(t_piece *piece, t_carre *carre, int x, int y) /* x = tab[i] | y = tab[x][j] */

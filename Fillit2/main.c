@@ -53,7 +53,7 @@ int	main(int argc, char **argv)
 	printf("Nb pieces : %d\n", i = nbpieces(str));
 	
 	afficher(str);
-	movepieces(str, 0, 0, 0);
+	movepieces(str, 0, -1, 0);
 	afficher(str);
 	chain = createlist(str);
 
@@ -81,10 +81,12 @@ int	main(int argc, char **argv)
 
 /*	 FREE STR */
 	i = 0;
-	while (str[i] != NULL)
-		free(str[i++]);
-	free(str);
-
+	if (str)
+	{	
+		while (str[i])
+			free(str[i++]);
+		free(str);
+	}
 	close(fd);
 	return (0);
 }
