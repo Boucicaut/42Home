@@ -55,7 +55,6 @@ int	main(int argc, char **argv)
 	afficher(str);
 	movepieces(str, 0, 0, 0);
 	afficher(str);
-	getchar();
 	chain = createlist(str);
 
 	if ((argc == 3) && (ft_strcmp(argv[1], "-v") == 0))
