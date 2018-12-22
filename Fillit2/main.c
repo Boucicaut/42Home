@@ -40,7 +40,7 @@ int	main(int argc, char **argv)
 		return (0);
 	str = input(fd);
 
-	if (error(str) == 0)
+	if (!str || error(str) == 0)
 	{
 		printf("error\n");
 		return (0);
