@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 14:12:15 by bviollet          #+#    #+#             */
-/*   Updated: 2018/12/21 21:04:40 by bviollet         ###   ########.fr       */
+/*   Updated: 2018/12/22 12:13:46 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,16 @@ int		*movediff(char **str, int i, int j, int nbpiece)
 	int	*tab;
 
 	tab = malloc(sizeof(int) * 2);
+
+	printf("NBLINE STR : %d\n", ft_numberline(str));
+	if (i < ft_numberline(str) && j > 1 && str[i + 1][j - 2] == '#')
+		j = j - 2;
+	else if (i + 1 < ft_numberline(str) && j > 0 && str[i + 1][j - 1] == '#')
+		j--;
+	else if (i + 2 < ft_numberline(str) && j > 0 && str[i + 2][j - 1] == '#')
+		j--;
+
+/*
 	if (i > 0 && j > 1 && str[i + 1][j - 2] == '#')
 	{
 		if (j == 2)
@@ -68,6 +78,8 @@ int		*movediff(char **str, int i, int j, int nbpiece)
 	}
 	else if (i > 0 && j > 0 && str[i + 1][j - 1] == '#')
 		j--;
+		*/
+
 	tab[1] = j;
 	tab[0] = i - nbpiece * 5;
 	return (tab);
