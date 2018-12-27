@@ -1,18 +1,5 @@
 #include "libft.h"
 
-int	sizenbchar(int base, int i, int nb)
-{
-	int	res;
-
-	res = 1;
-	while (res <= nb)
-	{
-		i++;
-		res = res * base;
-	}
-	return (i);
-}
-
 char		*ft_convertbase(int nb, int base)
 {
 	int		i;
@@ -26,7 +13,7 @@ char		*ft_convertbase(int nb, int base)
 		neg = 1;
 		nb = -nb;
 	}
-	i = sizenbchar(base, i, nb);
+	i = sizenbchar(base, i, nb, 'd');
 	stres = ft_strnew(i + neg);
 	i = i + neg;
 	while (i-- >= 0)
