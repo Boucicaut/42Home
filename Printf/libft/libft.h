@@ -27,6 +27,7 @@ typedef	struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+int					*ft_splitdouble(double nb);
 int					ft_tento(int nb, int i);
 int					sizenbchar(int base, int i, double nb, char mode);
 char				*ft_convertbase(int nb, int base);
