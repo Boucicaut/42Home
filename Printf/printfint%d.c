@@ -23,8 +23,6 @@ void	pourcentf(va_list args, char *str, int *i)
 	double	nb;
 	int	lim1;
 	int	lim2;
-	int	decimal;
-	int	tmp;
 	int *tab;
 
 	lim1 = 0;
@@ -58,11 +56,19 @@ void	pourcentf(va_list args, char *str, int *i)
 	ft_putnbr(tab[0]);	// affichage partie entiere
 	ft_putchar('.');
 
+	while (lim2 != 0 && qtenb2 > lim2)
+	{
+		tab[1] = tab[1] / 10;
+		qtenb2 = sizenbchar(10, 0, tab[1], 'd');
+	}
 	ft_putnbr(tab[1]);
 	if (lim2 == 0)
 		lim2 = 6;
-	while (qtenb2++ < 6 && qtenb2++ < lim2)  // voir si 0 en trop ?? a priori ok
+	while (tab[1] != 0 && qtenb2 < 6 && qtenb2 < lim2)  // voir si 0 en trop ?? a priori ok
+	{
 		ft_putnbr(0);
+		qtenb2++;
+	}
 	while (ft_isdigit(str[*i]) || str[*i] == 'f')
 		*i = *i + 1;
 	*i = *i - 1;
@@ -142,8 +148,8 @@ int	main(int argc, char **argv)
 	(void) argc;
 
 	i = 0;
-	ft_printf("OK %f ca %15.1f cest %s str\n", atof(argv[1]), atof(argv[2]), "bien");
+	ft_printf("OK %f ca %15.6f cest %s str\n", atof(argv[1]), atof(argv[2]), "bien");
 	printf("---------------------\n");
-	printf("OK %f ca %15.1f cest %s str\n", atof(argv[1]), atof(argv[2]), "bien");
+	printf("OK %f ca %15.6f cest %s str\n", atof(argv[1]), atof(argv[2]), "bien");
 	return (0);
 }
