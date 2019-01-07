@@ -1,6 +1,6 @@
 #include "libft.h"
 
-char		*ft_convertbase(int nb, int base)
+char		*ft_convertbase(long long int nb, int base)
 {
 	int		i;
 	char	*stres;
@@ -13,7 +13,7 @@ char		*ft_convertbase(int nb, int base)
 		neg = 1;
 		nb = -nb;
 	}
-	i = sizenbchar(base, i, nb, 'd');
+	i = ft_qtebignb(nb, base);
 	stres = ft_strnew(i + neg);
 	i = i + neg;
 	while (i-- >= 0)

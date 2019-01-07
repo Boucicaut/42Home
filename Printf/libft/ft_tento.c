@@ -1,8 +1,8 @@
 #include "libft.h"
 
-int	ft_tento(int nb, int i)
+double	ft_tento(int nb, int i)
 {
-	int	res;
+	double	res;
 
 	res = 1;
 	while (i-- > 0)

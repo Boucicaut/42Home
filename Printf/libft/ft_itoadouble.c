@@ -1,91 +1,58 @@
 #include "libft.h"
 #include <stdio.h>
 
-double		ft_rounded(int i)
+void	printsave(char *str, int save, int i)
 {
-	double 	nb;
-	int		j;
-
-	j = 12;
-	nb = 0;
-	while (i-- >= 0 && j-- > 0)
-	{
-		nb = nb / 10 + 0.9;
-	}
-	return (nb);
+	str[i] = save % 10 + '0';
+	save = save / 10;
 }
 
-char	*ft_itoadouble(double nb)
+void	putdoublechar(long double n, char *str, int size, int max)
+{
+	long double	save;
+	int		i;
+
+	i = size;
+	if (str[size - 1] == '.')
+		size--;
+	i--;
+	while (n >= 1)
+	{
+		save = n;
+		while (save > 2147483647)
+			save = save - 2000000000;
+		printsave(str, (int)save % 10, i);
+		i--;
+		n = n / 10;
+	}
+	(void)max;
+}
+
+/* on envoie soit 'z' de nb ou le nb de digits a afficher selon ft_printf pour imiter le comportement de printf */
+char	*ft_itoadouble(long double nb, int z, int max) // AJOUTER ICI LE NB DE CHIFFRE A AFFICHER APRES LA VIRGULE ('z')
 {
 	char	*str;
-	int		qte;
-	int		dot;
-	int		tmp;
 	int		i;
-	double	nb2;
+	int		d;
+	int		iz;
 
-	nb2 = nb;
-	i = 0;
-	dot = sizenbchar(10, 0, nb, 'z');
-	qte = sizenbchar(10, 0, nb, 'f');
-	if (!(str = malloc(sizeof(char) * qte + 2)))
-		return (NULL);
-	str[qte + 1] = '\0';
-	str[qte - dot] = '.';
-	i = qte - dot - 1;
-printf("Qte : %d, dot : %d, i : %d\n", qte, dot, i);
-	while (i >= 0)
+	iz = ft_qtenb((int)nb, 'z', 10, max);
+	d = ft_qtebignb(nb, 10);
+//printf("\nMalloc a %d\n", d + z + 2);
+	str = malloc(sizeof(char) * d + z + 2);
+	str[z + d + 1] = '\0';
+	str[d] = '.';
+	i = d + 1;
+	putdoublechar(nb, str, ft_qtebignb(nb, 10), 9);
+	while (nb > 2147483647)			/* gerer n pour enlever left dot part */
+		nb = nb - 2000000000.;
+	nb = nb - (int)nb;
+	while (i < z + d + 1)			/* ici on s'occupe des decimals digits*/
 	{
-		tmp = nb;
-		str[i] = (tmp % 10) + '0';
-printf("() str[%d] : %c\n", i, str[i]);
-		tmp = nb / 10;
-printf("Tmp1 : %d\n", tmp);
-printf("Nb : %f\n", nb);
-		nb = tmp;
-		i--;
+		nb = nb * 10;
+		str[i] = (int)nb + '0';
+		nb = nb - (int)nb;
+		i++;
 	}
-
-printf("\n\n");
-	nb = nb2;
-	i = qte - dot + 1;
-	nb = nb * ft_tento(10, dot);
-	nb = nb - (ft_atoi(str) * ft_tento(10, dot));
-printf("Nb : %f\n", nb);
-	i = qte;
-	while (i > qte - dot)
-	{
-		tmp = nb;
-		printf("ROUNDED : %f\n", ft_rounded(qte - 1));
-		str[i] = ((int)(tmp + 1 - ft_rounded(qte - dot)) % 10) + '0';
-printf("Tmp : %d\n", tmp);
-printf("() str[%d] : %c\n", i, str[i]);
-		tmp = nb / 10;
-printf("Tmp : %d\n", tmp);
-printf("Nb : %f\n", nb);
-		nb = tmp;
-		i--;
-	}
-printf("\n\n");
-printf("str : %s, qte : %d, i : %d\n", str, qte, i);
-	i = qte - dot - 1;
-
-/*
-	while (str[i] != '\0')
-	{
-printf("Str[%d] : %c\n", i, str[i]);
-		if (str[i++] == '0')
-			return (str);
-	}
-	str[qte] = str[qte] + 1;*/
-
 	return (str);
 }
-/*
-int	main(int argc, char **argv)
-{
-(void)argc;
-	printf("S : %s\n", ft_itoadouble(atof(argv[1])));
-	printf("Z : %s\n", argv[1]);
-	return (0);
-}*/

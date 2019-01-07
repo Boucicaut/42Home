@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 16:07:12 by bviollet          #+#    #+#             */
-/*   Updated: 2018/12/14 16:18:18 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/01/06 16:19:24 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,13 @@ typedef	struct		s_list
 	struct s_list	*next;
 }					t_list;
 
-char				*ft_itoadouble(double nb);
-int					*ft_splitdouble(double nb);
-int					ft_tento(int nb, int i);
-int					sizenbchar(int base, int i, double nb, char mode);
-char				*ft_convertbase(int nb, int base);
+int					ft_qtebignb(long long int vl, int base);
+void				ft_putbignbr(long long int n);
+int					ft_issamealpha(char c, char d);
+char				*ft_itoadouble(long double nb, int z, int max);
+double				ft_tento(int nb, int i);
+int					ft_qtenb(double vl, char mode, int base, int max);
+char				*ft_convertbase(long long int nb, int base);
 void				ft_freeptr(void **ptr);
 void				ft_runthrough(char **ptr, void(*f)(char **ptr, int i, int j));
 int					ft_nextline(char **str, char **line, int fd, int nbbytes);
