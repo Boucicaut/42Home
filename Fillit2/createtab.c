@@ -6,28 +6,23 @@
 /*   By: rkergast <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 15:31:42 by rkergast          #+#    #+#             */
-/*   Updated: 2018/12/22 13:32:55 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/01/10 15:51:35 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int		main_create_tab(t_piece *first, int nbpiece)
+int			main_create_tab(t_piece *first, int nbpiece)
 {
 	t_carre *carre;
 	int		i;
 
-	carre = (t_carre*)malloc(sizeof(carre));
+	carre = (t_carre*)malloc(sizeof(carre) * 2);
 	i = 0;
 	carre->size = ft_sqrt_up(nbpiece * 4);
-	//carre->tab = (char**)malloc(sizeof(carre->tab) * 1);
-	carre->tab = NULL;
-	carre->tab = fill_tab(create_tab(carre), carre->size);
+	carre->tab = fill_tab(create_tab(carre, 1), carre->size);
+	carre = fill_it(carre, first, first, nbpiece);
 	afficher(carre->tab);
-	carre = fill_it(carre, first, first,  nbpiece);
-
-	afficher(carre->tab);
-	
 	if (carre->tab)
 	{
 		while (carre->tab[i])
@@ -38,25 +33,27 @@ int		main_create_tab(t_piece *first, int nbpiece)
 	return (0);
 }
 
-char		**create_tab(t_carre *carre)
+char		**create_tab(t_carre *carre, int k)
 {
-	int			i;
+	int		i;
 	char	**tmp;
 
-	tmp = carre->tab;
+	if (k == 0)
+		tmp = carre->tab;
 	i = 0;
+printf("Size tab : %d\n", carre->size);
 	if (!(carre->tab = (char**)malloc(sizeof(char*) * (carre->size + 1))))
-		exit (-1);
-	while (i < carre->size) /* !!!ERREUR EVENTUELLE  avant <= mais on malloc NULL a la fin a priori donc < seulement */
+		exit(-1);
+	while (i < carre->size)
 	{
 		if (!(carre->tab[i] = (char*)malloc(sizeof(char*) * (carre->size + 1))))
-			exit (-1);
+			exit(-1);
 		carre->tab[i][carre->size] = '\0';
 		i++;
 	}
 	carre->tab[carre->size] = NULL;
 	i = 0;
-	if (tmp)
+	if (k == 0 && tmp)
 	{
 		while (tmp[i])
 			free(tmp[i++]);
@@ -72,7 +69,6 @@ char		**fill_tab(char **tab, int size)
 
 	i = 0;
 	j = 0;
-
 	while (i < size)
 	{
 		j = 0;
@@ -86,7 +82,7 @@ char		**fill_tab(char **tab, int size)
 	return (tab);
 }
 
-char	**rmv_tab(char c, char **tab)
+char		**rmv_tab(char c, char **tab)
 {
 	int		i;
 	int		j;
@@ -108,11 +104,11 @@ char	**rmv_tab(char c, char **tab)
 	return (tab);
 }
 
-t_pos	*new_pos(int x, int y)
+t_pos		*new_pos(int x, int y)
 {
 	t_pos	*pos;
 
-	pos = ft_memalloc(sizeof(t_pos));
+	pos = ft_memalloc(sizeof(t_pos) + 8);
 	pos->x = x;
 	pos->y = y;
 	return (pos);

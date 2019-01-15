@@ -1,37 +1,41 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   chainedlist.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rkergast <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/08 14:43:07 by rkergast          #+#    #+#             */
+/*   Updated: 2019/01/10 13:53:31 by bviollet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillit.h"
 
 int		taillepiece(char **ptr, char c)
 {
-	int	i;
-	int	j;
-	int	tab[2];
+	t_pos	*tab0;
+	t_pos	*tab1;
+	int		i;
 
-	i = 0;
-	j = 0;
-	tab[0] = 0;
-	tab[1] = 0;
 	if (!(ptr && *ptr))
 		return (0);
-	while (i < 4)
+	tab0 = new_pos(0, 0);
+	tab1 = new_pos(0, 0);
+	while (tab0->x < 4)
 	{
-		while (j < 4)
+		while (tab0->y < 4)
 		{
-			if (ptr[i][j] == '#')
-			{
-				if (tab[0] < i)
-					tab[0] = i;
-				if (tab[1] < j)
-					tab[1] = j;
-			}
-			j++;
+			taille(tab0, tab1, ptr);
+			tab0->y++;
 		}
-		i++;
-		j = 0;
+		tab0->x++;
+		tab0->y = 0;
 	}
-	if (c == 'i')
-		return (tab[0]);
-	else
-		return (tab[1]);
+	free(tab0);
+	i = c == 'i' ? tab1->x : tab1->y;
+	free(tab1);
+	return (i);
 }
 
 t_chain	*createlist(char **str)
@@ -86,14 +90,10 @@ char	**createpieces(char **str, int index)
 	while (i < 4)
 	{
 		k = i + (index * 5);
-		//printf("index : %d\n", index);
-	//		ft_putstr("\nSTR[k] : \n");
-	//		ft_putstr(str[k]);
-			ptr[i] = ft_strdup(str[k]);
+		ptr[i] = ft_strdup(str[k]);
 		i++;
 	}
 	ptr[i] = NULL;
-	afficher(ptr);
 	return (ptr);
 }
 
