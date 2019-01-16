@@ -46,12 +46,15 @@ int		pourcents(va_list args, char *str, int *lim, int *i)
 
 int		pourcentc(va_list args, char *str, int *lim, int *i)
 {
-	char	c;
 	int		printed;
+	char	c;
+	char	*res;
 
 	c = (char)va_arg(args, int);
-	printed = doshittythings(lim, 1, 0, 'c');
-	ft_putchar(c);
+	res = malloc(sizeof(char) * 2);
+	res[0] = '\0';
+	res[1] = '\0';
+	printed = doshittythings(lim, res, 0, 'c');
 	(void)i;
 	(void)str;
 	(void)lim;
@@ -135,7 +138,7 @@ int		pourcentd(va_list args, char *str, int *lim, int *i)
 
 	neg = nb < 0 ? 1 : 0;
 	nb = nb < 0 ? -nb : nb;
-	printed = doshittythings(lim, ft_qtebignb(nb, 10), neg, 'd');
+	printed = doshittythings(lim, ft_itoa(nb), neg, 'd');
 //printf("NB : %lld\n", nb);
 	ft_putbignbr(nb);
 

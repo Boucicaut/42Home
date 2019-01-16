@@ -1,50 +1,64 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   setflaglim.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/10 20:52:07 by bviollet          #+#    #+#             */
-/*   Updated: 2019/01/16 19:37:12 by bviollet         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../includes/ft_printf.h"
 
-int		doshittythings(int *lim, int qtenb, int neg, char c)
+/* 
+	lim[0] : width	|	lim[1] : precision	|	2: '0' | 3: '+' | 4: '-' | 5: ' ' | 6: '#'
+*/
+int		doshittythings(int *lim, char *nb, int neg, char c)
 {
 	int	printed;
-//printf("Lim %d %d %d %d %d %d %d \n", lim[0], lim[1], lim[2], lim[3], lim[4], lim[5], lim[6]);
-//printf("\nqte : %d || lim : %d %d %d %d %d %d %d\n", qtenb, lim[0], lim[1], lim[2], lim[3], lim[4], lim[5], lim[6]);
+	char *res;
+	int	qtenb;
+	int	i;
+
+	i = 0;
 	printed = 0;
-	qtenb += neg == 1 ? 1 : 0;
-	lim[0] -= neg == 0 && lim[3] == 1 ? 1 : 0;
-	lim[1] = lim[1] > qtenb ? lim[1] + neg : qtenb;
+	
+	if (c == 'u' || ft_issamealpha(c, 'x') || c == 'o' || neg)	// ignore '+' si  u x o
+		lim[3] = 0;
+	if (c == 'u' || ft_issamealpha(c, 'x') || c == 'o' || neg) // ignore ' ' si uxo ou < 0
+		lim[5] = 0;
+	if (c == 'p' || c == 's' || c == 'c' || lim[1]) // ignore '0' si psc ou lim[1] prec. int
+		lim[2] = 0;
+	if (c == 'd' || c == 'i' || c == 'u' || c == 'c' || c == 's') // ignore '#' si diucs
+		lim[6] = 0;
 
-	lim[5] == 1 && neg == 0 ? ft_putchar(' '), printed++, lim[0]-- : 0; // printed ici ? 
+	qtenb = (int)ft_strlen(nb);
+	if (c != 'f' && lim[1] > (int)ft_strlen(nb))	// lim[1] ou qtenb
+		qtenb = lim[1];
+	if (c == 'o')
+		qtenb += lim[6];	// # de o
+	if (ft_issamealpha(c, 'x'))
+		qtenb += lim[6] * 2;	// # de x
+	qtenb += neg;				// a priori neg
 
-	while (lim[4] == 0 && lim[0]-- > lim[1])
-	{
-		printed++;
-		lim[2] == 1 ? ft_putchar('0') : ft_putchar(' ');
-	}
+	i = qtenb > lim[1] ? qtenb : lim[1];
+	i = i > lim[0] ? i : lim[0]; // lim[0] = qtenb si inferieure
+	res = ft_memalloc(sizeof(char) * i);
 
-	neg == 1 ? ft_putchar('-'), printed++ : 0;
-	lim[3] == 1 && neg == 0 ? ft_putchar('+'), printed++ : 0;	// '+' sign
+	i = 0;
+	while (lim[4] && lim[0] > qtenb++)		// lim[0] >, print 0 ou ' ' AVANT
+		res[i++] = lim[2] ? '0' : ' ';
+	if (neg)
+		res[i++] = '-';	
+	if (lim[3] || lim[5])	// si '+' ' ', print '+'
+		res[i++] = '+';
+	while (c != 'f' && lim[1]-- > qtenb)	// lim[1] '0' si != 'f'
+		res[i++] = '0';
 
-	if (lim[6] == 1)
-	{	
-		c == 'o' ? ft_putchar('0'), printed++ : 0;
-		ft_issamealpha(c, 'x') ? printed += 2 : 0;
-		c == 'x' ? ft_putstr("0x") : c == 'X' ? ft_putstr("0X") : 0;
-	}
-	while (lim[1]-- > qtenb)
-	{
-		printed++;
-		ft_putchar('0');
-	}
-	return (printed);
+	res = ft_strcat(res, nb);	// concatene les deux chaines
+
+	while (c != 'f' && lim[1]-- > (int)ft_strlen(ft_strchr(nb, '.')))	// lim[1] '0' si == 'f'
+		res[i++] = '0';
+	if (c == 'f' && lim[6])	// ajoute le '.' si 'f' et lim[6]
+		res[i++] = '.';
+	
+	while (lim[4] && lim[0] > qtenb++)		// lim[0] >, print 0 ou ' ' APRES
+		res[i++] = lim[2] ? '0' : ' ';
+	ft_putstr(res);
+	i = (int)ft_strlen(res);
+	free(res);
+	return (i);
+//	qtenb = c == 'f' ? ft_strlen(ft_strchr(nb, '.')) : ft_strlen(nb); // concerne 'f' et lim[1]
 }
 
 int		*setflag(char *str, int *i, int *tab)
@@ -61,7 +75,8 @@ str[*i] != '.' && (!(ft_isalnum(str[*i])) || str[*i] == '0'))
 		str[*i] == ' ' ? tab[5] = 1, *i += 1 : 0;
 		str[*i] == '#' ? tab[6] = 1, *i += 1 : 0;
 	}
-/*	tab [2] == '0' || tab[3] == '+' || tab[4] == '-' || tab[5] == ' '*/
+/*	tab [2] == '0' || tab[3] == '+' || tab[4] == '-' || tab[5] == ' ' || tab[6] == '#'	*/
+
 	tab[5] = tab[5] == 1 && tab[3] == 1 ? 0 : tab[5];
 	tab[2] = tab[4] == 1 && tab[2] == 1 ? 0 : tab[2]; // Prends le dessus ? Flag '0' ou '-' ??
 //printf("\nTab : %d %d %d %d %d %d %d\n", tab[0], tab[1], tab[2], tab[3], tab[4], tab[5], tab[6]);
@@ -101,9 +116,6 @@ int		*setlim(char *str, int *i, va_list args)
 		tab[1] = ft_atoi(&str[*i]);
 		tab[1] != 0 ? *i += ft_qtenb(tab[1], 'd', 10, 10) : 0;
 	}
-	//tab[0] = tab[4] == 1 ? 0 : tab[0]; en fait archi faux, puisqu'on doit decaler du coup a droite
-	if (str[*i] != 'f' && (str[*i] != 'L' && str[*i + 1] != 'f'))
-		tab[2] = tab[1] > 0 ? 0 : tab[2]; // Si Flag '0' et lim[1] > 0 alors pas de 0 ?? SAUF POUR 'F' ??
 //printf("\nAfter-Lim Tab : %d %d\n", tab[0], tab[1]);
 //printf("tab %d %d %d %d %d %d %d \n", tab[0], tab[1], tab[2], tab[3], tab[4], tab[5], tab[6]);
 	return (tab);

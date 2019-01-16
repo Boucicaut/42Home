@@ -27,7 +27,7 @@ typedef struct	s_matchpat
 
 int				islongornot(char *str, int i, char c);
 
-int				doshittythings(int *lim, int qtenb, int neg, char c);
+int				doshittythings(int *lim, char *nb, int neg, char c);
 int				*setflag(char *str, int *i, int *tab);
 int				*setlim(char *str, int *i, va_list args);
 

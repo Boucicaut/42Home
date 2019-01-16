@@ -112,7 +112,7 @@ int		pourcentu(va_list args, char *str, int *lim, int *i)
 	res[qtenb] = '\0';
 	fillcharu(nb, res, qtenb - 1);
 //printf("Lim : %d %d %d %d %d %d %d || Qtenb : %d || Res : %s\n", lim[0], lim[1], lim[2], lim[3], lim[4], lim[5], lim[6], qtenb, res);
-	printed = doshittythings(lim, qtenb, 0, 'u');
+	printed = doshittythings(lim, res, 0, 'u');
 	ft_putstr(res);
 	(void)str;
 	return (printed + (int)ft_strlen(res));

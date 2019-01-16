@@ -79,7 +79,7 @@ int		pourcento(va_list args, char *str, int *lim, int *i)
 	nb = va_arg(args, unsigned long long int);
 	res = ft_convertbase(nb, 8);
 	lim[6] == 1 ? lim[0] -= 1, lim[1] -= 1 : 0;
-	printed = doshittythings(lim, (int)ft_strlen(res), 0, 'o');
+	printed = doshittythings(lim, res, 0, 'o');
 	//	lim[6] == 1 ? ft_putchar('0') : 0;
 	ft_putstr(res);
 	(void)str;

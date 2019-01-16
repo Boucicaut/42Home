@@ -33,7 +33,7 @@ int		pourcentp(va_list args, char *str, int *lim, int *i)
 	res = ft_convertbase((long)(nb), 16);
 	while (res[j++])
 		res[j] = ft_tolower(res[j]);
-	printed = doshittythings(lim, (int)ft_strlen(res) + 2, 0, 'p');
+	printed = doshittythings(lim, res + 2, 0, 'p');
 	//pprintall(j, lim);
 	ft_putstr("0x");
 	ft_putstr(res);

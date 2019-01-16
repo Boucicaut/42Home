@@ -152,7 +152,7 @@ int		pourcentx(va_list args, char *str, int *lim, int *i)
 	lim1bis = lim[1];
 	*res == '0' ? lim[6] = 0 : 0;
 //printf("\nOk!1, lim4 : %d, lim1 : %d, lim0 : %d\n", lim[4], lim[1], lim[0]);
-	printed += doshittythings(lim, ft_strlen(res), 0, str[j]);
+	printed += doshittythings(lim, res, 0, str[j]);
 	ft_putstr(res);
 //printf("\nOk!2, lim4 : %d, lim1 : %d, lim0 : %d\n", lim[4], lim[1], lim[0]);
 	while (lim[4] == 1 && (lim[0]-- > lim1bis)) // Apres putstr(res) pour si lim4'-' et lim0 du coup a droite

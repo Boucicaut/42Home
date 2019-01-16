@@ -162,7 +162,7 @@ int		pourcentf(va_list args, char *str, int *lim, int *i)
 	res = ft_itoadouble(nb, lim[1], 39);
 //printf("Nb : %Lf DoubleNB : %f   +**+*++**+*+*+\n||   Res : %s\n",nb,(double)nb, res);
 	roundit(res, lim[1], ft_qtenb(nb, 'z', 10, 16), ft_qtenb(nb, 'd', 10, 20));
-	printed = doshittythings(lim, (int)ft_strlen(res), neg, 'f');
+	printed = doshittythings(lim, res, neg, 'f');
 	ft_putstr(res);
 	return (printed + (int)ft_strlen(res));
 	/*while (str[*i] && (str[*i] != 'l' && str[*i] != 'L' && str[*i] != 'f'))
