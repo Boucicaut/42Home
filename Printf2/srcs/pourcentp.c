@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 20:50:19 by bviollet          #+#    #+#             */
-/*   Updated: 2019/01/17 21:04:53 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/01/21 18:46:11 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,16 @@ int		pourcentp(va_list args, char *str, int *lim, int *i)
 	long	*nb;
 	int		j;
 	char	*res;
+	char	*tmp;
 	int		printed;
 
 	res = ft_strnew(15);
 	j = 0;
 	nb = va_arg(args, void*);
 	res = ft_strcpy(res, "0x");
-	res = ft_strcat(res, ft_convertbase((long)(nb), 16));
+	tmp = ft_convertbase((long)(nb), 16);
+	res = ft_strcat(res, tmp);
+	free(tmp);
 	while (res[j])
 	{
 		res[j] = ft_tolower(res[j]);
@@ -45,6 +48,8 @@ int		pourcentp(va_list args, char *str, int *lim, int *i)
 	/*while (str[*i] != 'p')
 		*i = *i + 1;
 	*i = *i + 1;*/
+	free(res);
+	free(lim);
 	(void)str;
 	(void)i;
 	return (printed);

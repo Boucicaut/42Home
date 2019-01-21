@@ -32,14 +32,14 @@ int		pourcentpourcent(va_list args, char *str, int *lim,  int *i)
 		j--;
 //printf(" Str : %s\n", &(str[j]));
 	j++;
-	while (str[j] && str[j] != '%' && (!ft_isdigit(str[j]) || str[j] == '0'))
+	/*while (str[j] && str[j] != '%' && (!ft_isdigit(str[j]) || str[j] == '0'))
 	{
 		str[j] == '0' ? lim[2] = 1 : 0;
 		str[j] == '+' ? lim[3] = 1 : 0;
 		str[j] == '-' ? lim[4] = 1 : 0;
 		str[j] == ' ' ? lim[5] = 1 : 0;
 		str[j++] == '#' ? lim[6] = 1 : 0;
-	}
+	}*/
 //printf(" Str : %s\n", &(str[j]));
 	while (str[j] && str[j] != '%')
 	{
@@ -58,6 +58,7 @@ int		pourcentpourcent(va_list args, char *str, int *lim,  int *i)
 		printed++;
 		ft_putchar(' ');
 	}
+	free(lim);
 	return (printed + 1);
 }
 
@@ -169,6 +170,7 @@ int		ft_printf(char *str, ...)
 		}
 	}
 	va_end(args);
+	free(tab);
 	return (printed);
 }
 

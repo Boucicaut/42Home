@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 20:45:39 by bviollet          #+#    #+#             */
-/*   Updated: 2019/01/17 21:32:58 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/01/21 18:17:10 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int		islongornot(char *str, int i, char c)
 	{
 		if (ft_issamealpha(str[i], c))
 			return (0);
-		if (str[i] == 'L' || str[i] == 'l')
+		if (ft_issamealpha(str[i], 'l'))
 			return (1);
 		i++;
 	}
@@ -153,26 +153,57 @@ int		pourcentf(va_list args, char *str, int *lim, int *i)
 	int			printed;
 
 	printed = 0;
-//printf("\nLim : %d %d %d %d %d %d %d\n", lim[0], lim[1],lim[2],lim[3],lim[4],lim[5],lim[6]);
-	lim[1] = lim[1] == 0 ? 6 : lim[1];
 	j = *i;
+	while (str[*i] != '.' && str[*i] != '%')
+		*i = *i - 1;
+	lim[1] = lim[1] == 0 && str[*i] != '.' ? 6 : lim[1];
+	lim[6] = str[*i] == '.' && str[*i + 1] == '0' ? lim[6] : 0;
 	nb = islongornot(str, j, 'f') ? va_arg(args, long double) : va_arg(args, double);
 //printf("Nb : %f || %Lf\n", (double)nb, nb);
 	neg = nb < 0 ? 1 : 0;
 	nb = neg == 1 ? -nb : nb;
+//printf("\nLim : %d %d %d %d %d %d %d\n", lim[0], lim[1],lim[2],lim[3],lim[4],lim[5],lim[6]);
 	res = ft_itoadouble(nb, lim[1], 39);
+	if (res[(int)ft_strlen(res) - 1] == '.')
+	   	res[(int)ft_strlen(res) - 1] = '\0'; 
 //printf("Nb : %Lf DoubleNB : %f   +**+*++**+*+*+\n||   Res : %s\n",nb,(double)nb, res);
+//printf("Before ROUNDED Res : %s\n",res);
 	roundit(res, lim[1], ft_qtenb(nb, 'z', 10, 16), ft_qtenb(nb, 'd', 10, 20));
-	while (lim[0]-- > (int)ft_strlen(res))
+//printf("Afte ROUNDED Res : %s\n",res);
+
+	//lim[0] -= lim[0] && (lim[3] || lim[5] || neg) ? 1 : 0;
+	//lim[0] -= lim[6] ? 1 : 0;
+
+/*
+	while (!lim[4] && lim[0]-- > (int)ft_strlen(res))
 	{
 		lim[2] ? ft_putchar('0') : ft_putchar(' ');
 		printed++;
 	}
+
+	if (lim[3] || lim[5] || neg)
+		printed++;
+	lim[3] && !neg ? ft_putchar('+') : 0;
+	lim[5] ? ft_putchar(' ') : 0;
 	neg ? ft_putchar('-') : 0;
+	
 	ft_putstr(res);
-	printed += ft_strlen(res);
-	//printed = doshittythings(lim, res, neg, 'f');
+	if (lim[6])
+		ft_putchar('.');
+	
+	while (lim[4] && lim[0]-- > (int)ft_strlen(res))
+	{
+		lim[2] ? ft_putchar('0') : ft_putchar(' ');
+		printed++;
+	}
+
+	printed += ft_strlen(res);*/
+//printf("F before shit : %s\n", res);
+	printed = doshittythings(lim, res, neg, 'f');
+	free(res);
+	free(lim);
 	return (printed);
+
 	/*while (str[*i] && (str[*i] != 'l' && str[*i] != 'L' && str[*i] != 'f'))
 		*i = *i + 1;
 	if (str[*i] == 'l' || str[*i] == 'L')

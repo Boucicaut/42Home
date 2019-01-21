@@ -1,4 +1,4 @@
-NAME = libftprintf.a
+NAME = libft.a
 
 FLAGS = -Wall -Werror -Wextra
 

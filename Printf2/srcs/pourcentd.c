@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 20:31:49 by bviollet          #+#    #+#             */
-/*   Updated: 2019/01/17 21:35:58 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/01/21 18:22:22 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,43 +23,69 @@ int		pourcents(va_list args, char *str, int *lim, int *i)
 	j = 0;
 	printed = 0;
 	s = (char*)va_arg(args, int*);
-	qte = ft_strlen(s);
-	if (lim[1] > 0)
-		lim[1] = lim[1] < qte ? lim[1] : qte;
+	if (s)
+		s = ft_strdup(s);
 	else
-		lim[1] = qte;
-	while (lim[0]-- > lim[1])
+		s = ft_strdup("(null)");
+	qte = (int)ft_strlen(s);
+	lim[1] = lim[1] == 0 ? qte : lim[1];
+	while (lim[1] < (int)ft_strlen(s))
+		s[--qte] = '\0';
+	qte = (int)ft_strlen(s);
+	lim[1] = lim[1] > qte ? qte : lim[1];
+	lim[0] = lim[0] > lim[1] ? lim[0] : lim[1];
+
+	while (!lim[4] && lim[0]-- > lim[1])
 	{
 		printed++;
 		ft_putchar(' ');
 	}
-	while (lim[1]-- > 0)
+	ft_putstr(s);
+	printed += (int)ft_strlen(s);
+	while (lim[4] && lim[0]-- > lim[1])
 	{
-		//ft_putstr(s);
-		ft_putchar(s[j++]);
 		printed++;
+		ft_putchar(' ');
 	}
 	(void)i;
 	(void)str;
+	free(lim);
+	free(s);
 	return (printed);
 }
 
 int		pourcentc(va_list args, char *str, int *lim, int *i)
 {
-	int		printed;
 	char	c;
 	char	*res;
+	int		printed;
 
+//printf("t : %d %d %d %d %d %d\n", lim[0], lim[1], lim[2], lim[3], lim[4], lim[5]);
+	printed = lim[0] ? lim[0] : 1;
 	c = (char)va_arg(args, int);
-	res = ft_strnew(2);
-	res[0] = c;
-	res[1] = '\0';
-	printed = doshittythings(lim, res, 0, 'c');
+	res = ft_strnew(3);
+	if (c)
+	{
+		res[0] = c;
+		res[1] = '\0';
+	}
+	else
+	{
+		res[0] = '^';
+		res[1] = '@';
+		res[2] = '\0';
+	}
+	while (!lim[4] && lim[0]-- > 1)
+		lim[2] ? ft_putchar('0') : ft_putchar(' ');
+	ft_putstr(res);
+	while (lim[4] && lim[0]-- > 1)
+		lim[2] ? ft_putchar('0') : ft_putchar(' ');
+	free(lim);
 	free(res);
 	(void)i;
 	(void)str;
 	(void)lim;
-	return (printed + 1);
+	return (printed);
 }
 
 void	pourcentdll(va_list args, char *str, int *lim, int *i)
@@ -122,6 +148,28 @@ void	pourcentdnol(va_list args, char *str, int *lim, int *i)
 	(void)lim;
 }
 
+char	*delminus(char *str)
+{
+	char	*tmp;
+	int		i;
+
+	i = 0;
+	tmp = ft_strnew((int)ft_strlen(str));
+	if (str[0] && str[0] != '-')
+	{
+		free(tmp);
+		return (str);
+	}
+	while (str[i + 1])
+	{
+		tmp[i] = str[i + 1];
+		i++;
+	}
+	tmp[i] = '\0';
+	free(str);
+	return (tmp);
+}
+
 int		pourcentd(va_list args, char *str, int *lim, int *i)
 {
 	int				j;
@@ -131,30 +179,36 @@ int		pourcentd(va_list args, char *str, int *lim, int *i)
 	char			*res;
 
 	j = *i - 1;
-	nb = islongornot(str, j, 'f') ? va_arg(args, long long int) : va_arg(args, int);
-//printf("INTnb: %d, INT-nb: %d, NB: %lld, -NB:%lld \n\n", (int)nb, (int)-nb, nb, -nb);
-
+	nb = islongornot(str, j, 'd') ? va_arg(args, long long int) : va_arg(args, int);
+//	printf("Int nb : %d, Ll nb : %lld\n", (int)nb, nb);
 //printf("Res : (int)nb + nb : %lld\n", (int)nb + nb);
 	if (21474072687294 != (int)nb + nb && -21474072687294 != (int)nb + nb) // pas fou comme expression avec ces const !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	{
 		nb = (int)nb;
-		neg = nb > 0 ? 0 : 1;
-		nb = neg ? -nb : nb;
+		neg = nb >= 0 ? 0 : 1;
 		res = ft_itoa(nb);
+		res[ft_qtenb(nb, 'd', 10, 10)] = '\0';
+//printf("Res: %s && Neg : %d && Nb : %lld\n", res, neg, nb);
 	}
 	else
 	{
 		neg = nb > 0 ? 0 : 1;
-		nb = neg ? -nb : nb;
 		res = ft_bigitoa(nb);
 	}
+//printf("Res : %s\n", res);
+	res = delminus(res);
+//printf("Res : %s\n", res);
+	while (str[j] && str[j] != '.' && str[j] != '%')
+		j--;
+	if (str[j] == '.' && !lim[1])
+		res[0] = '\0';
 	printed = doshittythings(lim, res, neg, 'd');
-//printf("NB : %lld\n", nb);
 	//ft_putbignbr(nb);
 
+	free(res);
 	free(lim);
 	(void)str;
-	return (printed + ft_qtebignb(nb, 10));
+	return (printed);
 /*
 	lim[1] = lim[1] > ft_qtebignb(nb, 'd') ? lim[1] : ft_qtebignb(nb, 'd');
 	if (lim[4])

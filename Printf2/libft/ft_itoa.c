@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/15 11:53:30 by bviollet          #+#    #+#             */
-/*   Updated: 2018/11/21 20:20:11 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/01/21 18:48:43 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static char		*positive(int n, char *nb, char *nb2)
 		j--;
 	}
 	nb2[i] = '\0';
+	free(nb);
 	return (nb2);
 }
 
@@ -60,6 +61,7 @@ static char		*negative(int n, char *nb, char *nb2)
 		i++;
 	}
 	nb2[i] = '\0';
+	free(nb);
 	return (nb2);
 }
 
@@ -85,19 +87,20 @@ static int		nbdigits(int n)
 
 char			*ft_itoa(int n)
 {
-	char	*nb;
 	char	*nb2;
+	char	*nb;
 
+	if (n == -2147483648)
+		return (ft_strdup("2147483648"));
 	if ((nb = (char *)malloc(sizeof(char) * (nbdigits(n) + 1))) == NULL)
 		return (NULL);
 	if ((nb2 = (char *)malloc(sizeof(char) * (nbdigits(n) + 1))) == NULL)
 		return (NULL);
-	if (n == -2147483648)
-		return (ft_strdup("-2147483648"));
 	if (n >= 0 && n < 10)
 	{
 		nb[0] = n + '0';
 		nb[1] = '\0';
+		free(nb2);
 		return (nb);
 	}
 	if (n > 9)

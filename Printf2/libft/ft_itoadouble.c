@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 18:14:58 by bviollet          #+#    #+#             */
-/*   Updated: 2019/01/17 21:36:02 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/01/20 19:16:27 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ void	putdoublechar(long double n, char *str, int size, int max)
 	if (str[size - 1] == '.')
 		size--;
 	i--;
+	if (n < 1)
+		printsave(str, 10, i);
+
 	while (n >= 1)
 	{
 		save = n;
@@ -40,8 +43,27 @@ void	putdoublechar(long double n, char *str, int size, int max)
 	}
 	(void)max;
 }
-
 #include <stdio.h>
+
+char	*itoadoublezero(long double nb, int z)
+{
+	char	*str;
+	int		i;
+
+	i = 0;
+	str = ft_memalloc(z + 3);
+	str[z + 2]= '\0';
+	str[i++] = '0';
+	str[i++] = z ? '.' : '\0';
+	while (z + 2 > i)
+	{
+		nb = nb * 10;
+		str[i++] = (int)nb % 10 + '0';
+		nb = nb - (int)nb;
+	}
+	return (str);
+}
+
 char	*ft_itoadouble(long double nb, int z, int max)
 {
 	char		*str;
@@ -49,6 +71,8 @@ char	*ft_itoadouble(long double nb, int z, int max)
 	int			d;
 	int			iz;
 
+	if (nb <= 0)
+		return (itoadoublezero(nb, z));
 	iz = ft_qtenb((double)nb, 'z', 10, max);
 	d = ft_qtebignb(nb, 10);
 	str = malloc(sizeof(char) * d + z + 2);

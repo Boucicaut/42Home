@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 13:57:07 by bviollet          #+#    #+#             */
-/*   Updated: 2019/01/16 15:03:53 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/01/20 16:36:39 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int				*setflag(char *str, int *i, int *tab);
 int				*setlim(char *str, int *i, va_list args);
 
 int				pourcentd(va_list args, char *str, int *lim, int *i);
+char			*delminus(char *str);
 void	pourcentdnol(va_list args, char *str, int *lim, int *i);
 void	pourcentdll(va_list args, char *str, int *lim, int *i);
 

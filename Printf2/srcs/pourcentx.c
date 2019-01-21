@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 20:50:02 by bviollet          #+#    #+#             */
-/*   Updated: 2019/01/17 19:41:42 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/01/21 18:53:49 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,11 @@ char	*checkzero(char *str)
 {
 	int		j;
 	char 	*res;
+	char	*tmp;
 
+	tmp = str;
 	j = 0;
-	if (str[j] != '0')
+	if (str[j] && str[j] != '0')
 		return (str);
 	res = ft_strnew(ft_strlen(str));
 	while (str[j])
@@ -122,7 +124,7 @@ char	*checkzero(char *str)
 		j++;
 	}
 	res[j] = '\0';
-	free(str);
+	//free(tmp); LIGNE ???????
 	return (res);
 }
 
@@ -141,18 +143,29 @@ int		pourcentx(va_list args, char *str, int *lim, int *i)
 
 	res = ft_convertbase(nb, 16);
 
-//printf("Nb : %d || RESSS : %s\n", (int)nb, res);
+//printf("Str[i] : %c, lim[6] : %d\n", str[*i], lim[6]);
+//printf("Res : %s\n", res);
 	res = checkzero(res);// a cause de convertbase et de qtenb utilise il peut mettre un 0 en trop au debut
+	res[0] && res[0] == '0' ? lim[6] = 0 : 0;
 	while (str[j] && str[j] != 'x' && str[j] != 'X')
 		j++;
 	str[j] == 'x' ? hexatolower(res) : 0;
+	*i = j;
 	//lim[6] == 1 && *res != '0' ? lim[0] -= 2 : 0; // Si 0x on reduit lim[0] ATTENTION a priori pas lim[1]
 	//lim[1] = lim[1] > (int)ft_strlen(res) ? lim[1] : ft_strlen(res);
-	*res == '0' ? lim[6] = 0 : 0;
-//printf("\nOk!1, lim4 : %d, lim1 : %d, lim0 : %d\n", lim[4], lim[1], lim[0]);
-	printed += doshittythings(lim, res, 0, str[j]);
+	while (str[j] != '%')
+	{
+		if (str[j--] == '.')
+			printed = 1;
+	}
+	if (printed && res[0] == '0')
+		res[0] = '\0';
+//printf("Str[i] : %c, lim[6] : %d\n", str[*i], lim[6]);
+	printed = doshittythings(lim, res, 0, str[*i]);
 	//ft_putstr(res);
 //printf("\nOk!2, lim4 : %d, lim1 : %d, lim0 : %d\n", lim[4], lim[1], lim[0]);
+	free(lim);
+	free(res);
 	return (printed);
 /*
 	while (str[*i] == '.' || str[*i] == '*' || (ft_isdigit(str[*i])))
