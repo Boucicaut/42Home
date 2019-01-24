@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 20:45:31 by bviollet          #+#    #+#             */
-/*   Updated: 2019/01/21 18:45:26 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/01/23 19:06:15 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,8 @@ int		pourcentu(va_list args, char *str, int *lim, int *i)
 	nb = !(islongornot(str, *i, 'u')) && nb > 4294967295 ? 0 : nb;
 	qtenb = nb == 0 ? 1 : ft_qtebignb(nb, 10);
 //printf("Nb : %llu || qtenb : %dn", nb, qtenb);
-	if (!(res = ft_memalloc(sizeof(char) * (qtenb + 1))))
-		return (0);
+//printf("Malloced a : %d\n", (int)(sizeof(char) * (qtenb + 1)));
+	res = ft_strnew(qtenb);
 	res[qtenb] = '\0';
 //printf("Res : %s || Qtenb : %d\n", res, qtenb);
 	if (qtenb > 1)

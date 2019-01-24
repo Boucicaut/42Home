@@ -3,69 +3,92 @@
 /* 
 	lim[0] : width	|	lim[1] : precision	|	2: '0' | 3: '+' | 4: '-' | 5: ' ' | 6: '#'
 */
+
+
+int		signandbase(char *res, int neg, int *lim, char c)
+{
+	int	i;
+
+	i = 0;
+	if (neg)
+		res[i++] = '-';
+	if (lim[3])	// si '+' ' ', print '+'
+		res[i++] = '+';
+	if (lim[5])
+		res[i++] = ' ';
+	if (lim[6] && (c == 'o' || ft_issamealpha(c, 'x')))	/* GERE LE 0x*/
+		res[i++] = '0';
+	if (lim[6] && ft_issamealpha(c, 'x'))
+		res[i++] = c;
+	return (i);
+}
+
+int		putend(char *res, int *lim, int *qtenb, char c)
+{
+	int	i;
+
+	i = 0;
+	if (c == 'f' && lim[6] && qtenb[1] <= 0)	// ajoute le '.' si 'f' et lim[6]
+	{
+		res[i++] = '.'; // !!! doit etre ajouter a qtenb[0] du coup !!
+		qtenb[1]++;	 // du coup un nb[1] de plus
+	}
+	while (c == 'f' && lim[1] > (qtenb[1] < 0 ? 0 : qtenb[1]))	// lim[1] '0' si == 'f'
+	{
+		qtenb[1]++;
+		res[i++] = '0';
+	}
+	while (lim[4] && lim[0] > qtenb[0])		// lim[0] >, print 0 ou ' ' APRES
+	{
+		qtenb[0]++;
+		res[i++] = lim[2] ? '0' : ' ';
+	}
+	return (i);
+}
+
+int		putbeginning(char *res, int *lim, int *qtenb, char c)
+{
+	int	i;
+
+	i = 0;
+	while (lim[2] && !lim[4] && lim[0] > qtenb[0])		// lim[0] >, print 0 ou ' ' AVANT
+	{
+		qtenb[0]++;
+		res[i++] = lim[2] ? '0' : ' ';
+	}
+	while (c != 'f' && lim[1] > qtenb[1])	// lim[1] '0' si != 'f'
+	{
+		qtenb[1]++;
+		res[i++] = '0';
+	}
+	return (i);
+}
+
 int		doshittythings(int *lim, char *nb, int neg, char c)
 {
 //printf("INITIAL Lim0 : %d || Lim1 : %d\n", lim[0], lim[1]);
 	char	*res;
-	int		qtenb[2];
+	int		*qtenb;
 	int		i;
 
-	if (c == 'u' || /*c == 'd' ||*/ ft_issamealpha(c, 'x') || c == 'o' || neg)	//  ' ' si  u x o ou < 0
-		lim[5] = 0;
-	if (c == 'u' || ft_issamealpha(c, 'x') || c == 'o' || neg)	// ignore '+', ' ' si  u x o ou < 0
-		lim[3] = 0;
-	if ((c == 'p' || c == 's' || c == 'c' || lim[1]) && (c != 'f')) // ignore '0' si psc ou lim[1] prec. int
-		lim[2] = 0;
-	if (c == 'd' || c == 'i' || c == 'u' || c == 'c' || c == 's') // ignore '#' si diucs
-		lim[6] = 0;
-
-	// eliminer flag inutile sauf #, + et ' ' pour les ajouter a qte //
-
-/*			CALCUL DE QTENB[1]		*/
-	qtenb[1] = (int)ft_strlen(nb);
-	if (c == 'f')
-		qtenb[1] = (int)ft_strlen(ft_strchr(nb, '.')) - 1;
-	qtenb[1] += c == 'o' ? lim[6] * 1 : 0;
-	//qtenb[1] += c == 'o' || ft_issamealpha(c, 'x') ? lim[6] * 1 : 0;
-	//qtenb[1] += ft_issamealpha(c, 'x') ? lim[6] * 1 : 0;
-	//qtenb[1] = qtenb[1] > lim[1] ? qtenb[1] : lim[1];	// !! on perd qtenb si lim[1] superieur, a recalculer donc
-
-/*			CALCUL DE QTENB[0]		*/
-	qtenb[0] = c != 'f' && qtenb[1] > lim[1] ? qtenb[1] : lim[1];
-	if (c == 'f')
-		qtenb[0] = (int)ft_strlen(nb);// + 1 + lim[1] - ((int)ft_strlen(ft_strchr(res, '.'))); DEJA FAIT !
+//printf("Nb * : %s\n", nb);
+	qtenb = preqte(lim, c, neg, nb);
 //printf("Qte0 : %d || Qte1 : %d\n", qtenb[0], qtenb[1]);
-	qtenb[0] += neg ? 1 : 0;
-	qtenb[0] += (lim[3] || lim[5]) ? 1 : 0;
-	qtenb[0] += c == 'p'/*|| c == 'o'*/ || ft_issamealpha(c, 'x') ? lim[6] * 1 : 0;
-	qtenb[0] += ft_issamealpha(c, 'x') ? lim[6] * 1 : 0;
-	qtenb[0] += c == 'f' && lim[6] && qtenb[1] ? 1 : 0;
-
-//printf("Qte0 : %d || Qte1 : %d\n", qtenb[0], qtenb[1]);
-//printf("C : %c || Lim0 : %d || Lim1 : %d || Lim6 : %d\n", c, lim[0], lim[1], lim[6]);
+//printf("Neg : %d || C : %c || Lim0 : %d || Lim1 : %d || Lim2 : %d || Lim3 : %d || Lim4 : %d || Lim5 : %d || Lim6 : %d\n", neg,c, lim[0], lim[1], lim[2], lim[3], lim[4], lim[5], lim[6]);
 //printf("Nb : %s\n", nb);
 /* a priori qtenb ne compte pas le signe ni 0x ? */
 //printf("Size malloced : Qte %d ou Lim %d\n", qtenb[0], lim[0]);
+//printf("Nb * : %s\n", nb);
 	if (c == 'f')
 		res = ft_strnew(sizeof(char) * (lim[0] > qtenb[0] ? lim[0] : qtenb[0]));
 	else
 		res = ft_strnew(sizeof(char) * 1 + (1 + (qtenb[0] > lim[0] ? qtenb[0] : lim[0])));
 	i = 0;
 
-	if (lim[2])
-	{
-		if (neg) /* GERE LE SIGNE */
-			res[i++] = '-';
-		if (lim[3])	// si '+' ' ', print '+'
-			res[i++] = '+';
-		if (lim[5])
-			res[i++] = ' ';
+	//if (lim[2])
+	i += lim[2] ? signandbase(res + i, neg, lim, c) : 0;
 
-		if (lim[6] && (c == 'o' || ft_issamealpha(c, 'x')))	/* GERE LE 0x*/
-			res[i++] = '0';
-		if (lim[6] && ft_issamealpha(c, 'x'))
-			res[i++] = c;
-	}
+	//i += leftsize(res + i, lim, qtenb);
 
 	while (!lim[4] && lim[0] > qtenb[0])		// lim[0] >, print 0 ou ' ' AVANT
 	{
@@ -73,34 +96,11 @@ int		doshittythings(int *lim, char *nb, int neg, char c)
 		res[i++] = lim[2] ? '0' : ' ';
 	}
 
-//printf("'-' Res i : %d  == %s FIN\n",i, res);
-	if (!lim[2])
-	{
-		if (neg)
-			res[i++] = '-';
-		if (lim[3])	// si '+' ' ', print '+'
-			res[i++] = '+';
-		if (lim[5])
-			res[i++] = ' ';
-	
-		if (lim[6] && (c == 'o' || ft_issamealpha(c, 'x')))	/* GERE LE 0x*/
-			res[i++] = '0';
-		if (lim[6] && ft_issamealpha(c, 'x'))
-			res[i++] = c;
-	}
+	i += !lim[2] ? signandbase(res + i, neg, lim, c) : 0;
+//	if (!lim[2])
+//		i += signandbase(res + i, neg, lim, c);
 
-	while (lim[2] && !lim[4] && lim[0] > qtenb[0])		// lim[0] >, print 0 ou ' ' AVANT
-	{
-		qtenb[0]++;
-		res[i++] = lim[2] ? '0' : ' ';
-	}
-
-	while (c != 'f' && lim[1] > qtenb[1])	// lim[1] '0' si != 'f'
-	{
-		qtenb[1]++;
-		res[i++] = '0';
-	}
-
+	i += putbeginning(res + i, lim, qtenb, c);
 
 //printf("'+' Res i : %d  == %s FIN\n",i, res);
 //printf("Before lim[1]..  lim[1] : %d, qte : %d\n", lim[1], qtenb[1]);
@@ -108,31 +108,14 @@ int		doshittythings(int *lim, char *nb, int neg, char c)
 
 
 	res = ft_strcat(res, nb);	// concatene les deux chaines
+//printf("Current res : %s\n", res);
 	i += ft_strlen(nb);
-//printf("STRCAT Res i : %d  == %s FIN\n",i, res);
 
-	if (c == 'f' && lim[6] && qtenb[1] <= 0)	// ajoute le '.' si 'f' et lim[6]
-	{
-		res[i++] = '.'; // !!! doit etre ajouter a qtenb[0] du coup !!
-		qtenb[1]++;	 // du coup un nb[1] de plus
-	}
-//printf("Lim[1] : %d || Qtenb[1] : %d\n", lim[1], qtenb[1]);
-	while (c == 'f' && lim[1] > (qtenb[1] < 0 ? 0 : qtenb[1]))	// lim[1] '0' si == 'f'
-	{
-		qtenb[1]++;
-		res[i++] = '0';
-	}
+	i += putend(res + i, lim, qtenb, c);
 
-//printf("Res intermediate : %s FIN\n", res);
-//printf("lim[2] : %d || lim[4] : %d ||   lim[0] : %d, qte[0] : %d\n", lim[2], lim[4], lim[0], qtenb[0]);
-	while (lim[4] && lim[0] > qtenb[0])		// lim[0] >, print 0 ou ' ' APRES
-	{
-//printf("Res intermediate : %s FIN\n", res);
-		qtenb[0]++;
-		res[i++] = lim[2] ? '0' : ' ';
-	}
 	ft_putstr(res);
 	i = (int)ft_strlen(res);
+	free(qtenb);
 	free(res);
 	return (i);
 //	qtenb = c == 'f' ? ft_strlen(ft_strchr(nb, '.')) : ft_strlen(nb); // concerne 'f' et lim[1]

@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 16:07:12 by bviollet          #+#    #+#             */
-/*   Updated: 2019/01/17 17:11:13 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/01/24 18:42:10 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef	struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+int					converttosignedchar(int vl, int mode);
 char				*ft_bigitoa(long long int n);
 char				ft_strchrcol(char **str, int i, int j, int find);
 int					ft_qtebignb(long double vl, int base);

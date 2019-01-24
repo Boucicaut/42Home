@@ -7,10 +7,10 @@ LIB_DIR = libft/
 
 # Source files
 SRC_FILES = ft_printf.c pourcentd.c pourcentf.c pourcento.c pourcentp.c \
-			pourcentu.c pourcentx.c roundf.c setflaglim.c \
+			pourcentu.c pourcentx.c roundf.c setflaglim.c pourcentb.c \
 
 LIBFT_FILES = ft_tento.c ft_putbignbr.c ft_qtebignb.c ft_convertbase.c ft_bigitoa.c\
-		 ft_issamealpha.c ft_itoadouble.c ft_qtenb.c ft_strchrcol.c \
+		 converttosignedchar.c ft_issamealpha.c ft_itoadouble.c ft_qtenb.c ft_strchrcol.c \
 		 ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c ft_memchr.c \
 		 ft_memcmp.c ft_strlen.c ft_strdup.c ft_strcpy.c ft_strncpy.c ft_strcat.c \
 		 ft_strncat.c ft_strlcat.c ft_strchr.c ft_strrchr.c ft_strstr.c ft_strnstr.c \
@@ -37,7 +37,7 @@ FLAGS = -Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME):
-	gcc -c $(FLAGS) $(SRC) $(LIBFT) $(INC)
+	gcc -c -g $(FLAGS) $(SRC) $(LIBFT) $(INC)
 	ar rc $(NAME) $(OBJ)
 	ranlib $(NAME)
 # echo "=====[$(NAME) generated!]====="

@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/15 11:53:30 by bviollet          #+#    #+#             */
-/*   Updated: 2019/01/21 18:48:43 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/01/23 14:58:13 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ static char		*negative(int n, char *nb, char *nb2)
 	nb[i++] = '-';
 	nb[i++] = 0;
 	i = 0;
-	j = ft_strlen(nb);
-	while (j >= 0)
+	j = (int)ft_strlen(nb);
+	while (j >= 1)
 	{
 		nb2[i] = nb[--j];
 		i++;

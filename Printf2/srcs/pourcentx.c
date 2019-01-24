@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 20:50:02 by bviollet          #+#    #+#             */
-/*   Updated: 2019/01/21 18:53:49 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/01/23 19:07:55 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ char	*checkzero(char *str)
 		j++;
 	}
 	res[j] = '\0';
-	//free(tmp); LIGNE ???????
+	free(tmp);
 	return (res);
 }
 

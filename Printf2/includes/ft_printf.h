@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 13:57:07 by bviollet          #+#    #+#             */
-/*   Updated: 2019/01/20 16:36:39 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/01/24 19:14:58 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdarg.h>
 # include <stdio.h>
 # include "../libft/libft.h"
-# define MAXPOURCENT 10
+# define MAXPOURCENT 11
 
 typedef struct	s_matchpat
 {
@@ -27,9 +27,15 @@ typedef struct	s_matchpat
 
 int				islongornot(char *str, int i, char c);
 
+int				putbeginning(char *res, int *lim, int *qtenb, char c);
+int				putend(char *res, int *lim, int *qtenb, char c);
+int				signandbase(char *res, int neg, int *lim, char c);
+int				*preqte(int *lim, char c, int neg, char *nb);
 int				doshittythings(int *lim, char *nb, int neg, char c);
 int				*setflag(char *str, int *i, int *tab);
 int				*setlim(char *str, int *i, va_list args);
+
+int				pourcentb(va_list args, char *str, int *lim, int *i);
 
 int				pourcentd(va_list args, char *str, int *lim, int *i);
 char			*delminus(char *str);
@@ -74,6 +80,7 @@ int				whatafterpourcent(char *str, int i, va_list args\
 void			printnb(int *i, char *str, va_list args);
 int				ft_printf(char *str, ...);
 t_matchpat	*initmatchpat(void);
+t_matchpat	*initmatchpat2(t_matchpat *tab);
 int		whatafterpourcent(char *str, int i, va_list args, t_matchpat *tab);
 int		gofurther(char *str, int i, t_matchpat *tab);
 

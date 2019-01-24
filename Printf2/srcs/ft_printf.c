@@ -96,6 +96,13 @@ int		whatafterpourcent(char *str, int i, va_list args, t_matchpat *tab) // appel
 	return (printed);
 }
 
+t_matchpat	*initmatchpat2(t_matchpat *tab)
+{
+	tab[10].pattern = 'b';
+	tab[10].f = &pourcentb;
+	return (tab);
+}
+
 t_matchpat	*initmatchpat(void)
 {
 	t_matchpat	*tab;
@@ -122,7 +129,7 @@ t_matchpat	*initmatchpat(void)
 	tab[8].f = &pourcentp;
 	tab[9].pattern = '%';
 	tab[9].f = &pourcentpourcent;
-	return (tab);
+	return (initmatchpat2(tab));
 }
 
 int		gofurther(char *str, int i, t_matchpat *tab)

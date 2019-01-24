@@ -6,6 +6,12 @@ int	main(void)
 {
 
 ft_printf("\n==========TEST %%c && %%s==========\n\n");
+	ft_printf("%.2c TEST\n", NULL);
+	printf("%.2c TEST\n", NULL);
+											write(1, "\n", 1);
+	ft_printf("%5ca\n", 0);
+	printf("%5ca\n", 0);
+											write(1, "\n", 1);
 	ft_printf("%5ca\n", 0);
 	printf("%5ca\n", 0);
 											write(1, "\n", 1);
@@ -38,6 +44,15 @@ ft_printf("\n==========TEST %%c && %%s==========\n\n");
 											write(1, "\n", 1);
 
 ft_printf("\n==========TEST %%d==========\n\n");
+	printf("@moulitest: %.d %.0d\n", 42, 43);
+	ft_printf("@moulitest: %.d %.0d\n", 42, 43);
+											write(1, "\n", 1);
+	ft_printf("%lld\n", (long long)-9223372036854775807);
+	printf("%lld\n", (long long)-9223372036854775807);
+											write(1, "\n", 1);
+	ft_printf("%lld\n", (long long)9223372036854775807);
+	printf("%lld\n", (long long)9223372036854775807);
+											write(1, "\n", 1);
 	ft_printf("%hhd\n", (signed char)128);
 	printf("%hhd\n", (signed char)128);
 											write(1, "\n", 1);
@@ -235,8 +250,8 @@ ft_printf("\n==========TEST %%f==========\n\n");
 	ft_printf("%0.2f a\n", (double)-0.00000000001);
 	printf("%0.2f a\n", (double)-0.00000000001);
 											write(1, "\n", 1);
-	ft_printf("%0.2f a\n", (double)0.0);
-	printf("%0.2f a\n", (double)0.0);
+	ft_printf("%0.2f b\n", (double)0.0);
+	printf("%0.2f b\n", (double)0.0);
 											write(1, "\n", 1);
 	ft_printf("%#15.0f a\n", (double)12313);
 	printf("%#15.0f a\n", (double)12313);
@@ -278,13 +293,73 @@ ft_printf("\n==========TEST %%f==========\n\n");
 											write(1, "\n", 1);
 /*									*/
 ft_printf("\n==========TEST pourcent==========\n\n");
-	ft_printf("%5%\n");
-	printf("%5%\n");
+	ft_printf("%.5%\n");
+	printf("%.5%\n");
+											write(1, "\n", 1);
+	ft_printf("%-9% a\n");
+	printf("%-9% a\n");
+											write(1, "\n", 1);
 	ft_printf("%-5% a\n");
 	printf("%-5% a\n");
+											write(1, "\n", 1);
+ft_printf("\n==========TEST %%*==========\n\n");
+
+	ft_printf("%0*Lf c\n",25, (long double)21474454583647);
+	printf("%0*Lf c\n",25, (long double)21474454583647);
+											write(1, "\n", 1);
+
+	ft_printf("%.*f c\n",25, (double)214744.583647);
+	printf("%.*f c\n",25, (double)214744.583647);
+											write(1, "\n", 1);
+
+	ft_printf("%-*hhd c\n",5, -150);
+	printf("%-*hhd c\n",5, -150);
+											write(1, "\n", 1);
+
+ft_printf("\n==========TEST %%b==========\n\n");
+
+	ft_printf("%b a\n", 8);
+	printf("%s a\n", ft_convertbase(8,2));
+											write(1, "\n", 1);
+	ft_printf("%b a\n", 789456);
+	printf("%s a\n", ft_convertbase(789456,2));
+											write(1, "\n", 1);
 
 ft_printf("\n==========TEST ALL==========\n\n");
 ft_printf("Resul : %+5d et Str : %15.4s %c,\t %025u, %#9X, %09x\n", 3, "HELLSAA", 103, 454545, 546897, 12345);
 printf("Resul : %+5d et Str : %15.4s %c,\t %025u, %#9X, %09x\n", 3, "HELLSAA", 103, 454545, 546897, 12345);
+
+ft_printf("\n==========LAST TESTS FROM 42FC===========\n\n");
+
+	ft_printf("%hd \t//32768\n", 32768);
+	printf("%hd \t//32738\n", 32768);
+											write(1, "\n", 1);
+	ft_printf("%hhd \t//838\n", 838);
+	printf("%hhd \t//838\n", 838);
+											write(1, "\n", 1);
+	ft_printf("%hhd \t//238\n", 238);
+	printf("%hhd \t//238\n", 238);
+											write(1, "\n", 1);
+	ft_printf("%hhd \t//130\n", 130);
+	printf("%hhd \t//130\n", 130);
+											write(1, "\n", 1);
+	ft_printf("%hhd \t//-150\n", -150);
+	printf("%hhd \t//-150\n", -150);
+											write(1, "\n", 1);
+	ft_printf("%hhd\n", -129);
+	printf("%hhd\n", -129);
+											write(1, "\n", 1);
+	ft_printf("@moulitest: %.d %.0d\n", 42, 43);
+	printf("@moulitest: %.d %.0d\n", 42, 43);
+											write(1, "\n", 1);
+	ft_printf("@moulitest: %.d %.0d\n", 42, 43);
+	printf("@moulitest: %.d %.0d\n", 42, 43);
+											write(1, "\n", 1);
+	ft_printf("%5.d %5.0d D\n", (int)0, (int)0);
+	printf("%5.d %5.0d D\n", (int)0, (int)0);
+											write(1, "\n", 1);
+	ft_printf("%u\n", -1);
+	printf("%u\n", -1);
+											write(1, "\n", 1);
 	return (0);
 }

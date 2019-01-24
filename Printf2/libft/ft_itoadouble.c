@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 18:14:58 by bviollet          #+#    #+#             */
-/*   Updated: 2019/01/20 19:16:27 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/01/23 19:04:13 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ void	putdoublechar(long double n, char *str, int size, int max)
 	long double	save;
 	int			i;
 
-	i = size;
-	if (str[size - 1] == '.')
-		size--;
-	i--;
+	i = size > 0 ? size - 1 : 0;
 	if (n < 1)
 		printsave(str, 10, i);
 
@@ -43,7 +40,6 @@ void	putdoublechar(long double n, char *str, int size, int max)
 	}
 	(void)max;
 }
-#include <stdio.h>
 
 char	*itoadoublezero(long double nb, int z)
 {
@@ -51,8 +47,7 @@ char	*itoadoublezero(long double nb, int z)
 	int		i;
 
 	i = 0;
-	str = ft_memalloc(z + 3);
-	str[z + 2]= '\0';
+	str = ft_strnew(z + 3);
 	str[i++] = '0';
 	str[i++] = z ? '.' : '\0';
 	while (z + 2 > i)

@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 20:31:49 by bviollet          #+#    #+#             */
-/*   Updated: 2019/01/21 18:22:22 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/01/24 19:04:41 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,29 +179,46 @@ int		pourcentd(va_list args, char *str, int *lim, int *i)
 	char			*res;
 
 	j = *i - 1;
-	nb = islongornot(str, j, 'd') ? va_arg(args, long long int) : va_arg(args, int);
+	//nb = islongornot(str, j, 'd') ? va_arg(args, long long int) : va_arg(args, int);
 //	printf("Int nb : %d, Ll nb : %lld\n", (int)nb, nb);
 //printf("Res : (int)nb + nb : %lld\n", (int)nb + nb);
-	if (21474072687294 != (int)nb + nb && -21474072687294 != (int)nb + nb) // pas fou comme expression avec ces const !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//	if (21474072687294 != (int)nb + nb && -21474072687294 != (int)nb + nb) // pas fou comme expression avec ces const !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//	printf("Str[*i] : %s\n", &(str[*i]));
+	if (!(islongornot(str, j, 'd')))
 	{
+		nb = va_arg(args, int);
 		nb = (int)nb;
 		neg = nb >= 0 ? 0 : 1;
 		res = ft_itoa(nb);
-		res[ft_qtenb(nb, 'd', 10, 10)] = '\0';
-//printf("Res: %s && Neg : %d && Nb : %lld\n", res, neg, nb);
+		//res[ft_qtenb(nb, 'd', 10, 10)] = '\0';
 	}
 	else
 	{
+		nb = va_arg(args, long long int);
 		neg = nb > 0 ? 0 : 1;
+		//nb = neg ? -nb : nb;
+//printf("Ok, %lld\n", nb);
 		res = ft_bigitoa(nb);
 	}
-//printf("Res : %s\n", res);
+	if (str[*i] == 'h')
+	{
+		nb = str[*i + 1] == 'h' ? converttosignedchar(nb, 2) : converttosignedchar(nb, 1);
+		neg = nb < 0 ? 1 : 0;
+		nb = neg ? -nb : nb;
+		free(res);
+		res = ft_itoa(nb);
+	}
+
+//printf("Res: %s && Neg : %d && Nb : %lld\n", res, neg, nb);
+//printf("\n1 Res : %s\n", res);
 	res = delminus(res);
-//printf("Res : %s\n", res);
+//printf("\n2 Res : %s\n", res);
 	while (str[j] && str[j] != '.' && str[j] != '%')
 		j--;
-	if (str[j] == '.' && !lim[1])
+	if (str[j] == '.' && !lim[1] && *res == '0')
 		res[0] = '\0';
+//printf("Res : %s || Len : %d\n", res, (int)ft_strlen(res));
+//printf("\n3 Res : %s\n", res);
 	printed = doshittythings(lim, res, neg, 'd');
 	//ft_putbignbr(nb);
 
