@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 20:50:02 by bviollet          #+#    #+#             */
-/*   Updated: 2019/01/23 19:07:55 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/01/31 18:22:04 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,10 @@ int		pourcentx(va_list args, char *str, int *lim, int *i)
 	while (str[j] != '%')
 	{
 		if (str[j--] == '.')
+		{
 			printed = 1;
+			lim[2] = 0;
+		}
 	}
 	if (printed && res[0] == '0')
 		res[0] = '\0';

@@ -23,43 +23,26 @@ TO DO :
 
 int		pourcentpourcent(va_list args, char *str, int *lim,  int *i)
 {
-	int	j;
 	int	printed;
 
 	printed = 0;
-	j = *i - 1;
-	while (str[j] && str[j] != '%')
-		j--;
 //printf(" Str : %s\n", &(str[j]));
-	j++;
-	/*while (str[j] && str[j] != '%' && (!ft_isdigit(str[j]) || str[j] == '0'))
-	{
-		str[j] == '0' ? lim[2] = 1 : 0;
-		str[j] == '+' ? lim[3] = 1 : 0;
-		str[j] == '-' ? lim[4] = 1 : 0;
-		str[j] == ' ' ? lim[5] = 1 : 0;
-		str[j++] == '#' ? lim[6] = 1 : 0;
-	}*/
-//printf(" Str : %s\n", &(str[j]));
-	while (str[j] && str[j] != '.' && str[j] != '%')
-	{
-		lim[0] = str[j] == '*' ? va_arg(args, int) : ft_atoi(&str[j]);
-		j++;
-	}
 	//lim[4] == 1 ? lim[1] = lim[0], lim[0] = 0 : lim[1] = 0;
 //printf("Lim[0] : %d, lim[1] : %d, lim[4] : %d\n", lim[0], lim[1], lim[4]);
 	while (!lim[4] && lim[0]-- > 1)
 	{
 		printed++;
-		ft_putchar(' ');
+		lim[2] ? ft_putchar('0') : ft_putchar(' ');
 	}
 	ft_putchar('%');
 	while (lim[4] && lim[0]-- > 1)
 	{
 		printed++;
-		ft_putchar(' ');
+		lim[2] ? ft_putchar('0') : ft_putchar(' ');
 	}
 	free(lim);
+	(void)args;
+	(void)str[*i];
 	return (printed + 1);
 }
 

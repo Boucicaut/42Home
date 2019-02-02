@@ -129,6 +129,7 @@ int		*setflag(char *str, int *i, int *tab)
 	while (str[*i] && (str[*i] == '0' || str[*i] == '+' || str[*i] == '-' ||
 str[*i] == ' ' || str[*i] == '#'))
 	{
+//printf("\nStr[i] : %c , lim[2] : %d\n", str[*i], tab[2]);
 		//i += 1;
 		str[*i] == '0' /*&& !ft_isdigit(str[*i + 1])*/ ? tab[2] = 1, *i += 1 : 0;
 		str[*i] == '+' ? tab[3] = 1, *i += 1 : 0;
@@ -151,7 +152,9 @@ int		*setlim(char *str, int *i, va_list args)
 	if (!(tab = (int*)malloc(sizeof(int) * 8)))
 		return (NULL);
 	ft_bzero(tab, sizeof(int) * 9);
+//printf("Str before set flag : %c\n", str[*i]);
 	tab = setflag(str, i, tab);
+//printf("Str after set flag : %c\n", str[*i]);
 //printf("\nAfter-Flag Tab : %d %d %d %d %d %d %d %d\n", tab[0], tab[1], tab[2], tab[3], tab[4], tab[5], tab[6], tab[7]);
 //printf("\nStr : %s\n", str + *i); // on se situe sur le 1er %
 	if (str[*i] == '*')

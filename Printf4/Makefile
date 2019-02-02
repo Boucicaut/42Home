@@ -49,7 +49,7 @@ $(NAME): $(OBJ)
 # echo "=====[$(NAME) generated!]====="
 
 clean:
-	rm -f $(OBJ)
+	rm -f $(OBJ) *.o
 
 fclean: clean
 	rm -f $(NAME)

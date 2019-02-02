@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 20:46:43 by bviollet          #+#    #+#             */
-/*   Updated: 2019/01/21 18:16:25 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/01/31 18:56:57 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int		pourcento(va_list args, char *str, int *lim, int *i)
 	char					*res;
 	int						printed;
 
+//printf("\nLim0 : %d, lim1 : %d, lim2 : %d, lim6 : %d\n", lim[0], lim[1], lim[2], lim[6]);
 	printed = 0;
 	j = *i;
 	nb = va_arg(args, unsigned long long int);
@@ -86,11 +87,14 @@ int		pourcento(va_list args, char *str, int *lim, int *i)
 	while (str[j] != '%')
 	{
 		if (str[j--] == '.')
+		{
+			lim[2] = 0;
 			printed = 1;
+		}
 	}
-	if (printed && res[0] == '0')
+	if (printed && res[0] == '0' && !lim[6])
 		res[0] = '\0';
-
+	lim[6] = !nb ? 0 : lim[6];
 	printed = doshittythings(lim, res, 0, 'o');
 	//	lim[6] == 1 ? ft_putchar('0') : 0;
 	//ft_putstr(res);

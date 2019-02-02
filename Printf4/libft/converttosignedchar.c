@@ -19,5 +19,10 @@ int	converttosignedchar(int vl, int mode)
 		while (vl > 127)
 			vl -= 256;
 	}
+	else if (mode == 3 && vl > 127)
+	{
+		while (vl > 127)
+			vl -= 128;
+	}
 	return (vl);
 }

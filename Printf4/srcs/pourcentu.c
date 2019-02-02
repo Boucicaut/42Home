@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 20:45:31 by bviollet          #+#    #+#             */
-/*   Updated: 2019/01/23 19:06:15 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/01/31 18:54:18 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,12 +124,13 @@ int		pourcentu(va_list args, char *str, int *lim, int *i)
 	}
 	else
 		fillcharu(nb, res, 0);
-//printf("Res charu : %s\n", res);
 	while (str[j] && str[j] != '.' && str[j] != '%')
 		j--;
 //printf("\nCHAR J : %c\n", str[j]);
-	if (str[j] == '.' && !lim[1])
+//printf("Res charu : %s\n", res);
+	if (str[j] == '.' && !lim[1] && nb == 0)
 		res[0] = '\0';
+//printf("Res charu : %s\n", res);
 	printed = doshittythings(lim, res, 0, 'u');
 //printf("Printed : %d\n", printed);
 //printf("Lim : %d %d %d %d %d %d %d || Qtenb : %d || Res : %s || printed : %d\n", lim[0], lim[1], lim[2], lim[3], lim[4], lim[5], lim[6], qtenb, res, printed);
