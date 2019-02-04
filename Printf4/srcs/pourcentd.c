@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 20:31:49 by bviollet          #+#    #+#             */
-/*   Updated: 2019/01/30 17:05:36 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/02/02 15:26:36 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,15 @@ int		pourcents(va_list args, char *str, int *lim, int *i)
 	int		qte;
 	int		j;
 
-	//idee, faire un char *color, color = getcolor(str, *i), et strcat de s et color
-	//si couleur ON, probleme de strlen donc lim[7] = 1 et soustraire 8 pour la qte
-	j = 0;
+	j = *i;
 	s = (char*)va_arg(args, int*);
 	s = s ? ft_strdup(s) : ft_strdup("(null)");
 	qte = (int)ft_strlen(s);
+	while (str[j] && str[j] != '%' && str[j] != '.')
+		j--;
+	if (str[j] == '.' && !lim[1])
+			s[0] = '\0';
+//printf("\nS : %s, lim1 : %d, str[j] : %c\n", s, lim[1], str[j]);
 	lim[1] = lim[1] == 0 ? qte : lim[1];
 	while (lim[1] < (int)ft_strlen(s))
 		s[--qte] = '\0';
@@ -37,7 +40,6 @@ int		pourcents(va_list args, char *str, int *lim, int *i)
 	printed = !lim[7] ? doshittythings(lim, s, 0, 's') : coloreds(lim, s);
 	free(lim);
 	free(s);
-	(void)str[*i];
 	return (printed);
 }
 
@@ -45,36 +47,40 @@ int		pourcentc(va_list args, char *str, int *lim, int *i)
 {
 	char	c;
 	char	*res;
+	int		printed;
 
+	printed = 1;
 	c = (char)va_arg(args, int);
 	res = ft_strnew(3);
 	if (c)
 	{
-		res[0] = c;
+		res[0] = converttosignedchar(c, 3);
 		res[1] = '\0';
+		//printed++;
 	}
-	else
+	//printf("\nres : %s\n", res);
+/*	else
 	{
 		res[0] = '^';
 		res[1] = '@';
 		res[2] = '\0';
-	}
-	while (!lim[4] && lim[0] - 1 > lim[7])
+	}*/
+	while (!lim[4] && lim[0] > printed)
 	{
-		lim[7]++;
+		printed++;
 		lim[2] ? ft_putchar('0') : ft_putchar(' ');
 	}
 	ft_putstr(res);
-	while (lim[4] && lim[0] - 1 > lim[7])
+	while (lim[4] && lim[0] > printed)
 	{
-		lim[7]++;
+		printed++;
 		lim[2] ? ft_putchar('0') : ft_putchar(' ');
 	}
-	*i = lim[7] - 1; /* PAS SUR A RECHECKER */
 	free(lim);
 	free(res);
+//printf("Printed : %d\n", printed);
 	(void)str[*i];
-	return (*i); /* ATTENTION, a modifier aussi si '\0' et ^@ suppr */
+	return (printed); /* ATTENTION, a modifier aussi si '\0' et ^@ suppr */
 }
 
 char	*delminus(char *str)
