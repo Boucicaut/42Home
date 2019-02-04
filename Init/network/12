@@ -1,0 +1,1 @@
+ifconfig | grep -A3 en0 | head -n 5 | tail -n 1 | cut -b 7-16
