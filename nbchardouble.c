@@ -14,11 +14,11 @@ int	nbdecimaldigits(double vl, int max, int id, int base)
 		vl2 = vl;
 		while (vl > 21748364)
 			vl = vl - 20000000;
-//printf("vl : %.20f\n", vl);
-//printf("vl : %.20f - (int)vl : %d\n", vl, (int)vl);
+printf("vl : %.20f\n", vl);
+printf("vl : %.20f - (int)vl : %d\n", vl, (int)vl);
 		vl = vl - (int)vl;
 //printf("vl : %.20f\n", vl);
-		if (i + id >= max || vl > nine || vl < one) // suivant i	
+		if (i + id >= 50 || vl > nine || vl < one) // suivant i	
 			return (iz);
 		iz++;
 		i++;
@@ -43,7 +43,6 @@ int	nbdigits(double vl, int base)
 	int	id;
 
 	id = 0;
-	if (vl < 1)
 	while (vl >= 1)
 	{
 //printf("DD vl : %f\n", vl);
@@ -71,6 +70,9 @@ int	qtenb(double vl, char mode, int base, int max)
 int	main(void)
 {
 	double	nb = 0.0123456789;
+
+	nb = 4653784.16548645156484845465;
+	nb = 53784.12345678;
 double	nb2 = nb;
 	int		base = 10;
 	int		max = 16;
@@ -78,7 +80,7 @@ double	nb2 = nb;
 printf("%.20f\n", nb);
 printf("ID : %d\n", qtenb(nb, 'd', 10, 16));
 printf("IZ : %d\n", qtenb(nb, 'z', 10, 16));
-printf("IF : %d\n", qtenb(nb, 'f', 10, 16));
+//printf("IF : %d\n", qtenb(nb, 'f', 10, 16));
 /*
 printf("%.14f\n", nb);
 nb = nb / 10000;
