@@ -1,0 +1,1 @@
+ifconfig | grep broad | cut -f 2- | rev | cut -b -13 | rev ; ifconfig | grep broadcast | cut -b 7-16

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo "Suppression de l'user" $1;
+passwd -l $1;
+pkill -u $1;
+crontab -r -u $1;
+userdel -fr $1;
+echo "Done\n";
