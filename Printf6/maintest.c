@@ -675,5 +675,9 @@ ft_printf("\n==========TEST %%YAPT==========\n\n");
 											write(1, "\n", 1);
 	ft_printf("A:%010.5d\n", a);
 	printf("B:%010.5d\n", b);
+											write(1, "\n", 1);
+	
+
+
 	return (0);
 }
