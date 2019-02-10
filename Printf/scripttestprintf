@@ -1,0 +1,9 @@
+echo "Thanks for using this script (:\n"
+echo "Currently doing some stuff..."
+make re --silent ; gcc libftprintf.a maintestF.c; ./a.out > outputF
+#make re --silent ; gcc libftprintf.a maintestT.c; ./a.out > outputT
+gcc maintestT.c; ./a.out > outputT
+echo "Done!\n"
+echo "_______\nError(s) :\n"
+diff -a outputF outputT
+rm outputT outputF
