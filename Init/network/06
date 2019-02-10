@@ -1,1 +1,2 @@
-/etc/resolv.conf
+cat /etc/resolv.conf
+#scutil --dns

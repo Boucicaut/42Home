@@ -1,2 +1,2 @@
-En ssh : su username
+En ssh : ssh username@ip ; su username
 Graphique : menu > logout > switch user

@@ -11,3 +11,4 @@ procps
 rsyslog
 ssh
 udev
+#systemctl
