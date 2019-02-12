@@ -6,13 +6,12 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 20:31:49 by bviollet          #+#    #+#             */
-/*   Updated: 2019/02/12 20:51:45 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/02/12 21:44:51 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-#include <stdio.h>
 int		pourcents(va_list args, char *str, int *lim, int *i)
 {
 	char	*s;
@@ -105,7 +104,6 @@ int		pourcentd2(char *str, char *res, int *lim, int i)
 	return (printed);
 }
 
-#include <stdio.h>
 int		pourcentd(va_list args, char *str, int *lim, int *i)
 {
 	long long int	nb;
@@ -115,17 +113,14 @@ int		pourcentd(va_list args, char *str, int *lim, int *i)
 	{
 		nb = va_arg(args, int);
 		lim[7] = nb >= 0 ? 0 : 1;
-//printf("lim7 : %d || nb : %lld\n", lim[7],(long long)nb);
 		res = ft_itoa(nb);
 	}
 	else
 	{
 		nb = va_arg(args, long long int);
 		lim[7] = nb >= 0 ? 0 : 1;
-//printf("lim7 : %d || nb : %lld\n", lim[7],(long long)nb);
 		res = ft_bigitoa(nb);
 	}
-//printf("res : %s\n", res);
 	if (str[*i] == 'h')
 	{
 		nb = str[*i + 1] == 'h' ? convsignchar(nb, 2) : convsignchar(nb, 1);

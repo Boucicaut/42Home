@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 20:46:43 by bviollet          #+#    #+#             */
-/*   Updated: 2019/02/11 19:01:45 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/02/12 21:44:28 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ int		pourcento(va_list args, char *str, int *lim, int *i)
 
 	printed = 0;
 	nb = va_arg(args, unsigned long long int);
-	/*if (str[*i] == 'h')
-		nb -= str[*i + 1] == 'h' ? 65535 : convsignchar(nb, 1);*/
 	res = ft_convertbase(nb, 8);
 	if ((lim[6] || lim[0] || lim[1]) && res[0] == '0' && !res[1])
 		res[0] = '\0';

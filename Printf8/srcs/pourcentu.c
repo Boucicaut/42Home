@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 20:45:31 by bviollet          #+#    #+#             */
-/*   Updated: 2019/02/11 18:48:50 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/02/12 21:44:37 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	fillcharu(unsigned long long int nb, char *str, int j)
 	str[j] = (nb % 10) + '0';
 }
 
-#include <stdio.h>
 int		pourcentu(va_list args, char *str, int *lim, int *i)
 {
 	int						j;
@@ -52,12 +51,8 @@ int		pourcentu(va_list args, char *str, int *lim, int *i)
 	char					*res;
 	int						qtenb;
 
-//printf("str[i] : %s\n", str + *i);
-/*if (str[*i] == 'U' || str[*i + 1] == 'U')
-	return (0);*/
 	j = *i;
 	nb = va_arg(args, unsigned long long int);
-	/*nb = !(islon(str, *i, 'u')) && nb > 4294967295 ? 0 : nb;*/
 	qtenb = nb == 0 ? 1 : ft_qtebignb(nb, 10);
 	res = ft_strnew(qtenb);
 	res[qtenb] = '\0';
