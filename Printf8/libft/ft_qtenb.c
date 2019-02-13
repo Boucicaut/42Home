@@ -11,14 +11,15 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
-int		nbdecimal(double vl, int max, int id, int base)
+int		nbdecimal(long double vl, int max, int id, int base)
 {
 	int			iz;
-	long int	nb;
+	long long int	nb;
 
 	iz = 0;
-	nb = (long int)(vl * ft_tento(10, max));
+	nb = (long long int)(vl * ft_tento(10, max));
 	while (nb % 10 == 0)
 	{
 		iz++;
@@ -27,7 +28,7 @@ int		nbdecimal(double vl, int max, int id, int base)
 	return (max - id - iz);
 }
 
-int		nbdecimaldigits(double vl, int max, int id, int base)
+int		nbdecimaldigits(long double vl, int max, int id, int base)
 {
 	int			i;
 	double		nine;
@@ -54,12 +55,14 @@ int		nbdecimaldigits(double vl, int max, int id, int base)
 	return (iz);
 }
 
-int		nbdigits(double vl, int base)
+int		nbdigits(long double vl, int base)
 {
-	int		id;
-	double	max;
+	int			id;
+	long double	max;
 
-	max = 0.9;
+	if (vl == 10)
+		return (2);
+	max = 0.9999999999999999;
 	id = 0;
 	while (vl > max)
 	{
@@ -70,7 +73,7 @@ int		nbdigits(double vl, int base)
 	return (id > 0 ? id : 1);
 }
 
-int		ft_qtenb(double vl, char mode, int base, int max)
+int		ft_qtenb(long double vl, char mode, int base, int max)
 {
 	int	i;
 	int	id;
@@ -83,6 +86,7 @@ int		ft_qtenb(double vl, char mode, int base, int max)
 	id = 0;
 	i = 0;
 	id = nbdigits(vl, base);
+//printf("Id : %d, neg : %d\n", id, neg);
 	if (mode == 'z')
 		return (nbdecimaldigits(vl, max, id, base));
 	if (mode == 'f')
