@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include <stdio.h>
 #include <limits.h>
 #include <float.h>
@@ -798,8 +799,8 @@ ft_printf("\n==========TEST %%f==========\n\n");
 	a+=ft_printf("NW %15u P\n", -1);
 	b+=printf("NW %15u P\n", -1);
 											write(1, "\n", 1);
-	a+=ft_printf("NW %15zd P\n", 1);
-	b+=printf("NW %15zd P\n", 1);
+	a+=ft_printf("NW %15d P\n", 1);
+	b+=printf("NW %15d P\n", 1);
 											write(1, "\n", 1);
 	a+=ft_printf("NW %15zd P\n", 4294967296);
 	b+=printf("NW %15zd P\n", 4294967296);
@@ -816,8 +817,8 @@ ft_printf("\n==========TEST %%f==========\n\n");
 	a+=ft_printf("%U\n", (unsigned int)4294967296);
 	b+=printf("%U\n", (unsigned int)4294967296);
 											write(1, "\n", 1);
-	a+=ft_printf("NW %15zd P\n", 0);
-	b+=printf("NW %15zd P\n", 0);
+	a+=ft_printf("NW %15d P\n", 0);
+	b+=printf("NW %15d P\n", 0);
 											write(1, "\n", 1);
 	a+=ft_printf("%hU\n", (unsigned short)4294967296);
 	b+=printf("%hU\n", (unsigned short)4294967296);
@@ -918,8 +919,99 @@ b+=printf("%0#20.10X\n", 7896541);
 a+=ft_printf("%-#20.10X\n", 7896541);
 b+=printf("%-#20.10X\n", 7896541);
 											write(1, "\n", 1);
-ft_printf("Aa:%010.5d\n", a);
-printf("Bb:%010.5d\n", b);
+a+=ft_printf("%i\n", INT_MAX);
+b+=printf("%i\n", INT_MAX);
+a+=ft_printf("%i\n", INT_MIN);
+b+=printf("%i\n", INT_MIN);
+a+=ft_printf("%hhi\n", (char)SCHAR_MIN);
+b+=printf("%hhi\n", (char)SCHAR_MIN);
+a+=ft_printf("%hhi\n", (char)SCHAR_MAX);
+b+=printf("%hhi\n", (char)SCHAR_MAX);
+a+=ft_printf("%hi\n", (short)SHRT_MIN);
+b+=printf("%hi\n", (short)SHRT_MIN);
+a+=ft_printf("%hi\n", (short)SHRT_MAX);
+b+=printf("%hi\n", (short)SHRT_MAX);
+a+=ft_printf("%lld\n", LLONG_MIN);
+b+=printf("%lld\n", LLONG_MIN);
+a+=ft_printf("%lld\n", LLONG_MAX);
+b+=printf("%lld\n", LLONG_MAX);
+a+=ft_printf("%ld\n", LONG_MIN);
+b+=printf("%ld\n", LONG_MIN);
+a+=ft_printf("%ld\n", LONG_MAX);
+b+=printf("%ld\n", LONG_MAX);
+
+a+=ft_printf("%o\n", INT_MAX);
+b+=printf("%o\n", INT_MAX);
+a+=ft_printf("%o\n", INT_MIN);
+b+=printf("%o\n", INT_MIN);
+
+											write(1, "\n", 1);
+a+=ft_printf("%hho\n", (char)SCHAR_MAX);
+b+=printf("%hho\n", (char)SCHAR_MAX);
+											write(1, "\n", 1);
+a+=ft_printf("%ho\n", (short)SHRT_MAX);
+b+=printf("%ho\n", (short)SHRT_MAX);
+a+=ft_printf("%llo\n", LLONG_MIN);
+b+=printf("%llo\n", LLONG_MIN);
+a+=ft_printf("%llo\n", LLONG_MAX);
+b+=printf("%llo\n", LLONG_MAX);
+a+=ft_printf("%lo\n", LONG_MIN);
+b+=printf("%lo\n", LONG_MIN);
+a+=ft_printf("%lo\n", LONG_MAX);
+b+=printf("%lo\n", LONG_MAX);
+
+
+a+=ft_printf("%llu\n", ULLONG_MAX);
+b+=printf("%llu\n", ULLONG_MAX);
+a+=ft_printf("%lu\n", ULONG_MAX);
+b+=printf("%lu\n", ULONG_MAX);
+
+a+=ft_printf("%lo\n", ULONG_MAX);
+b+=printf("%lo\n", ULONG_MAX);
+											write(1, "\n", 1);
+a+=ft_printf("%o (INTMIN)()\n", INT_MIN);
+b+=printf("%o (INTMIN)()\n", INT_MIN);
+											write(1, "\n", 1);
+b+=printf("ShortMin : %d || ShortMax : %d\n", SHRT_MIN, SHRT_MAX);
+a+=ft_printf("%ho Short Min|\n", (short)SHRT_MIN);
+b+=printf("%ho Short min|\n", (short)SHRT_MIN);
+											write(1, "\n", 1);
+b+=printf("CHARMin : %d || CHARMax : %d\n", SCHAR_MIN, SCHAR_MAX);
+b+=printf("CHARMin : %d || CHARMax : %d\n", CHAR_MIN, CHAR_MAX);
+a+=ft_printf("%hho Char min|\n", (char)CHAR_MIN);
+b+=printf("%hho Char min|\n", (char)CHAR_MIN);
+											write(1, "\n", 1);
+a+=ft_printf("%hho Char min|<<<<<<\n", (char)-30);
+b+=printf("%hho Char min|<<<<<<\n", (char)-30);
+											write(1, "\n", 1);
+											write(1, "\n", 1);
+a+=ft_printf("%f |\n", (double)3494999);
+b+=printf("%f |\n", (double)3494999);
+											write(1, "\n", 1);
+a+=ft_printf("%f |\n", (double)9999999999999999);
+b+=printf("%f |\n", (double)9999999999999999);
+											write(1, "\n", 1);
+a+=ft_printf("%f |\n", (double)9999999999999999);
+b+=printf("%f |\n", (double)9999999999999999);
+											write(1, "\n", 1);
+a+=ft_printf("%010.*d|\n", 3, 42);
+b+=printf("%010.*d|\n", 3, 42);
+											write(1, "\n", 1);
+a+=ft_printf("%30.1s|\n", "42");
+b+=printf("%30.1s|\n","42");
+											write(1, "\n", 1);
+											write(1, "\n", 1);
+printf("Qtenb 10 : %d\n", ft_qtenb(10, 'd', 10, 10));
+//ESSAYER AVEC WIDTH NEGATIVE, active flag '-'
+
+//a+=ft_printf("lo %Lf\n", LDBL_MAX);
+//b+=printf("lo %Lf\n", LDBL_MAX);
+ft_printf("Aa:%10.5d\n",345);
+printf("Bb:%10.5d\n", 345);
+											write(1, "\n", 1);
+
+ft_printf("Aa:%10.5d\n", a);
+printf("Bb:%10.5d\n", b);
 /*int y;
 int x;
 	    y =ft_printf("%.13f et aussi %c fini et puis %.d\n", 0.00003000, 'G', 0);
