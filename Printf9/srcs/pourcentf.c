@@ -72,6 +72,8 @@ int		islon(char *str, int i, char c)
 	{
 		if (ft_issamealpha(str[i], c))
 			return (0);
+		if (c == 'd' && ft_issamealpha(str[i], 'i'))
+			return (0);
 		if (ft_issamealpha(str[i], 'l'))
 			return (1);
 		if (ft_issamealpha(str[i], 'z'))
