@@ -24,6 +24,7 @@ LIBFT_FILES = ft_tento.c ft_putbignbr.c ft_qtebignb.c ft_convertbase.c ft_bigito
 		 ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_lstnew.c \
 		 ft_lstdelone.c ft_lstdel.c ft_lstadd.c ft_lstiter.c ft_lstmap.c ft_findreplace.c \
 		 ft_freeptr.c ft_freestr.c ft_swap.c ft_runthrough.c get_next_line.c hexatoupper.c\
+		convunsigned.c
 
 
 # Source files path

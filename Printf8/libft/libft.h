@@ -27,6 +27,7 @@ typedef	struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+unsigned long long int	convunsigned(long long int nb);
 void				hexatoupper(char *res, char mode);
 int					convsignchar(int vl, int mode);
 char				*ft_bigitoa(long long int n);
@@ -36,7 +37,7 @@ void				ft_putbignbr(long long int n);
 int					ft_issamealpha(char c, char d);
 char				*ft_itoadouble(long double nb, int z, int max);
 double				ft_tento(int nb, int i);
-int					ft_qtenb(double vl, char mode, int base, int max);
+int					ft_qtenb(long double vl, char mode, int base, int max);
 char				*ft_convertbase(long long unsigned int nb, int base);
 void				ft_freeptr(void **ptr);
 void				runthrough(char **ptr, void(*f)(char **ptr, int i, int j));
