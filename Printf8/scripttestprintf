@@ -9,4 +9,4 @@ gcc maintestT.c; ./a.out > outputT
 echo "Done!\n"
 echo "_______\nError(s) :\n"
 diff -a outputF outputT
-#rm outputT outputF
+rm outputT outputF
