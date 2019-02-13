@@ -17,7 +17,7 @@ int	bignbdigits(long double vl, int base)
 	int	id;
 
 	id = 0;
-	while (vl > 0.999999)
+	while (vl > (long double)0.9999999999999999)
 	{
 		vl = vl / base;
 		id++;
