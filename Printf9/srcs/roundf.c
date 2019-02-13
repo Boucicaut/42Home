@@ -69,7 +69,7 @@ void	roundit(char *nbchar, int lim2, int z, int arrondi)
 	if (nbchar[i] != '0' && lim2 < z && ((lim2 == 6 && z <= 6) ||\
 !ft_strchr(nbchar, '.')))
 		return ;
-	if (nbchar[i] && !fullzero && lim2 < 16 && nbchar[i] == '9' && arrondi >= 5)
+	if (nbchar[i] && !fullzero && nbchar[i] == '9' && arrondi >= 5)
 		roundednine(nbchar, i);
 	else if (arrondi >= 5)
 		nbchar[i]++;
