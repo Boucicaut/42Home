@@ -107,14 +107,13 @@ int		coloreds(int *lim, char *res, int len)
 	int	printed;
 
 	printed = 0;
+//printf("Len : %d, lim[0] : %d, lim[1] : %d\n", len, lim[0], lim[1]);
 	while (!lim[4] && lim[0] > len)
 	{
 		printed++;
-		lim--;
+		lim[0]--;
 		ft_putchar(' ');
 	}
-	if (lim[1] > len)
-		res[lim[1] + 4] = '\0';
 	ft_putstr(res);
 	while (lim[4] && lim[0] > len)
 	{
@@ -122,5 +121,5 @@ int		coloreds(int *lim, char *res, int len)
 		lim[0]--;
 		ft_putchar(' ');
 	}
-	return (printed + len);
+	return (len + printed);
 }
