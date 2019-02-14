@@ -2,6 +2,26 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include "Libft/libft.h"
+
+char	*ft_strrev(char *str)
+{
+	int	i;
+	int	len;
+	char	*strev;
+
+	i = 0;
+	len = ft_strlen(str) - 1;
+	strev = ft_strnew(len);
+	while (str[i])
+	{
+		strev[len] = str[i];
+		len--;
+		i++;
+	}
+	return (strev);
+}
+	
 
 int	main(int argc, char **argv)
 {
@@ -11,10 +31,11 @@ int	main(int argc, char **argv)
 	int64_t	r;
 	int		i;
 	int		j;
-	char	str[70];
+	char	*str;
 
 // 23bits mantisse	8 exposant		1 signe	< single
 // 52bits mantisse	11 exposant		1 signe	< double
+	str = ft_strnew(64);
 	j = 0;
 	i = -1;
 	r = 0;
@@ -27,15 +48,13 @@ int	main(int argc, char **argv)
 write(1, "\n", 1);
 	while (++i < 64)
 	{
-		if (i % 8 == 0)
-			str[j++] = ' ';
 		str[j++] = (*rep & 0x01) + '0';
 		*rep >>= 1;
 	}
-	j = (int)strlen(str) - 1;
-	while (j)
-		printf("%c", str[--j]);
-printf("\n11000001 00011011 11101101 00101000 10011110 00011011 00100011 01110010\n");	//-457546.1544004	
+	str = ft_strrev(str);
+	printf("%s", str);
+printf("\n1100000100011011111011010010100010011110000110110010001101110010\n");	//-457546.1544004	
+printf("\n11000001 00011011 11101101 00101000 10011110 00011011 00100011 01110010");	//-457546.1544004	
 printf("\n01000000 00010001 10011001 10011001 10011001 10011001 10011001 10011010");	// 4
 printf("\n11000000 00010001 10011001 10011001 10011001 10011001 10011001 10011010");	// -4
 
