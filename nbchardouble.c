@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <unistd.h>
 
 int	nbdecimaldigits(double vl, int max, int id, int base)
 {
@@ -14,27 +15,17 @@ int	nbdecimaldigits(double vl, int max, int id, int base)
 		vl2 = vl;
 		while (vl > 21748364)
 			vl = vl - 20000000;
-//printf("vl : %.20f\n", vl);
-//printf("vl : %.20f - (int)vl : %d\n", vl, (int)vl);
 		vl = vl - (int)vl;
-//printf("vl : %.20f\n", vl);
 		if (i + id >= 50 || vl > nine || vl < one) // suivant i	
 			return (iz);
 		iz++;
 		i++;
 		vl = vl2 * base;
-//printf("NEXT\n");
-//printf("Iz : %d , i : %d\n", iz, i);
-
 	nine = nine * 10 - 9;
 	one = one * 10;
-
 	}
-
 	vl2 = vl;
 	vl = vl - (int)(vl/10) * 10;
-	//iz = calcul(vl, 0, 0, 0, 0, 0, 16, id);	
-
 	return (iz);
 }
 
@@ -45,7 +36,6 @@ int	nbdigits(double vl, int base)
 	id = 0;
 	while (vl >= 1)
 	{
-//printf("DD vl : %f\n", vl);
 		vl = vl / base;
 		id++;
 	}
@@ -66,7 +56,6 @@ int	qtenb(double vl, char mode, int base, int max)
 		return (nbdigits(vl, base) + nbdecimaldigits(vl, max, id, base));
 	return (id);
 }
-#include <unistd.h>
 int	main(void)
 {
 	double	nb = 0.0123456789;
@@ -76,7 +65,6 @@ int	main(void)
 printf("Nb : %.20f\n",nb);
 printf("Id : %d\n", id);
 	int max = 15;
-
 
 
 write(1, "\n\n",2);

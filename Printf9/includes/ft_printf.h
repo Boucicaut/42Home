@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 13:57:07 by bviollet          #+#    #+#             */
-/*   Updated: 2019/02/13 18:11:03 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/02/14 13:58:40 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int					printbeforea(char *str, int i, int *lim, int qted);
 int					pourcenta(va_list args, char *str, int *lim, int *i);
 
 int					arrondi(long double vl, int max);
-int					coloreds(int *lim, char *res);
+int					coloreds(int *lim, char *res, int qte);
 int					*qtenbfors(int *qtenb, char c, int *lim);
 int					skipifcolor(char *str, int i);
 char				*getcolor(char *res, char *str, int i, int *lim);
