@@ -64,7 +64,7 @@ int			ft_printf2(char *str, int *i, int printed)
 		ft_putchar(92);
 	}
 	ft_putchar(str[*i]);
-	printed += 1;
+	printed++;
 	*i += 1;
 	return (printed);
 }
@@ -82,7 +82,8 @@ int			ft_printf(char *str, ...)
 	va_start(args, str);
 	while (str[i])
 	{
-		i = str[i] == '{' ? skipifcolor(str, i) : i;
+		if (str[i] == '{' || str[i] == '}')
+			i = str[i] == '{' ? skipifcolor(str, i) : i;
 		if (str[i] == '%')
 		{
 			i += 1;

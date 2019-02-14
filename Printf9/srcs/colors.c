@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
+#include <stdio.h>
 
 int		*qtenbfors(int *qtenb, char c, int *lim)
 {
@@ -23,6 +24,7 @@ int		*qtenbfors(int *qtenb, char c, int *lim)
 
 int		skipifcolor(char *str, int i)
 {
+//printf("STR: %s\n", str + i);
 	if (ft_strncmp(str + i, "{black}", 7) == 0)
 		return (i + 7);
 	if (ft_strncmp(str + i, "{red}", 5) == 0)
@@ -43,6 +45,7 @@ int		skipifcolor(char *str, int i)
 		return (i + 9);
 	if (ft_strncmp(str + i, "{eoc}", 5) == 0)
 		return (i + 5);
+//printf("NOSKIP");
 	return (i);
 }
 
@@ -99,21 +102,19 @@ char	*getcolor(char *res, char *str, int i, int *lim)
 	return (res);
 }
 
-int		coloreds(int *lim, char *res)
+int		coloreds(int *lim, char *res, int len)
 {
-	int	len;
 	int	printed;
 
 	printed = 0;
-	len = (int)ft_strlen(res) - 9;
 	while (!lim[4] && lim[0] > len)
 	{
 		printed++;
-		lim[0]--;
+		lim--;
 		ft_putchar(' ');
 	}
 	if (lim[1] > len)
-		res[lim[1] + 6] = '\0';
+		res[lim[1] + 4] = '\0';
 	ft_putstr(res);
 	while (lim[4] && lim[0] > len)
 	{

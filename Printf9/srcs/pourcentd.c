@@ -34,7 +34,7 @@ int		pourcents(va_list args, char *str, int *lim, int *i)
 	lim[1] = lim[1] > qte ? qte : lim[1];
 	lim[0] = lim[0] > lim[1] ? lim[0] : lim[1];
 	s = getcolor(s, str, *i, lim);
-	printed = !lim[7] ? doshittythings(lim, s, 0, 's') : coloreds(lim, s);
+	printed = !lim[7] ? doshittythings(lim, s, 0, 's') : coloreds(lim, s, qte);
 	lim ? free(lim) : 0;
 	free(s);
 	return (printed);
