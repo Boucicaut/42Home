@@ -254,7 +254,7 @@ int	main(int argc, char **argv)
 	path = ft_strnew(256);
 	path = ft_strcpy(path, dir->dirname);
 	if (str[R] == '1')
-		recursivedir(dir, path, dir->next);
+		recursivedir(dir, dir->next);
 printf("\nList rec :\n");
 while (dir)
 {

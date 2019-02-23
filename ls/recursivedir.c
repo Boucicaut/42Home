@@ -7,23 +7,25 @@ char	*formatpathfile(char *path, char *file, char *res)
 	int		i;
 	int		j;
 
+	free(res);
+	res = ft_strnew(256);
+printf("\tpath %s\n", path);
+printf("\tfile %s\n", file);
+printf("\tres %s\n", res);
 	j = 0;
 	while (res[j])
 		res[j++] = '\0';
-printf("j %d\n", j);
 	i = ft_strlen(path) - 1;
-printf("i %d\n", i);
 	ft_strcpy(res, path);
 	res[i + 1] = res[i] == '/' ? '\0' : '/';
 	ft_strcat(res, file);
 	j = ft_strlen(res) - 1;
 	if (res[j - 1] == '/')
 	{
-		while (res[j - 1] == '/')
+		while (res[j] == '/')
 			res[j--] = '\0';
 	}
-	res[j + 1] = '\0';
-printf("res %s\n", res);
+printf("fin res %s\n", res);
 	return (res);
 }
 
@@ -53,12 +55,14 @@ printf("\tnot a dir\n");
 	return (0);
 }
 
-void	recursivedir(t_dir *first, char *path, t_dir *nextptr)
+void	recursivedir(t_dir *first, t_dir *nextptr)
 {
 	DIR				*dir;
 	struct dirent	*flow;
+	char			*path;
 	t_dir			*curr;
 
+	path = ft_strnew(256);
 	curr = first;
 	if ((dir = opendir(curr->dirname)))
 	{
@@ -66,20 +70,34 @@ printf("RRecur, dirname : %s | path : %s\n", curr->dirname, path);
 		while ((flow = readdir(dir)))
 		{
 printf("\t\t\tFormat : curr %s, flow : %s\n", curr->dirname, flow->d_name);
-printf("TESTFORMAT : %s\n", formatpathfile(curr->dirname, flow->d_name, path));
-			if (ft_strcmp(flow->d_name, ".") && ft_strcmp(flow->d_name, "..") && isadirectory(formatpathfile(curr->dirname, flow->d_name, path)) == 2)
+			path = formatpathfile(curr->dirname, flow->d_name, path);
+printf("path : %s\n", path);
+			if (ft_strcmp(flow->d_name, ".") && ft_strcmp(flow->d_name, "..") && isadirectory(path) == 2)
 			{
 				//path = formatpathfile(curr->dirname, flow->d_name, path);
 printf("\tNewelem valid path : %s\n", path);
-				curr->next = newelemdir(formatpathfile(curr->dirname, flow->d_name, path), curr, nextptr);
+				curr->next = newelemdir(path, curr, nextptr);
 printf("!!!! : %s\n", curr->next->dirname);
-				recursivedir(curr->next, curr->next->dirname, nextptr);
+				recursivedir(curr->next, nextptr);
+		printf("Path aaaaafter : %s|| Cuurr : %s\n", path, curr->dirname);
+				while (curr->next != nextptr)
+					curr = curr->next;
 			}
 		}
 		curr->next = nextptr;
 		closedir(dir);
 	}
 printf("Exit\n");
+printf("\n--------------\n");
+while (curr->previous)
+	curr = curr->previous;
+while (curr->next)
+{
+	printf("curr dirname : %s\n", curr->dirname);
+	curr = curr->next;
+}
+printf("\n--------------\n");
+free(path);
 }
 
 void	swapdirname(t_dir *dir, t_dir *curr)

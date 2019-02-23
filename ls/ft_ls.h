@@ -46,7 +46,7 @@ typedef struct		s_dir {
 
 char	*formatpathfile(char *path, char *file, char *res);
 int		isadirectory(char *str);
-void	recursivedir(t_dir *first, char *path, t_dir *nextptr);
+void	recursivedir(t_dir *first, t_dir *nextptr);
 void	sortargsdir(t_dir *dir);
 int ft_listrec(char *file);
 int ft_list(char *file);
