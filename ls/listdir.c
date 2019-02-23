@@ -242,6 +242,22 @@ t_dir	*argsdirectories(int argc, char **argv, char optl)
 	return (dir);
 }*/
 
+void	callrecursive(t_dir *dir)
+{
+	t_dir	*save;
+
+//path = ft_strnew(256);
+//path = ft_strcpy(path, dir->dirname);
+	save = dir;
+	while (save != NULL)
+	{
+		save = dir->next;
+		recursivedir(dir, dir->next);
+		while (dir != save)
+			dir = dir->next;
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	char	*str;
@@ -251,10 +267,8 @@ int	main(int argc, char **argv)
 	str = getoptions(argc, argv);
 	dir = argsdirectories(argc, argv, str[l]);
 	sortargsdir(dir);
-	path = ft_strnew(256);
-	path = ft_strcpy(path, dir->dirname);
 	if (str[R] == '1')
-		recursivedir(dir, dir->next);
+		callrecursive(dir);
 printf("\nList rec :\n");
 while (dir)
 {
