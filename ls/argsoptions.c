@@ -1,14 +1,14 @@
 #include "ft_ls.h"
 
-char	*cumulativeoptions(char *str)
+char	*cumulativeoptions(char **str)
 {
-	str[a] = str[f] == '1' ? '1' : str[a];
-	str[u] = str[t] == '1' ? '0' : str[u];
-	str[t] = str[f] == '1' ? '0' : str[t];
-	str[u] = str[f] == '1' ? '0' : str[u];
-	str[r] = str[f] == '1' ? '0' : str[r];
-	str[h] = str[l] == '0' ? '0' : str[h];
-	return (str);
+	str[0][a] = str[0][f] == '1' ? '1' : str[0][a];
+	str[0][u] = str[0][t] == '1' ? '1' : str[0][u];
+	str[0][t] = str[0][f] == '1' ? '1' : str[0][t];
+	str[0][u] = str[0][f] == '1' ? '1' : str[0][u];
+	str[0][r] = str[0][f] == '1' ? '1' : str[0][r];
+	str[0][h] = str[0][l] == '1' ? '1' : str[0][h];
+	return (*str);
 }
 
 char	*getoptions(int argc, char **argv)
@@ -37,33 +37,27 @@ char	*getoptions(int argc, char **argv)
 		}
 		i++;
 	}
-	return (cumulativeoptions(str));
+	str = cumulativeoptions(&str);
+	return (str);
 }
 
-t_dir	*argsdirectories(int argc, char **argv, char optl)
+t_dir	*argsdirectories(int argc, char **argv)
 {
 	int		i;
 	t_dir	*dir;
 	t_dir	*curr;
 
-	dir = newelemdir("\0", NULL, NULL);
-	curr = dir;
-	i = 0;
+	i = 1;
+	while (i < argc && argv[i][0] == '-')
+		i++;
+	if (i == argc)
+		return (newelemdir(".", NULL, NULL));
+	dir = newelemdir(argv[i], NULL, NULL);
+	curr = dir->next;
 	while (++i < argc)
 	{
-		if (argv[i][0] != '-' && dir->dirname[0])
-		{
-			while (curr && curr->next)
-				curr = curr->next;
-			curr->next = newelemdir(argv[i], curr, NULL);
-		}
-		else if (argv[i][0] != '-')
-		{
-			free(dir->dirname);
-			dir->dirname = ft_strdup(argv[i]);
-		}
+		curr = newelemdir(argv[i], curr, NULL);
+		curr = curr->next;
 	}
-	if (!(dir->dirname))
-		dir->dirname = ft_strcpy(dir->dirname, ".");
 	return (dir);
 }

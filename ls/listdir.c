@@ -260,34 +260,41 @@ void	callrecursive(t_dir *dir)
 
 int	main(int argc, char **argv)
 {
-	char	*str;
 	t_dir	*dir;
+	t_dir	*curr;
+	char	*str;
 
-	char	*path;
 	str = getoptions(argc, argv);
-	dir = argsdirectories(argc, argv, str[l]);
-	sortargsdir(dir);
+	dir = argsdirectories(argc, argv);
+	sortargsdir(dir, str);
 	if (str[R] == '1')
 		callrecursive(dir);
-printf("\nList rec :\n");
-while (dir)
+printf("\nList rec : \n");
+
+	curr = dir;
+while (curr)
 {
-	ft_printf("Dirname : %s\n", dir->dirname);
-	dir = dir->next;
+	printf("Dirname : %s\n", curr->dirname);
+	curr = curr->next;
 }
 	//else
 	//	fulfilldir(dir);
-printf("\n");
 
-	printf("Options : %s\n", str);
-	printf("%20s\n", "acfghlrRtu");
-/*
-	char *file = strdup(argv[2]);
+	//printf("Options : %s \n", str);
+//	printf("%20s\n", "acfghlrRtu");
+
+	/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+	/* If erreur, print message sur la sortie d'erreur, ft_putstr_fd */
+	/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+	//free(str);
+	//freeelemdir(dir);
+
+	/*char *file = strdup(argv[2]);
 	ft_list(file);
 					printf("\n\n");
 	ft_inspect(argv[2]);
 printf("\n");
 	//ft_listrec(argv[1]);
-free(file);*/
+//free(file);*/
 	return (0);
 }
