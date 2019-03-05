@@ -52,17 +52,27 @@ void	brainfuck(char *str, char *ptr, int k)
 			printf("%c", (char)*(ptr));
 		else if (str[i] == '[')
 		{
-			if (*ptr == 0 && k == 0)
-				while (str[i] != ']')
+			if (*ptr == 0)
+				while (str[i] != ']' && k != 0)
+				{
+					if (str[i] == '[')
+						k++;
+					if (str[i] == ']')
+						k--;
 					i++;
-			k++;
+				}
 		}
 		else if (str[i] == ']')
 		{
-			if (*ptr != 0 && k == 1)
-				while (str[i] != '[')
+			if (*ptr != 0)
+				while (str[i] != '[' && k != 0)
+				{
+					if (str[i] == ']')
+						k++;
+					if (str[i] == '[')
+						k--;
 					i--;
-			k--;
+				}
 		}
 		i++;
 	}
