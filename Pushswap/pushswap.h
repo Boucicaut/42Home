@@ -15,6 +15,7 @@ typedef struct	piles
 	int	bsize;
 }	piles;
 
+int	rangbiggest(piles *pile, int w);
 int	insertionsort(piles *pile);
 int	quicksort(piles *pile, int pivot);
 int	quicksort2(piles *pile);

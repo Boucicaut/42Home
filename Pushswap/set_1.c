@@ -287,3 +287,25 @@ int		biggestsorted(piles *pile, int w)
 	}
 	return (j);
 }
+
+int		rangbiggest(piles *pile, int w)
+{
+	int	big;
+	int	i;
+
+	i = -1;
+	big = w == 1 ? biggest(pile, 1) : biggest(pile, 0);
+	if (w == 0)
+	{
+		while (i++ < pile->asize)
+			if (pile->a[i] == big)
+				return (i);
+	}
+	else if (w == 1)
+	{
+		while (++i < pile->bsize)
+			if (pile->b[i] == big)
+				return (i);
+	}
+	return (i);
+}
