@@ -276,6 +276,9 @@ printf("i %d   j %d   bigb  %d     pilea[i] %d\n", i, j, bigb, pile->a[i]);
 			//return (j);
 			printf("ICI ON PREFERE %d a %d\n", pile->a[i], j);
 // ESSAYER MEME AVEC i-- //
+// A VOIR SI ON PEUT FAIRE UN TRUC ENTRE ROTATE ET REVROTATE
+// OPTIMISER LES DOUBLES SWAP ET DOUBLE ROTATE POUR LE TRI, LES FAIRE EN M TPS
+// CHECKER QUE SI I-- OU I ON NE PASSE PAS SMALLEST DANS L'AFFAIRE
 			getchar();
 			return (pile->a[i]);
 		}
