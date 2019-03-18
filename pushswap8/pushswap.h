@@ -15,6 +15,7 @@ typedef struct	piles
 	int	bsize;
 }	piles;
 
+<<<<<<< HEAD
 int	issortedfrom(piles *pile, int w, int nb);
 int	isperfectsortedfrom(piles *pile, int w, int nb);
 
@@ -26,6 +27,14 @@ int	randompivot(piles *pile, int w);
 int	canbesortedb(piles *pile);
 int	canbesorteda(piles *pile);
 int	canbesorted(piles *pile, int w);
+=======
+int	petittria(piles *pile);
+int	petittrib(piles *pile);
+
+int	randompivot(piles *pile, int w);
+int	canbesortedb(piles *pile);
+int	canbesorteda(piles *pile);
+>>>>>>> 97640848482fd93b328a96300295ab46a61469b8
 
 int	pivota(piles *pile);
 int	pivotb(piles *pile);

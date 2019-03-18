@@ -17,6 +17,7 @@ while (!issorted(pile, 0) || !issorted(pile, 0))
 {
 	printtab(pile);
 	printf("Sorted? %d %d\n", issorted(pile, 0), issorted(pile, 1));
+<<<<<<< HEAD
 	pivot = biggest(pile, 0) == pivot ? pile->a[(pile->asize / 2) - 1] : pivot;
 	pivot = pile->a[pile->asize / 2];
 	pivot = pivota(pile);
@@ -43,6 +44,22 @@ while (!issorted(pile, 0) || !issorted(pile, 0))
 	pivot = pile->b[pile->bsize - 1];
 	pivot = pile->b[pile->bsize / 2];
 	pivot = pivotb(pile);
+=======
+	pivot = pile->a[pile->asize / 2];
+	pivot = biggest(pile, 0) == pivot ? pile->a[(pile->asize / 2) - 1] : pivot;
+pivot = pivota(pile);
+		printf("Pivot A : %d\n", pivot);
+	while (!issorted(pile, 0) && pile->a[0] != pivot)
+	{
+		printtab(pile);
+		//getchar();
+		nb += quicksort(pile, pivot);
+		//nb += quicksort(pile, randompivot(pile, 0));
+	}
+	pivot = pile->b[pile->bsize / 2];
+	pivot = biggest(pile, 1) == pivot ? pile->b[(pile->bsize / 2) - 1] : pivot;
+pivot = pivotb(pile);
+>>>>>>> 97640848482fd93b328a96300295ab46a61469b8
 	while (!issorted(pile, 1) && pile->b[0] != pivot)
 	{
 		printtab(pile);
@@ -122,14 +139,22 @@ printf("Pivot2 : %d\n", pivot);
 				swapb(pile);
 			nb++;
 		}
+<<<<<<< HEAD
 		if (pile->b[0] > pivot && !issorted(pile, 1))
+=======
+		else if (pile->b[0] > pivot && !issorted(pile, 1))
+>>>>>>> 97640848482fd93b328a96300295ab46a61469b8
 		{
 			if (issorted(pile, 1))// && pile->b[0] < smallest(pile, 0))
 				return (nb);
 			nb++;
 			pusha(pile);
 		}
+<<<<<<< HEAD
 		if (pile->b[0] < pivot && !issorted(pile, 1))
+=======
+		else if (pile->b[0] < pivot && !issorted(pile, 1))
+>>>>>>> 97640848482fd93b328a96300295ab46a61469b8
 		{
 			nb++;
 			if (pile->a[0] > pivot && !issorted(pile, 0))
@@ -138,7 +163,11 @@ printf("Pivot2 : %d\n", pivot);
 			}
 			else
 				rotateb(pile);
+<<<<<<< HEAD
 		}
+=======
+}
+>>>>>>> 97640848482fd93b328a96300295ab46a61469b8
 printtab(pile);
 	return (nb);
 }
@@ -156,24 +185,12 @@ printf("Pivot : %d\n", pivot);
 //	nb += petittria(pile);
 //if (!issorted(pile, 0))
 //	canbesorteda(pile);
+<<<<<<< HEAD
 		if (pile->a[0] < pivot)
 		{
 			//if (!(issorted(pile, 0)))
 		//	{
-				nb++;
-				pushb(pile);
-printtab(pile);
-//getchar();
-		//	}
-		}
-		if (pile->a[0] > pivot && !issorted(pile, 0))
-		{
-			nb++;
-			if (pile->b[0] < pile->b[pile->bsize - 1])
-				rotateab(pile);
-			else
-				rotatea(pile);
-		}
+=======
 		if ((pile->a[0] > pile->a[1] || pile->b[0] < pile->b[1]))
 		{
 			if (pile->a[0] > pile->a[1] && pile->b[0] < pile->b[1])
@@ -184,6 +201,44 @@ printtab(pile);
 				swapb(pile);
 			nb++;
 		}
+		else if (pile->a[0] < pivot)
+		{
+			if (!(issorted(pile, 0)))
+			{
+>>>>>>> 97640848482fd93b328a96300295ab46a61469b8
+				nb++;
+				pushb(pile);
+printtab(pile);
+//getchar();
+<<<<<<< HEAD
+		//	}
+		}
+		if (pile->a[0] > pivot && !issorted(pile, 0))
+=======
+			}
+		}
+		else if (pile->a[0] > pivot && !issorted(pile, 0))
+>>>>>>> 97640848482fd93b328a96300295ab46a61469b8
+		{
+			nb++;
+			if (pile->b[0] < pile->b[pile->bsize - 1])
+				rotateab(pile);
+			else
+				rotatea(pile);
+		}
+<<<<<<< HEAD
+		if ((pile->a[0] > pile->a[1] || pile->b[0] < pile->b[1]))
+		{
+			if (pile->a[0] > pile->a[1] && pile->b[0] < pile->b[1])
+				swapab(pile);
+			else if (pile->a[0] > pile->a[1])
+				swapa(pile);
+			else if (pile->b[0] < pile->b[1])
+				swapb(pile);
+			nb++;
+		}
+=======
+>>>>>>> 97640848482fd93b328a96300295ab46a61469b8
 printtab(pile);
 	return (nb);
 }
@@ -197,11 +252,20 @@ int		pivota(piles *pile)
 	i = 0;
 	bigb = biggest(pile, 1);
 	j = pile->a[pile->asize - 1];
+<<<<<<< HEAD
 	i = pile->asize - 1;
 	while (i-- > 0)
 	{
 	printf("i %d, j %d < pileI %d\n", i, j, pile->a[i]);
 getchar();
+=======
+	i = pile->asize;
+	//if (pile->a[0] != biggest(pile, 1))
+	//	return (biggest(pile, 0));
+	while (i-- > 0)
+	{
+//getchar();
+>>>>>>> 97640848482fd93b328a96300295ab46a61469b8
 		if (j < pile->a[i])
 		{
 			//return (j);
@@ -210,9 +274,15 @@ getchar();
 // OPTIMISER LES DOUBLES SWAP ET DOUBLE ROTATE POUR LE TRI, LES FAIRE EN M TPS
 // CHECKER QUE SI I-- OU I ON NE PASSE PAS SMALLEST DANS L'AFFAIRE
 			//getchar();
+<<<<<<< HEAD
 			if (pile->a[i] != biggest(pile, 0))
 				return (j);
 				//return (pile->a[i]);
+=======
+			if (pile->a[i] == biggest(pile, 0))
+				return (pile->a[i + 1]);
+			return (pile->a[i]);
+>>>>>>> 97640848482fd93b328a96300295ab46a61469b8
 		}
 		j = pile->a[i];
 	}

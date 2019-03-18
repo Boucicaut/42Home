@@ -218,7 +218,11 @@ int		biggest(piles *pile, int w)
 	return (j);
 }
 
+<<<<<<< HEAD
 int		biggestafter(piles *pile, int w, int nb)
+=======
+int		biggestafter(piles *pile, int w, int pivot)
+>>>>>>> 97640848482fd93b328a96300295ab46a61469b8
 {
 	int	i;
 	int	j;
@@ -227,6 +231,7 @@ int		biggestafter(piles *pile, int w, int nb)
 	i = 0;
 	if (w == 0)
 	{
+<<<<<<< HEAD
 		if (nb == smallest(pile, 0))
 			return (nb);
 		while (pile->a[i] >= nb)
@@ -249,11 +254,31 @@ int		biggestafter(piles *pile, int w, int nb)
 		{
 			if (pile->b[i] < nb && pile->b[i] > j)
 				j = pile->b[i];
+=======
+		j = pile->a[0];
+		while (i++ < pile->asize)
+		{
+			if (pile->a[i] != pivot)
+				j = j < pile->a[i] ? pile->a[i] : j;
+		}
+	}
+	else if (w == 1)
+	{
+		j = pile->b[0];
+		while (i++ < pile->bsize)
+		{
+			if (pile->b[i] != pivot)
+				j = j < pile->b[i] ? pile->b[i] : j;
+>>>>>>> 97640848482fd93b328a96300295ab46a61469b8
 		}
 	}
 	return (j);
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 97640848482fd93b328a96300295ab46a61469b8
 int		smallestsorted(piles *pile, int w)
 {
 	int	i;
@@ -282,6 +307,7 @@ int		biggestsorted(piles *pile, int w)
 	int	i;
 	int	j;
 
+<<<<<<< HEAD
 	i = pile->asize - 1;
 	j = 0;
 	if (w == 0)
@@ -290,15 +316,29 @@ int		biggestsorted(piles *pile, int w)
 			return (pile->a[pile->asize - 1]);
 		j = pile->a[pile->asize - 1];
 		while (i-- > 0 && j > pile->a[i] && j > biggest(pile, 1))
+=======
+	i = pile->a[pile->asize - 1];
+	j = 0;
+	if (w == 0)
+	{
+		j = pile->a[pile->asize - 1];
+		while (i-- < 0 && j < pile->a[i] && j < biggest(pile, 1))
+>>>>>>> 97640848482fd93b328a96300295ab46a61469b8
 			j = pile->a[i];
 	}
 	else if (w == 1)
 	{
+<<<<<<< HEAD
 		i = pile->bsize - 1;
 		if (pile->b[pile->bsize - 1] != smallest(pile, 1))
 			return (pile->b[pile->bsize - 1]);
 		j = pile->b[pile->bsize - 1];
 		while (i-- > 0 && j < pile->b[i] && j < biggest(pile, 0))
+=======
+		i = 0;
+		j = pile->b[0];
+		while (i++ < pile->bsize && j > pile->b[i] && j < smallest(pile, 0))
+>>>>>>> 97640848482fd93b328a96300295ab46a61469b8
 			j = pile->b[i];
 	}
 	return (j);
@@ -354,6 +394,7 @@ int		rang(piles *pile, int w, int nb)
 	}
 	return (i);
 }
+<<<<<<< HEAD
 
 int		issortedfrom(piles *pile, int w, int nb)
 {
@@ -430,3 +471,5 @@ int		mediumpivot(piles *pile, int w)
 	}
 	return (j);
 }
+=======
+>>>>>>> 97640848482fd93b328a96300295ab46a61469b8
