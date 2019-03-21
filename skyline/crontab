@@ -1,0 +1,3 @@
+0 4 * * 1 /etc/cron.d/packages.sh
+@reboot /etc/cron.d/packages.sh
+0 0 * * * /etc/cron.d/survey.sh
