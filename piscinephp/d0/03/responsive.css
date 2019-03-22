@@ -1,0 +1,204 @@
+		* {
+			box-sizing: border-box;
+		}
+		body {
+			background-size: 100% 100%;
+		}
+		td {
+			width: 5.5%;
+			height: 14.28%;
+			border: 2px solid grey;
+		}
+		#tableau {
+			width: 100%;
+			height: 100%;
+		}
+		tr {
+			border: 1px solid black;
+			width: 100%;
+		}
+		.gris {
+			background-color: grey;
+		}
+		.vert {
+			background-color: green;
+		}
+		.vert2 {
+			background-color:green;
+		}
+		.bleu {
+			background-color: deepskyblue;
+		}
+		.bleu2 {
+			background-color:cyan;
+			}
+		.orange {
+			background-color:orange;
+		}
+		.jaune {
+			background-color:yellow;
+		}
+		.marron {
+			background-color: peru;
+		}
+		.null {
+			border: 0px;
+		}
+		@media screen and (min-width: 1000px) {
+		.symb {
+			position: absolute;			
+			text-align: center;
+			font-style: bold;
+			margin-top: -2%;
+			margin-left: 1.5%;
+			font-size: 1.5em;
+			}
+		}
+		@media screen and (max-width: 800px) {
+		.symb {
+			position: absolute;			
+			text-align: center;
+			font-style: bold;
+			margin-top: -2%;
+			margin-left: 1.5%;
+			font-size: 1em;
+			}
+		}
+		@media screen and (max-width: 600px) {
+		.symb {
+			position: absolute;	
+			text-align: center;
+			font-style: bold;
+			margin-top: -2%;
+			margin-left: 1.5%;
+			font-size: 1.5em;
+			}
+		}
+
+		@media screen and (min-width: 1200px) {
+		.nom {
+			position: absolute;
+			margin-top: 0px;
+			margin-left: 0px;
+			font-size: 1em;
+			text-align: center;
+			}
+		}
+		@media screen and (max-width: 1200px) {
+		.nom {
+			font-size: 0em;
+			position: absolute;
+			margin-top: 0px;
+			margin-left: 0px;
+			text-align: center;
+			margin-top: 20px;
+			margin-left: 0px;
+			}
+		}
+		@media screen and (max-height: 700px) {
+		.nom {
+			font-size: 0em;
+			}
+		}
+		@media screen and (max-height: 600px) {
+		.symb {
+			margin-top: -1%;
+			}
+		}
+		@media screen and (min-height: 800px) {
+		.num {
+			position : absolute;
+			font-size: 0.7em;
+			text-align: left;
+			margin-top: 2%;
+			margin-left: 0%;
+			}
+		}
+		@media screen and (max-height: 800px) {
+		.num {
+			position: absolute;
+			font-size: 0.7em;
+			text-align: left;
+			margin-top: 1%;
+			margin-left: 0%;
+		}
+		}
+		@media screen and (min-height: 800px) {
+		.poids {
+			position: absolute;
+			margin-top: -3.5%;
+			margin-left: 2.8%;
+			text-align: right;
+			font-size: 0.8em;
+		}
+		}
+		@media screen and (max-width: 1000px) {
+		.poids {
+			position: absolute;
+			margin-top: -6.5%;
+			margin-left: 2%;
+			text-align: right;
+			font-size: 0.7em;
+		}
+		}
+		@media screen and (max-height: 800px) {
+		.poids {
+			position: absolute;
+			margin-top: -3%;
+			margin-left: 3%;
+			text-align: right;
+			font-size: 0.7em;
+		}
+		}
+		@media screen and (max-height: 650px) {
+		.poids {
+			margin-top: -2%;
+			margin-left: 3%;
+			}
+		}
+		@media screen and (max-height: 700px) and (max-width: 900px) {
+		.poids {
+			margin-top: -5%;
+			margin-left: 1.7%;
+			}
+		}
+		.extra1, .extra2 {
+			width: 100%;
+			height: 11%;
+			position : absolute;
+			margin-top: 30px;
+			background-color: peru;
+		}
+		.extra1 tr, .extra2 tr {
+			width: 100%;
+		}
+		.extra1 td, .extra2 td {
+			width: 5.5%;
+			height: 14.28%;
+			border: 2px solid grey;
+		}
+		.extra2 {
+			position : absolute;
+			margin-top: 120px;
+			background-color: peru;
+		}
+		.ast1, .ast2 {
+			width: 3%;
+			height: 14.28%;
+		}
+		.img {
+			border: 5px solid grey;
+			position:absolute;
+			margin-left: 16%;
+			margin-top: 2.5%;
+			width: 43%;
+			height: 38%;
+		}
+		@media screen and (max-width: 800px) {
+		.img {
+			margin-top: 5%;
+			}
+		}
+		hr {
+		border: 2px solid black;
+		}
