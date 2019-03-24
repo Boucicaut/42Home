@@ -1,0 +1,40 @@
+body {
+	background-color: #505050;
+}
+.header {
+	background-color: #909090;
+	margin-left: 120px;
+	margin-top: 18px;
+	height: 135px;
+	width: 1417px;
+	border: 1px solid black;
+	box-shadow: 10px 10px 5px black;
+	border-radius: 10px;
+}
+
+.header #day {
+	height: 88%;
+	margin-top: 10px;
+}
+.header #loupe {
+	position: relative;
+	float: right;
+	margin-top: 10px;
+	margin-right: 30px;
+}
+.header #close {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	float: right;
+	margin-top: 107px;
+	margin-left: 930px;
+}
+.header #reload {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	float: right;
+	margin-top: 5px;
+	margin-left: 930px;
+}
