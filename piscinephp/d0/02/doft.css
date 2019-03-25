@@ -38,3 +38,127 @@ body {
 	margin-top: 5px;
 	margin-left: 930px;
 }
+
+.left {
+	background-color: #909090;
+	position: relative;
+	height: 425px;
+	width: 140px;
+	float: left;
+/*	border: 1px solid black;*/
+	box-shadow: 10px 10px 5px black;
+	border-radius: 10px;
+	margin-top: 2px;
+	margin-left: 147px;
+}
+.left img {
+	width: 70px;
+	margin-left: 38px;
+}
+.left #oeil {
+	border: 5px solid red;
+	border-radius: 10px;
+}
+.left #arrow {
+	margin-top: 20px;
+}
+.left #main,#outil,#chat,#oeil {
+	margin-top: 10px;
+}
+
+.centerimg {
+	background-color: #909090;
+	width: 1020px;
+	height: 585px;
+	position: absolute;
+	margin-top: 2px;
+	margin-left: 320px;
+	border-radius: 10px;
+/*	border: 2px solid black;*/
+	box-shadow: 8px 8px 5px black;
+}
+.centerimg img {
+	padding-top: 10px;
+	padding-left: 10px;
+	width: 98%;
+	height: 97%;
+}
+
+.right {
+	height: 445px;
+	width: 143px;
+	background-color: #909090;
+	position: absolute;
+	float: right;
+	margin-top: 2px;
+	margin-left: 1370px;
+	box-shadow: 10px 10px 5px black;
+	border-radius: 10px;
+}
+.right #book{
+	width: 55px;
+	height: 87px;
+	margin-top: 20px;
+	margin-left: 47px;
+}
+.right #towel {
+	width: 78px;
+	margin-top: 26px;
+	margin-left: 39px;
+}
+.right #brick {
+	background: repeat url('resources/brick.jpg');
+	width: 120px;
+	height: 70px;
+	margin-top: 20px;
+	margin-left: 12px;
+}
+
+.popup {
+	position: relative;
+	background-color: #88FF89;
+	float: left;
+	width: 515px;
+	height: 170px;
+	font-family: times;
+	margin-top: 497px;
+	margin-left: -209px;
+	border-radius: 10px;
+	box-shadow: 10px 10px 5px black;
+	padding-left: 10px;
+}
+.popup p {
+	margin-top: 0px;
+	margin-left: 0px;
+	font-size: 20px;
+}
+.popup #spacing {
+	font-size: 22px;
+}
+.popup #entrez {
+	font-size: 37px;
+}
+.popup #ordinateurs {
+	text-shadow: 7px 7px 5px rgba(255, 75, 50, 1);
+}
+.popup .italic {
+	margin-top: -22px;
+	font-style: italic;
+}
+.popup .texte {
+	width: 380px;
+	margin-top: -20px;
+}
+.popup .submit {
+	background-color: #F5F7F6;
+	border-radius: 1px;
+	position: absolute;
+	height: 20px;
+	width: 80px;
+	margin-top: -20px;
+	margin-left: 5px;
+	letter-spacing: 1.4px;
+	border: 1px solid #A8A4A5;
+	font-size: 13px;
+	background: linear-gradient(to bottom, #f5f7f6 1%,#e2e2e2 100%);
+}
