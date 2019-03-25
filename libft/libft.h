@@ -27,6 +27,8 @@ typedef	struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+char				*ft_strrev(char *str);
+void				printbits(void *ptr, int size);
 unsigned long long	convunsigned(long long int nb);
 void				hexatoupper(char *res, char mode);
 int					convsignchar(int vl, int mode);

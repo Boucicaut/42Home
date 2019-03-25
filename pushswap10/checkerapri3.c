@@ -87,6 +87,7 @@ int		quicksort2(piles *pile)
 	while (pile->bsize && !issorted(pile, 1))
 	{
 printtab(pile);
+printtabslowmo(pile);
 		if (!issorted(pile, 1) && pile->bsize < 15)
 			nb += petittrib(pile);
 		pivot = mediumpivot(pile, 1);
@@ -106,7 +107,7 @@ getchar();
 			rotateb(pile);
 getchar();
 		}
-		//nb += swapornot(pile, 1);
+		nb += swapornot(pile, 1);
 	}
 printtab(pile);
 	return (nb);

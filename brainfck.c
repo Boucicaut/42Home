@@ -52,32 +52,64 @@ void	brainfuck(char *str, char *ptr, int k)
 			printf("%c", (char)*(ptr));
 		else if (str[i] == '[')
 		{
-			if (*ptr == 0)
-				while (str[i] != ']' && k != 0)
+			k = 0;
+			if ((char)*ptr == (char)0)
+			{
+				i++;
+				while (str[i] && str[i] != ']' && k != 0)
 				{
 					if (str[i] == '[')
 						k++;
-					if (str[i] == ']')
+					if (str[i] == ']' && k != 0)
 						k--;
 					i++;
 				}
+				i++;
+			}
 		}
-		else if (str[i] == ']')
+		if (str[i] == ']')
 		{
-			if (*ptr != 0)
-				while (str[i] != '[' && k != 0)
-				{
-					if (str[i] == ']')
-						k++;
-					if (str[i] == '[')
-						k--;
-					i--;
-				}
+			k = 0;
+			i--;
+			while (i > 0 && str[i] != '[' && k == 0)
+			{
+				if (str[i] == ']')
+					k++;
+				if (str[i] == '[' && k != 0)
+					k--;
+				i--;
+			}
+			i--;
 		}
 		i++;
 	}
-	(void)k;
 	return ;
+}
+#include <string.h>
+#include <unistd.h>
+void	ft_brainfuck(char *str)
+{
+	int		i;
+	char	*ptr;
+
+	i = 0;
+	ptr = (char*)malloc(sizeof(ptr) * 2048);
+	while (str[i] != 0)
+	{
+		*ptr += str[i] == '+' ? 1 : 0;
+		*ptr -= str[i] == '-' ? 1 : 0;
+		ptr += str[i] == '>' ? 1 : 0;
+		ptr -= str[i] == '<' ? 1 : 0;
+		if (str[i] == '[' && *ptr == 0)
+			while (str[i] != ']')
+				i++;
+		if (str[i] == ']' && *ptr != 0)
+			while (str[i] != '[')
+				i--;
+		if (str[i] == '.')
+			write(1, ptr, 1);
+		i++;
+	}
 }
 
 int	main(int argc, char **argv)
@@ -86,8 +118,11 @@ int	main(int argc, char **argv)
 
 	if (!(ptr = (char*)malloc(2048)))
 		return (0);
+	ptr = memset(ptr, 0, 2048);
 	if (argc < 2)
 		return (0);
+	ft_brainfuck(argv[1]);
+getchar();
 	brainfuck(argv[1], ptr, 0);
 	free(ptr);
 	return (0);
