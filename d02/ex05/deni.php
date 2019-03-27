@@ -11,15 +11,12 @@
 
     $array = $line[0];
     unset($line[0]);
-    foreach ($array as $k => $item)
-        $array[$k] = trim($item);
 
     if (($index = array_search($argv[2], $array)) === false)
         exit();
 
 	foreach ($array as $k => $item)
 	{
-		$tmp = array();
 		foreach ($line as $j)
 		{
 			if (isset($j[$index]))
