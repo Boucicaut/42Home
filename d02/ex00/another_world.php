@@ -1,5 +1,8 @@
 #!/usr/bin/php
 <?php
-    if ($argc < 2)
-        exit();
-    echo trim(preg_replace("/[ \t\r]+/", " ", $argv[1]))."\n";
+	if ($argc < 2)
+		exit();
+	$arg = preg_replace('/[" ",\t]+/',' ',$argv[1]);
+	$arg = preg_replace('/(^[" ",\t])|([" ",\t]+$)/','',$arg);
+	echo "$arg\n";
+?>

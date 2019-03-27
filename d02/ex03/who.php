@@ -1,18 +1,21 @@
 #!/usr/bin/php
 <?php
-    date_default_timezone_set('Europe/Paris');
-    $file = fopen("/var/run/utmpx", "r");
-    while ($utmpx = fread($file, 628)){
-        $unpack = unpack("a256a/a4b/a32c/id/ie/I2f/a256g/i16h", $utmpx);
-        $array[$unpack['c']] = $unpack;
-    }
-    ksort($array);
-    foreach ($array as $v){
-        if ($v['e'] == 7) {
-            echo str_pad(substr(trim($v['a']), 0, 8), 8, " ")." ";
-            echo str_pad(substr(trim($v['c']), 0, 8), 8, " ")." ";
-            echo date("M", $v["f1"]);
-            echo str_pad(date("j", $v["f1"]), 3, " ", STR_PAD_LEFT)." ".date("H:i", $v["f1"]);
-            echo "\n";
-        }
-    }
+	date_default_timezone_set("Europe/Paris");
+	$filename = "/var/run/utmpx";
+	$file = fopen($filename, 'r');
+
+	while ($line = fread($file, 628))
+	{
+		$tmp = unpack("a256a/a4b/a32c/id/ie/If", $line);
+		$array[$tmp['c']] = $tmp;
+	}
+	ksort($array);
+	foreach($array as $j => $item)
+	{
+		if ($item['e'] == 7)
+		{
+			echo ($item['a']." ".$item['c']."  ");
+			echo (date("M d H:i", $item['f']))."\n";
+		}
+	}
+?>
