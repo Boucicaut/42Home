@@ -15,7 +15,7 @@
 			font-size: 2em;
 			text-align: center;
 			margin: auto;
-			padding-top: 10%;
+			padding-top: 5%;
 		}
 		.enter {
 			width: 80%;
@@ -36,11 +36,13 @@
 	</style>
 </head>
 <body>
-	<form method="POST" action="create.php">
+	<form method="POST" action="modif.php">
 		<p>Login :</p>
-		<input class="enter" type="text" name="login" value="">
-		<p>Password :</p>
-		<input class="enter" type="password" name="passwd">
+		<input class="enter" type="text" name="login">
+		<p>Old Password :</p>
+		<input class="enter" type="password" name="oldpw">
+		<p>New Password :</p>
+		<input class="enter" type="password" name="newpw">
 		<input class="sub" type="submit" name="submit" value="OK">
 	</form>
 </body>
