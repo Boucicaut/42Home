@@ -1,0 +1,39 @@
+-------------------------------------------------------------> Doc class Color
+class Color
+Une classe qui gere les couleurs avec au format RGB.
+
+_________________________________________
+
+Attribut verbose pour activer/desactiver l'output.
+Pour l'activer : Color::$verbose = True
+Pour le desactiver : Color::$verbose = False
+
+__________________________________________
+
+Argument valide :
+	array (
+		red=>[red]
+		green=[green]
+		blue=[blue]
+	}
+	OU
+	array ( 
+		'rgb' => (([red] << 16) + ([green] << 8) + [red]) 
+	)
+
+Attention a la validite des arguments passes !!! Des valeurs negatives ou errones engendront un comportement indefini
+_________________________________________
+
+Vous pouvez utilisez les methodes suivantes :
+add($Color) : additionne les valeurs RGB de l'instance courante avec l'instance passee en parametr
+sub($Color) : soustraie les valeurs RGB de l'instance courante avec l'instance passee en parametre
+mult($produit) : multiplie les valeurs RGB de l'instance courante avec le produit passe en parametre
+	Chacune de ces methodes retourne une nouvelle instance Color
+_________________________________________
+
+Methode __ToString()
+	Utile au debuggage
+
+Si l'attribut statique $Verbose = True affiche l'etat (red, green, blue) de l'objet 
+
+<------------------------------------------------------------------------------
