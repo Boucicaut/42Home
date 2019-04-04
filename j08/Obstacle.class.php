@@ -1,24 +1,19 @@
 <?php
-include_once 'Littleobstacle.class.php';
-include_once 'Bigobstacle.class.php';
-abstract Class obstacle
+include_once 'Iobstacle.class.php';
+include_once 'TgetAttacked.class.php';
+Class obstacle implements obstacle_interface
 {
-	public $x;
-	public $y;
-	public $x_l;
-	public $y_l;
+	use getAttacked;
+
+	public $pos;
 	public $pdv;
 
-	public function __Construct($args)
+	public function __Construct($pos, $pdv)
 	{
-		$this->x = $args['x'];
-		$this->y = $args['y'];
-		$this->x_l = $args['x_l'];
-		$this->y_l = $args['y_l'];
-		$this->pdv = $args['pdv'];
+		$this->pos = $pos;
+		$this->pdv = $pdv;
 	}
-	abstract public function getAttacked($arg);
-	final public function getPDV()
+	final public function getpdv()
 	{
 		return $this->pdv;
 	}
