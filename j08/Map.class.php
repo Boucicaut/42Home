@@ -84,5 +84,26 @@ Class	Map
 		}
 		echo "</span>";
 	}
+	public function __ToString()
+	{
+		for ($i = 0; $i < 100; $i++)
+			{
+				for ($j = 0; $j < 150; $j++)
+					echo ($this->map[$i][$j] . " ");
+			}
+		}
+	/*public function __get($name)
+	{
+		return ($this->$name);
+	}
+	public function __set($name, $value)
+	{
+		echo "You cant set $name";
+	}*/
+	public function doc()
+	{
+		$file = $file_get_contents("map.doc.txt");
+		echo $file;
+	}
 }
 ?>
