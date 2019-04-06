@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+	<form id="form">
+	<input type="text" id="gauche">
+	<select id ="ope">
+		<option value='add'>+</option>
+		<option value='sub'>-</option>
+		<option value='mul'>*</option>
+		<option value='div'>/</option>
+		<option value='mod'>%</option>
+	</select>
+	<input type="text" id="droite">
+	<input id="submit" type="submit" value="Try me!">
+	</form>
+	<script>
+		var sub = document.getElementById("form");
+		setInterval(function(){ alert("Please, use me..."); }, 30000);
+		sub.addEventListener("submit", submit);
+		//sub.onclick = submit;
+		function submit()
+		{
+			event.preventDefault();
+			var select = document.getElementById("ope").selectedIndex;
+			var option = document.getElementById("ope").options;
+			var ope = option[select].text;
+			var gauche = document.getElementById("gauche").value;
+			var droite = document.getElementById("droite").value;
+			if (!gauche || !droite)
+				alert("Error :(");
+			else
+			{
+				var res;
+				//droite = parseInt(droite, 10);
+				//gauche = parseInt(gauche, 10);
+				droite = Number(droite);
+				gauche = Number(gauche);
+				if (droite < 0 || gauche < 0)
+					alert("Error :(");
+				else if (ope == "+")
+				{
+					res = gauche + droite;
+					console.log(res);
+					alert(res);
+				}
+				else if (ope == "-")
+				{
+					res = gauche - droite;
+					console.log(res);
+					alert(res);
+				}
+				else if (ope == "*")
+				{
+					res = gauche * droite;
+					console.log(res);
+					alert(res);
+				}
+				else if (ope == "/")
+				{
+					if (droite == 0)
+					{
+						alert("It's over 9000!");
+						console.log("It's over 9000!");
+					}
+					else
+					{
+						res = gauche / droite;
+						console.log(res);
+						alert(res);
+					}
+				}
+				else if (ope == "%")
+				{
+					if (droite == 0)
+					{
+						alert("It's over 9000!");
+						console.log("It's over 9000!");
+					}
+					else
+					{
+						res = gauche % droite;
+						console.log(res);
+						alert(res);
+					}
+				}
+			}
+		}
+	</script>
+</body>
+</html>
