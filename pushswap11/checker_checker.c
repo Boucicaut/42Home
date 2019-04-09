@@ -1,4 +1,4 @@
-#include <pushswap.h>
+#include "pushswap.h"
 
 int		validargs(int argc, char **argv)
 {

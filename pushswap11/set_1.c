@@ -69,9 +69,19 @@ printf("sa\n");
 int	swapab(piles *pile)
 {
 /*ss : sa et sb en même temps.*/
-//printf("ss\n");
-	swapb(pile);
-	swapa(pile);
+	int	tmp;
+printf("ss\n");
+	if (pile->asize < 2)
+		return (1);
+	tmp = pile->a[0];
+	pile->a[0] = pile->a[1];
+	pile->a[1] = tmp;
+
+	if (pile->bsize < 2)
+		return (1);
+	tmp = pile->b[0];
+	pile->b[0] = pile->b[1];
+	pile->b[1] = tmp;
 	return (0);
 }
 int	pusha(piles *pile)
@@ -130,10 +140,22 @@ printf("rrb\n");
 }
 int	revrotateab(piles *pile)
 {
+	int	i;
+	int	tmp;
 /*rrr : rra et rrb en même temps.*/
-//printf("rrr\n");
-	revrotatea(pile);
-	revrotateb(pile);
+printf("rrr\n");
+	tmp = pile->a[pile->asize - 1];
+	i = pile->asize - 1;
+	while (i-- > 0)
+		pile->a[i + 1] = pile->a[i];
+	pile->a[0] = tmp;
+
+
+	tmp = pile->b[pile->bsize - 1];
+	i = pile->bsize - 1;
+	while (i-- > 0)
+		pile->b[i + 1] = pile->b[i];
+	pile->b[0] = tmp;
 	return (0);
 }
 int	rotatea(piles *pile)
@@ -169,9 +191,25 @@ printf("rb\n");
 int	rotateab(piles *pile)
 {
 /*rr : ra et rb en même temps.*/
+	int	i;
+	int	tmp;
+
 printf("rr\n");
-	rotatea(pile);
-	rotateb(pile);
+	tmp = pile->a[0];
+	i = 0;
+	while (++i < pile->asize)
+	{
+		pile->a[i - 1] = pile->a[i];
+	}
+	pile->a[i - 1] = tmp;
+
+	tmp = pile->b[0];
+	i = 0;
+	while (++i < pile->bsize)
+	{
+		pile->b[i - 1] = pile->b[i];
+	}
+	pile->b[i - 1] = tmp;
 	return (0);
 }
 
@@ -408,58 +446,6 @@ int		biggestafter(piles *pile, int w, int nb)
 			if (pile->b[i] > nb && pile->b[i] < j)
 				j = pile->b[i];
 		}
-	}
-	return (j);
-}
-
-int		mediumpivot(piles *pile, int w)
-{
-	int	i;
-	int	j;
-	int	bigsort;
-
-	j = smallest(pile, 0);
-	if (w == 0)
-	{
-		if (pile->a[pile->asize - 1] == biggest(pile, 0))
-		{
-			bigsort = (rang(pile, 0, biggestsorted(pile, 0)) / 2);
-			j = biggestsorted(pile, 0);
-		}
-		else
-		{
-			bigsort = pile->asize / 2;
-			j = biggest(pile, 0);
-		}
-		i = 0;
-		while (i++ < bigsort)
-		{
-			j = biggestafter(pile, 0, j);
-	printf("i %d   j %d   bigsort %d\n", i, j, bigsort);
-		}
-		return (j);
-	}
-
-	else if (w == 1)
-	{
-		if (pile->b[pile->bsize - 1] == smallest(pile, 1))
-		{
-			bigsort = (rang(pile, 1, biggestsorted(pile, 1)) / 3);
-			j = biggestsorted(pile, 1);
-		}
-		else
-		{
-			bigsort = pile->bsize / 3;
-			j = smallest(pile, 1);
-		}
-printf("Bigsort %d || J %d\n", bigsort, j);	
-			//getchar();
-		i = 0;
-		while (i++ < bigsort)
-			j = biggestafter(pile, 1, j);
-		printf("j %d\n", j);
-//		getchar();
-		return (j);
 	}
 	return (j);
 }

@@ -5,20 +5,21 @@ int	printtab(piles *pile)
 	int	i;
 	int	j;
 
-	j = 0;
-	i = 0;
+	j = pile->bsize - 1;
+	i = pile->asize - 1;
 //printf("Size :\t\t\t\t\t\t a %d  b %d\n", pile->asize, pile->bsize);
 	printf("\t\t    |A|\t\t\t|B|\n");
-	while (i < pile->asize || j < pile->bsize)
+	//while (i < pile->asize || j < pile->bsize)
+	while (i >= 0 || j >= 0)
 	{
-		if (j < pile->bsize && i < pile->asize)
-	printf("\t[%2d] :\t ||  %2d  ||\t\t||  %2d  ||\n", i, pile->a[i], pile->b[i]);
-		else if (i < pile->asize)
+		if (j >= 0 && i >= 0)
+	printf("\t[%2d] :\t ||  %2d  ||\t\t||  %2d  ||\n", i, pile->a[i], pile->b[j]);
+		else if (i >= 0)
 	printf("\t[%2d] :\t ||  %2d  ||\n", i, pile->a[i]);
-		else if (j < pile->bsize)
-	printf("\t[%2d] :\t\t\t\t||  %2d  ||\n", i, pile->b[i]);
-		i++;
-		j++;
+		else if (j >= 0)
+	printf("\t[%2d] :\t\t\t\t||  %2d  ||\n", j, pile->b[j]);
+		i--;
+		j--;
 	}
 	return (0);
 }

@@ -15,26 +15,26 @@ typedef struct	piles
 	int	bsize;
 }	piles;
 
-int	intermediaire(piles *pile);
+char	*strrealloc(char *str, char *new);
+
+char	*intermediaire(piles *pile, char *ins);
 
 int	testk(piles *pile, int w, int nb);
-int	gestionrecursive(piles *pile);
+char	*gestionrecursive(piles *pile, char *ins);
 
-int	swapornot(piles *pile, int i);
+char *swapornot(piles *pile, int i, char *ins);
 
 int	issortedfrom(piles *pile, int w, int nb);
 int	isperfectsortedfrom(piles *pile, int w, int nb);
 
-int	petittria(piles *pile);
-int	petittrib(piles *pile);
+char	*petittria(piles *pile, char *ins);
+char	*petittrib(piles *pile, char *ins);
 
 int	mediumpivot(piles *pile, int w);
 int	randompivot(piles *pile, int w);
 int	canbesortedb(piles *pile);
 int	canbesorteda(piles *pile);
 int	canbesorted(piles *pile, int w);
-int	petittria(piles *pile);
-int	petittrib(piles *pile);
 
 int	randompivot(piles *pile, int w);
 int	canbesortedb(piles *pile);
@@ -45,8 +45,12 @@ int	pivotb(piles *pile);
 int	rang(piles *pile, int w, int nb);
 int	rangbiggest(piles *pile, int w);
 int	insertionsort(piles *pile);
-int	quicksort(piles *pile, int pivot);
-int	quicksort2(piles *pile);
+
+
+char	*quicksort(piles *pile, int pivot, char *ins);
+char	*quicksort2(piles *pile, char *ins);
+
+
 int	quicksort3(piles *pile, int pivot);
 int	smallestsorted(piles *pile, int w);
 int	biggestafter(piles *pile, int w, int pivot);

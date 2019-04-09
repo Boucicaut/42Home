@@ -9,41 +9,14 @@ int	main(int argc, char **argv)
 	i = 0;
 	j = 0;
 	pile = inittabs(argc, argv, 1);
-
 	issorted(pile, 0);
-	printtab(pile);
 
-
-	printf("LstA\n");
-	printf("----  %d -----\n\n", gestionrecursive(pile));
-
+	printf("----- %d ----\n", gestionrecursive(pile));
 	free(pile);
 	return (0);
 }
 
-int		issortedtopivot(piles *pile, int w)
-{
-	int	i;
-	int	pivot;
-	int	j;
-
-	if (w == 0)
-	{
-		pivot = pile->a[pile->asize - 1];
-		j = pile->a[pile->asize - 1];
-		i = pile->asize;
-		while (i > 0 && pile->a[i - 1] != biggestsorted(pile, 0))
-		{
-			i--;
-			if (pile->a[i] > j)
-				return (0);
-			j = pile->a[i];
-		}
-	}
-	return (1);
-}
-
-int		gestionrecursive(piles *pile)
+int	gestionrecursive(piles *pile)
 {
 	int	nb;
 
@@ -51,32 +24,22 @@ int		gestionrecursive(piles *pile)
 	/* Gestion recursivite*/
 	while (!issorted(pile, 0) || !issorted(pile, 1))
 	{
-		printtab(pile);
-		printf("Sorted? %d %d\n", issorted(pile, 0), issorted(pile, 1));
-
 		while (issorted(pile, 0) == 0)
-			nb += quicksort(pile, mediumpivot(pile, 0), 1);
-printf("\n\nNb after quicksortA : %d\n", nb);
-//getchar();
-		nb += intermediaire(pile);
-printtab(pile);
-printf("\n\nNb after inter : %d\n", nb);
-//getchar();
-
+			nb += quicksort(pile, mediumpivot(pile, 0));
 		if (!issorted(pile, 0) || !issorted(pile, 1))
 			nb += quicksort2(pile);
-printf("\n\nNb after quicksortB : %d\n", nb);
-//getchar();
-
-		printtab(pile);
-		printf("Sorted? %d %d\n", issorted(pile, 0), issorted(pile, 1));
+		//nb += intermediaire(pile);
+printtab(pile);
+printf("BiggestSorted :   %d -- %d\n", biggestsorted(pile, 0), biggestsorted(pile, 1));
+printf("Rang          :   %d -- %d\n", rang(pile, 0,biggestsorted(pile, 0)), rang(pile,1,biggestsorted(pile, 1)));
+getchar();
 	}
 	while (pile->bsize)
 	{
 		nb++;
 		pusha(pile);
 	}
-	printtab(pile);
+//printtab(pile);
 	return (nb);
 }
 
@@ -87,14 +50,12 @@ int		intermediaire(piles *pile)
 	nb = 0;
 	while (issorted(pile, 0) && ((pile->bsize && pile->b[0] == biggest(pile, 1)) || (pile->bsize > 1 && pile->b[1] == biggest(pile, 1))))
 	{
-		if (pile->bsize > 1 && pile->b[1] == biggest(pile, 1))
+		nb += swapornot(pile, 1);
+		if (pile->b[0] == biggest(pile, 1))
 		{
-			swapb(pile);
+			pusha(pile);
 			nb++;
 		}
-		pusha(pile);
-		printf("Bsize %d\n", pile->bsize);
-		nb++;
 	}
 	return (nb);
 }
@@ -104,120 +65,100 @@ int		quicksort2(piles *pile)
 	int	pivot;
 	int	i;
 	int	nb;
-	int	k;
 
-	
 	nb = 0;
 	i = -1;
-if (pile->bsize < 30)
-	nb += petittrib(pile);	// TESTER PETIT TRI ***
-	printf("Biggsort : %d   Smallsort : %d\n\n", biggestsorted(pile, 0), smallestsorted(pile, 0));
 	//pivot = pivotb(pile);
 	pivot = mediumpivot(pile, 1);
-	k = biggestsorted(pile, 1);
-printf("FIRST Pivot2 : %d || K : %d\n", pivot, k);
-	while (biggest(pile, 1) > pivot && pile->bsize && !issorted(pile, 1))
-	{
+	if (pile->bsize < 20 && pile->asize + pile->bsize < 200)
+		nb += petittrib(pile);
+	if (pile->bsize < 10)// && pile->asize + pile->bsize < 200)
+		nb += petittrib(pile);
 printtab(pile);
-printf("Pivot2 : %d || K : %d\n", pivot, k);
-//getchar();
+printf("PivotB : %d\n", pivot);
+getchar();
+	while (biggest(pile, 1) >= pivot && pile->bsize && !issorted(pile, 1))
+	{
 		if (!issorted(pile, 1) && biggest(pile, 1) >= pivot && pile->b[0] == pivot)
 		{
 			nb += 2;
 			pusha(pile);
-			rotatea(pile); // opti ici avec rotateab(pile);
-			//getchar();
+			if (pile->b[0] < pivot)
+				rotateab(pile);
+			else
+				rotatea(pile);
 		}
 		if (!issorted(pile, 1) && biggest(pile, 1) >= pivot && pile->b[0] > pivot)
 		{
-			//if (issorted(pile, 1) && pile->b[0] > smallest(pile, 0))
-			//	return (nb);
 			nb++;
 			pusha(pile);
-			printtab(pile);
-			//getchar();
 		}
 		if (!issorted(pile, 1) && biggest(pile, 1) >= pivot && pile->b[0] < pivot)
 		{
 			nb++;
 			rotateb(pile);
-			printtab(pile);
-			//getchar();
 		}
 		nb += swapornot(pile, 1);
-		printtab(pile);
 	}
+printtab(pile);
 	if (pivot == pile->a[pile->asize - 1])
 	{
 		nb++;
 		revrotatea(pile);
-		printtab(pile);
-	printf("ON REPLACE PIVOT2 AU TOP DE A\n\n");
-		//getchar();
 	}
-	printtab(pile);
 	return (nb);
 }
 
-int		quicksort(piles *pile, int pivot, int sens)
+int		quicksort(piles *pile, int pivot)
 {
 	int	nb;
-	int	k;
 
 	nb = 0;
-	k = 0;
-
-	if (pile->asize < 55)
-		nb += petittria(pile);
-	k = testk(pile, 0, pivot);
-	k = biggestsorted(pile, 0);
 	pivot = mediumpivot(pile, 0);
-printtab(pile);
-printf("FIRSTPivot : %d || K : %d\n", pivot, k);
+	if (pile->asize < 30 && pile->asize + pile->bsize < 200)
+	{
+		//getchar();
+		nb += petittria(pile);
+	}
+	else if (pile->asize < 10)// && pile->asize + pile->bsize < 200)
+		nb += petittria(pile);
 	while (!issorted(pile, 0) && smallest(pile, 0) <= pivot)
 	{
-		printtab(pile);
-printf("Pivot : %d || K : %d\n", pivot, k);
+//printtab(pile);
+printf("PivotA : %d\n", pivot);
 //getchar();
+		nb += swapornot(pile, 1);
 		if (!issorted(pile, 0) && smallest(pile, 0) <= pivot && pile->a[0] == pivot)
 		{
 			nb += 2;
 			pushb(pile);
 			rotateb(pile);
-			printtab(pile);
-			//getchar();
 		}
 		if (!issorted(pile, 0) && smallest(pile, 0) <= pivot && pile->a[0] < pivot)
 		{
 			nb++;
 			pushb(pile);
-			printtab(pile);
-			//getchar();
 		}
 		if (!issorted(pile, 0) && smallest(pile, 0) <= pivot && pile->a[0] > pivot)
 		{
 			nb++;
 			rotatea(pile);
-			printtab(pile);
-			//getchar();
 		}
-		printtab(pile);
-		nb += swapornot(pile, 1);
-		//getchar();
 	}
 	if (pile->b[pile->bsize - 1] == pivot)
 	{
-		nb++;
+		nb += swapornot(pile, 1);
 		revrotateb(pile);
+		nb++;
 	}
 	while (pile->a[pile->asize - 1] != biggest(pile, 0))
 	{
-		nb += swapornot(pile, 1);
-		revrotatea(pile);
+		if (rang(pile, 0, biggest(pile, 0)) <= pile->asize / 2)
+			rotatea(pile);
+		else
+			revrotatea(pile);
 		nb++;
 	}
-(void)sens;
-	printtab(pile);
 	return (nb);
 }
 
@@ -260,7 +201,7 @@ int		pivotb(piles *pile)
 	int	smaa;
 	int	j;
 
-	printtab(pile);
+	//printtab(pile);
 	//getchar();
 	i = 0;
 	smaa = smallest(pile, 0);
@@ -291,8 +232,9 @@ int		petittria(piles *pile)
 	i = pile->asize - 1;
 	while (!issorted(pile, 0))
 	{
-		printtab(pile);
-printf("Issorted triiA ? %d\n", issorted(pile, 0));
+//printtab(pile);
+//getchar();
+		nb += swapornot(pile, 1);
 		if (!issorted(pile, 0) && pile->a[0] == smallest(pile, 0))
 		{
 			pushb(pile);
@@ -306,42 +248,29 @@ printf("Issorted triiA ? %d\n", issorted(pile, 0));
 			else
 				revrotatea(pile);
 		}
-		printtab(pile);
-printf("While petittri A\n");
 	}
-	printtab(pile);
 	return (nb);
 }
 
 int		petittrib(piles *pile)
 {
-	int	big;
 	int	i;
 	int	nb;
 
 	nb = 0;
 	i = pile->bsize - 1;
-	big = biggest(pile, 1);
-	while (!issorted(pile, 1))
+	while (pile->b[0] != biggest(pile, 1))
 	{
-		printtab(pile);
-		//getchar();
-		if (pile->b[0] == biggest(pile, 1))
-		{
-			pusha(pile);
-			nb++;
-		}
-		if (!issorted(pile, 1))
-		{
-			nb++;
-			if (rang(pile, 1, smallest(pile, 1)) < pile->bsize / 2)
-				rotateb(pile);
-			else
-				revrotateb(pile);
-		}
-printf("While petittri B\n");
+//printtab(pile);
+//getchar();
+		if (rang(pile, 1, biggest(pile, 1)) < pile->bsize / 2)
+			rotateb(pile);
+		else
+			revrotateb(pile);
+		nb++;
 	}
-	printtab(pile);
+	pusha(pile);
+	nb++;
 	return (nb);
 }
 
@@ -350,12 +279,67 @@ int		swapornot(piles *pile, int i)
 	if ((pile->a[0] > pile->a[1] || pile->b[0] < pile->b[1]))
 	{
 		if (pile->a[0] > pile->a[1] && pile->b[0] < pile->b[1])
+		{
 			swapab(pile);
+		}
 		else if (i && pile->a[0] > pile->a[1])
+		{
 			swapa(pile);
+		}
 		else if (i && pile->b[0] < pile->b[1])
+		{
 			swapb(pile);
+		}
 		return (1);
 	}
 	return (0);
+}
+
+int		mediumpivot(piles *pile, int w)
+{
+	int	i;
+	int	j;
+	int	bigsort;
+
+	j = smallest(pile, 0);
+	if (w == 0)
+	{
+		if (pile->a[pile->asize - 1] == biggest(pile, 0))
+		{
+			bigsort = (rang(pile, 0, biggestsorted(pile, 0)) / 1.4);
+			//bigsort = (rang(pile, 0, biggestsorted(pile, 0)) / 1.3);
+			j = biggestsorted(pile, 0);
+		}
+		else
+		{
+			bigsort = pile->asize / 2;
+			j = biggest(pile, 0);
+		}
+		i = 0;
+		while (i++ < bigsort)
+		{
+			j = biggestafter(pile, 0, j);
+		}
+		return (j);
+	}
+
+	else if (w == 1)
+	{
+		if (pile->b[pile->bsize - 1] == smallest(pile, 1))
+		{
+			bigsort = (rang(pile, 1, biggestsorted(pile, 1)) / 1.5);
+			//bigsort = (rang(pile, 1, biggestsorted(pile, 1)) / 1.7);
+			j = biggestsorted(pile, 1);
+		}
+		else
+		{
+			bigsort = pile->bsize / 1.6;
+			j = smallest(pile, 1);
+		}
+		i = 0;
+		while (i++ < bigsort)
+			j = biggestafter(pile, 1, j);
+		return (j);
+	}
+	return (j);
 }
