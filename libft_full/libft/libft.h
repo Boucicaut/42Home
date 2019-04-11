@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 16:07:12 by bviollet          #+#    #+#             */
-/*   Updated: 2019/02/13 19:54:27 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/04/11 19:54:05 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,23 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <stdarg.h>
+# define MAXPOURCENT 12
+# define CBLA "\e[30m"
+# define CRED "\e[31m"
+# define CGRE "\e[32m"
+# define CYEL "\e[33m"
+# define CBLU "\e[34m"
+# define CPIN "\e[35m"
+# define CCYA "\e[36m"
+# define CWHI "\e[37m"
+# define CDEF "\e[0m"
+
+typedef struct		s_matchpat
+{
+	char			pattern;
+	int				(*f)(va_list args, char *str, int *lim, int *i);
+}					t_matchpat;
 
 typedef	struct		s_list
 {
@@ -105,26 +122,6 @@ void				ft_lstdel(t_list **alst, void(*del)(void *, size_t));
 void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstiter(t_list *lst, void(*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
-
-
-# include <stdarg.h>
-# define MAXPOURCENT 12
-# define CBLA "\e[30m"
-# define CRED "\e[31m"
-# define CGRE "\e[32m"
-# define CYEL "\e[33m"
-# define CBLU "\e[34m"
-# define CPIN "\e[35m"
-# define CCYA "\e[36m"
-# define CWHI "\e[37m"
-# define CDEF "\e[0m"
-
-typedef struct		s_matchpat
-{
-	char			pattern;
-	int				(*f)(va_list args, char *str, int *lim, int *i);
-}					t_matchpat;
-
 char				*setupresa(char *res, int *lim, int *hh);
 int					*setuphha(int *hh, int *lim, long double vl);
 int					printbeforea(char *str, int i, int *lim, int qted);

@@ -17,8 +17,9 @@ LIBFT_FILES = ft_tento.c ft_putbignbr.c ft_qtebignb.c ft_convertbase.c ft_bigito
 		 ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_lstnew.c \
 		 ft_lstdelone.c ft_lstdel.c ft_lstadd.c ft_lstiter.c ft_lstmap.c ft_findreplace.c \
 		 ft_freeptr.c ft_freestr.c ft_swap.c ft_runthrough.c get_next_line.c hexatoupper.c\
-		 convunsigned.c ft_printf.c pourcentd.c pourcentf.c pourcento.c pourcentp.c setlim.c initmatchpat.c\
-			pourcentu.c pourcentx.c roundf.c setflaglim.c pourcentb.c colors.c pourcenta.c\
+		 convunsigned.c ft_printf.c pourcentd.c pourcentf.c pourcento.c pourcentp.c setlim.c\
+		 initmatchpat.c pourcentu.c pourcentx.c roundf.c setflaglim.c pourcentb.c colors.c\
+		 pourcenta.c
 
 # Objects
 OBJ = $(LIBFT_FILES:.c=.o)
@@ -29,17 +30,16 @@ CC = gcc
 
 all: $(NAME)
 
-%.o: %.c
-		$(CC) $(FLAGS) -o %.c -c $<
-
 $(NAME): $(OBJ)
-	gcc -c -g $(FLAGS) $(LIBFT_FILES)
 	ar rc $(NAME) $(OBJ)
 	ranlib $(NAME)
 # echo "=====[$(NAME) generated!]====="
 
+%.o : %.c
+		$(CC) $(FLAGS) -o $@ -c $<
+
 clean:
-	rm -f *.o
+	rm -f $(OBJ)
 
 fclean: clean
 	rm -f $(NAME)

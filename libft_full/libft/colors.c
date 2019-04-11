@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 20:31:49 by bviollet          #+#    #+#             */
-/*   Updated: 2019/02/11 19:28:24 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/04/11 19:55:25 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int		*qtenbfors(int *qtenb, char c, int *lim)
 
 int		skipifcolor(char *str, int i)
 {
-//printf("STR: %s\n", str + i);
 	if (ft_strncmp(str + i, "{black}", 7) == 0)
 		return (i + 7);
 	if (ft_strncmp(str + i, "{red}", 5) == 0)
@@ -44,7 +43,6 @@ int		skipifcolor(char *str, int i)
 		return (i + 9);
 	if (ft_strncmp(str + i, "{eoc}", 5) == 0)
 		return (i + 5);
-//printf("NOSKIP");
 	return (i);
 }
 
@@ -106,7 +104,6 @@ int		coloreds(int *lim, char *res, int len)
 	int	printed;
 
 	printed = 0;
-//printf("Len : %d, lim[0] : %d, lim[1] : %d\n", len, lim[0], lim[1]);
 	while (!lim[4] && lim[0] > len)
 	{
 		printed++;
