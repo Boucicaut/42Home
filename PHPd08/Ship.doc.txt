@@ -1,0 +1,50 @@
+<- Ship ----------------------------------------------------------------------
+Ship Documentation
+####################
+
+The Ship class handles the ships, their information and their actions.
+
+You can construct a Ship instance with :
+	$VAR = new Ship(array('taille' => Pos, 'nom' => '', 'display' => '', 'pdv' => '', 'shield' => '', 'speed' => ''));
+	Taille: Pos, position on the map (See Class Pos documentation)
+	Name: Name of the ship
+	Display: Character which represents the ship on the map.
+	Pdv: Health of the ship.
+	Shield: Shield.
+	Speed: Max cells the ship can move during the same turn.
+
+
+The Ship class implements the following interface :
+	public function movement($arg);
+	public function	shoot($pos);
+	public function getAttacked($args);
+	public function is_conflictwith($arg);
+	public function is_conflictwithborder();
+If ones create a child it must have these functions!
+
+
+The Ship class uses the following traits :
+	GetAttacked :
+		-> function getAttacked($arg) : Call this function with one parameter, the damage dealt. It checks the health and substrate the damage to the health/shield of the ship.
+			FYI, you can redefine this function in childs.
+	
+	is_conflictwith :	
+		-> function is_conflictwith($args) : Call this to check if there is positioning conflict with the objects sent in parameters (Array of Obstacles, see the matching documentation);
+		-> function is_conflictwithborder() : Call this to check if there is conflict with the map borders, it takes no argument.
+			FYI, you CANT redefine theses two functions in childs they are declared 'final'.
+
+
+This is the methods you can use :
+
+	-> public function movement($args)
+	This enables you to change the positioning of the ship. You have to send in parameter an array with the direction as 'dir' and the distance as 'vit'. Note the distance can't be greater than the attribute $speed, previously setup.
+
+	-> public function shoot($arg)
+	This return the position as Class Pos (see Class Pos documentation) of the shot fired by the ship. You have to send one parameter, the way of the shot as 'x' for right, 'x2' for left, 'y' for up, 'y2' for down.
+
+	-> __ToString()
+	Method magic __ToString, is called when one tries to echo/print the info of the ship. Use it only for debugging.
+
+	->doc()
+	Display the documentation (this current doc) of the Class Ship
+---------------------------------------------------------------------- Ship ->

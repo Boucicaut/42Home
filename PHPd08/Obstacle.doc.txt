@@ -1,0 +1,28 @@
+<- Obstacle ----------------------------------------------------------------------
+Obstacle Documentation
+####################
+
+The Obstacle class handles the obstacles and position of objects we don't want our ship to collide with !
+
+You can construct a Obstacle instance with :
+	$VAR = new Obstacle(Pos, Pdv);
+		Pos, position on the map (See Class Pos documentation)
+		Pdv: Health of the obstacle.
+	Childs may overwrite the constructor.
+
+The Obstacle class implements the following interface :
+	public function getAttacked($args);
+	If ones create a child it must have this function!!
+
+
+The Obstacle class uses the following traits :
+	GetAttacked :
+		-> function getAttacked($arg) : Call this function with one parameter, the damage dealt. It checks the health and substrate the damage to the health/shield of the ship.
+			FYI, you can redefine this function in childs.
+
+This is the methods you can use :
+	-> __ToString()
+	Method magic __ToString, is called when one tries to echo/print the info of the Obstacle. Use it only for debugging.
+	->doc()
+	Display the documentation (this current doc) of the Class Obstacle
+---------------------------------------------------------------------- Obstacle ->

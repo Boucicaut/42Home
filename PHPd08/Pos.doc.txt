@@ -1,0 +1,28 @@
+<- Pos ----------------------------------------------------------------------
+Pos Documentation
+####################
+
+The Pos class handles the different position of every elements we use in this project and can check if one collides with another.
+
+You can construct a Pos instance with :
+	$VAR = new Pos(array('x' => '', 'y' => '', 'x_l' => '', 'y_l' => ''));
+		X: Refers to the coordonate x;
+		Y: Refers to the coordonate y;
+		X_l: Refers to the length of the object, horizontal;
+		Y_l: Refers to the length of the object, vertical;
+
+
+The Pos class uses the following traits :
+	is_conflictwith :	
+		-> function is_conflictwith($args) : Call this to check if there is positioning conflict with the objects sent in parameters (Array of Obstacles, see the matching documentation);
+		-> function is_conflictwithborder() : Call this to check if there is conflict with the map borders, it takes no argument.
+			FYI, you CANT redefine theses two functions in childs.
+
+This is the methods you can use :
+
+	-> __ToString()
+	Method magic __ToString, is called when one tries to echo/print the info of the ship. Use it only for debugging.
+
+	->doc()
+	Display the documentation (this current doc) of the Class Pos
+---------------------------------------------------------------------- Pos ->

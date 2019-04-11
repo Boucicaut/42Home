@@ -1,0 +1,34 @@
+<- Map ----------------------------------------------------------------------
+Map Documentation
+####################
+
+The Map class handles the map and the display of objects.
+
+You can construct a Map instance with :
+	$VAR = new Map($long, $larg);
+
+Parameters _long and _larg are mandatory.
+They represent the size of the map. Both are protected static.
+Childs may overwrite the constructor.
+
+The attributes map is an array containing the map, it is public.
+
+This is the methods you can use :
+	->	init_map()
+	This will prepare and fullfill the map with dot.
+
+	-> init_obs($obs)
+	This integrates into the map the obstacles. This method need as a parameter an array gathering the obstacles to display. (See Obstacles documentation for more information on those)
+
+	-> init_ships($ships)
+	Same as init_obs but with the ships. This method needs an array containing the ships. (See Ships documentation for more info)
+
+	-> display()
+	This methods enables you to display the map. For a proper usage it is better to have call init_map, init_obs and init_ships before in order to display a fullfilled map.
+
+	-> __ToString()
+	Method magic __ToString, is called when one tries to echo/print the map. Use it only for debugging.
+
+	->doc()
+	Display the documentation (this current doc) of the Class Map
+---------------------------------------------------------------------- Map ->
