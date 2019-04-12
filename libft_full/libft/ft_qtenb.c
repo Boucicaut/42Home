@@ -6,26 +6,11 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 18:14:33 by bviollet          #+#    #+#             */
-/*   Updated: 2019/02/13 19:34:20 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/04/12 15:35:06 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-int		nbdecimal(long double vl, int max, int id, int base)
-{
-	int				iz;
-	long long int	nb;
-
-	iz = 0;
-	nb = (long long int)(vl * ft_tento(10, max));
-	while (nb % 10 == 0)
-	{
-		iz++;
-		nb = nb / base;
-	}
-	return (max - id - iz);
-}
 
 int		nbdecimaldigits(long double vl, int max, int id, int base)
 {
@@ -54,7 +39,7 @@ int		nbdecimaldigits(long double vl, int max, int id, int base)
 	return (iz);
 }
 
-int		nbdigits(long double vl, int base)
+int		nbdigits(long int vl, int base)
 {
 	int			id;
 	long double	max;
