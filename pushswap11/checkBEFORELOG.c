@@ -32,14 +32,14 @@ int	gestionrecursive(piles *pile)
 printtab(pile);
 printf("BiggestSorted :   %d -- %d\n", biggestsorted(pile, 0), biggestsorted(pile, 1));
 printf("Rang          :   %d -- %d\n", rang(pile, 0,biggestsorted(pile, 0)), rang(pile,1,biggestsorted(pile, 1)));
-getchar();
+//getchar();
 	}
 	while (pile->bsize)
 	{
 		nb++;
 		pusha(pile);
 	}
-//printtab(pile);
+printtab(pile);
 	return (nb);
 }
 
@@ -70,23 +70,25 @@ int		quicksort2(piles *pile)
 	i = -1;
 	//pivot = pivotb(pile);
 	pivot = mediumpivot(pile, 1);
-	if (pile->bsize < 20 && pile->asize + pile->bsize < 200)
-		nb += petittrib(pile);
-	if (pile->bsize < 10)// && pile->asize + pile->bsize < 200)
+	if (pile->bsize < 40 && pile->asize + pile->bsize < 200)
 		nb += petittrib(pile);
 printtab(pile);
 printf("PivotB : %d\n", pivot);
-getchar();
+//getchar();
 	while (biggest(pile, 1) >= pivot && pile->bsize && !issorted(pile, 1))
 	{
 		if (!issorted(pile, 1) && biggest(pile, 1) >= pivot && pile->b[0] == pivot)
 		{
-			nb += 2;
 			pusha(pile);
-			if (pile->b[0] < pivot)
-				rotateab(pile);
-			else
-				rotatea(pile);
+			nb++;
+			if (biggest(pile, 1) > pivot)
+			{
+				if (pile->b[0] < pivot)
+					rotateab(pile);
+				else
+					rotatea(pile);
+				nb++;
+			}
 		}
 		if (!issorted(pile, 1) && biggest(pile, 1) >= pivot && pile->b[0] > pivot)
 		{
@@ -115,7 +117,7 @@ int		quicksort(piles *pile, int pivot)
 
 	nb = 0;
 	pivot = mediumpivot(pile, 0);
-	if (pile->asize < 30 && pile->asize + pile->bsize < 200)
+	if (pile->asize < 25 && pile->asize + pile->bsize < 200)
 	{
 		//getchar();
 		nb += petittria(pile);
@@ -130,9 +132,16 @@ printf("PivotA : %d\n", pivot);
 		nb += swapornot(pile, 1);
 		if (!issorted(pile, 0) && smallest(pile, 0) <= pivot && pile->a[0] == pivot)
 		{
-			nb += 2;
 			pushb(pile);
-			rotateb(pile);
+			nb++;
+			if (smallest(pile, 0) < pivot) // eviter les doublons rb et rrb
+			{
+				nb++;
+				if (pile->a[0] > pivot) // ICI A CHECKER POUR OPTI ROTAteab
+					rotateab(pile);
+				else
+					rotateb(pile);
+			}
 		}
 		if (!issorted(pile, 0) && smallest(pile, 0) <= pivot && pile->a[0] < pivot)
 		{
@@ -153,10 +162,24 @@ printf("PivotA : %d\n", pivot);
 	}
 	while (pile->a[pile->asize - 1] != biggest(pile, 0))
 	{
-		if (rang(pile, 0, biggest(pile, 0)) <= pile->asize / 2)
+		/*if (rang(pile, 0, biggest(pile, 0)) <= pile->asize / 2)
 			rotatea(pile);
 		else
-			revrotatea(pile);
+			revrotatea(pile);*/
+		if (rang(pile, 0, biggest(pile, 0)) < pile->asize / 2)
+		{
+			if (pile->b[0] < pile->b[1])
+				rotateab(pile);
+			else
+				rotatea(pile);
+		}
+		else
+		{
+			if (pile->b[pile->bsize - 1] > pile->b[0])
+				revrotateab(pile);
+			else
+				revrotatea(pile);
+		}
 		nb++;
 	}
 	return (nb);
@@ -232,8 +255,8 @@ int		petittria(piles *pile)
 	i = pile->asize - 1;
 	while (!issorted(pile, 0))
 	{
-//printtab(pile);
-//getchar();
+printtab(pile);
+printf("Tri A\n");
 		nb += swapornot(pile, 1);
 		if (!issorted(pile, 0) && pile->a[0] == smallest(pile, 0))
 		{
@@ -244,11 +267,22 @@ int		petittria(piles *pile)
 		{
 			nb++;
 			if (rang(pile, 0, smallest(pile, 0)) < pile->asize / 2)
-				rotatea(pile);
+			{
+				if (pile->b[0] < pile->b[1])
+					rotateab(pile);
+				else
+					rotatea(pile);
+			}
 			else
-				revrotatea(pile);
+			{
+				if (pile->b[pile->bsize - 1] > pile->b[0])
+					revrotateab(pile);
+				else
+					revrotatea(pile);
+			}
 		}
 	}
+getchar();
 	return (nb);
 }
 
@@ -261,8 +295,9 @@ int		petittrib(piles *pile)
 	i = pile->bsize - 1;
 	while (pile->b[0] != biggest(pile, 1))
 	{
-//printtab(pile);
-//getchar();
+printtab(pile);
+printf("Tri B\n");
+getchar();
 		if (rang(pile, 1, biggest(pile, 1)) < pile->bsize / 2)
 			rotateb(pile);
 		else
@@ -306,8 +341,10 @@ int		mediumpivot(piles *pile, int w)
 	{
 		if (pile->a[pile->asize - 1] == biggest(pile, 0))
 		{
-			bigsort = (rang(pile, 0, biggestsorted(pile, 0)) / 1.4);
-			//bigsort = (rang(pile, 0, biggestsorted(pile, 0)) / 1.3);
+			if (pile->asize + pile->bsize < 200)
+				bigsort = (rang(pile, 0, biggestsorted(pile, 0)) / 1.5); // 100
+			else
+				bigsort = (rang(pile, 0, biggestsorted(pile, 0)) / 1.2); // 500
 			j = biggestsorted(pile, 0);
 		}
 		else
@@ -327,13 +364,15 @@ int		mediumpivot(piles *pile, int w)
 	{
 		if (pile->b[pile->bsize - 1] == smallest(pile, 1))
 		{
-			bigsort = (rang(pile, 1, biggestsorted(pile, 1)) / 1.5);
-			//bigsort = (rang(pile, 1, biggestsorted(pile, 1)) / 1.7);
+			if (pile->asize + pile->bsize < 200)
+				bigsort = (rang(pile, 1, biggestsorted(pile, 1)) / 1.8); // 100
+			else
+				bigsort = (rang(pile, 1, biggestsorted(pile, 1)) / 2); // 500
 			j = biggestsorted(pile, 1);
 		}
 		else
 		{
-			bigsort = pile->bsize / 1.6;
+			bigsort = pile->bsize / 2;
 			j = smallest(pile, 1);
 		}
 		i = 0;
