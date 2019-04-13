@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 18:14:33 by bviollet          #+#    #+#             */
-/*   Updated: 2019/04/13 16:45:04 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/04/12 15:35:06 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,24 @@ int		nbdecimaldigits(long double vl, int max, int id, int base)
 int		nbdigits(long int vl, int base)
 {
 	int			id;
+	long double	max;
 
+	max = 0.9999999999999999;
 	id = 0;
-	while (vl > 0)
+	if ((long long int)vl % 10 == 0)
+	{
+		while ((long long int)vl % 10 == 0 && vl > 0)
+		{
+			id++;
+			vl /= 10;
+		}
+		return (id + 1);
+	}
+	while (vl > max)
 	{
 		vl = vl / base;
 		id++;
+		max = max / 10 + 0.9;
 	}
 	return (id > 0 ? id : 1);
 }
