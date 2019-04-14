@@ -17,6 +17,7 @@ typedef struct	piles
 	int	bsize;
 }	piles;
 
+int	sortshortlist(piles *pile);
 int	pusherror(char **str, int argc);
 
 int	intermediaire(piles *pile);

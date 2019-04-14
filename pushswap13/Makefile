@@ -25,10 +25,10 @@ LIBFT_PATH = ~/Documents/42Home_Git/libft_full/libft
 all : $(NAMEPUSH) $(NAMECHECK)
 
 $(NAMEPUSH): $(OBJ)
-			@$(MAKE) -C $(LIBFT_PATH)
+			#@$(MAKE) -C $(LIBFT_PATH)
 			$(CC) $(FLAGS) $(LIBFT) $(SRCPUSH) -o $(NAMEPUSH)
 $(NAMECHECK): $(OBJ)
-			@$(MAKE) -C $(LIBFT_PATH)
+			#@$(MAKE) -C $(LIBFT_PATH)
 			$(CC) $(FLAGS) $(LIBFT) $(SRCCHECK) -o $(NAMECHECK)
 clean:
 		@make clean -C $(LIBFT_PATH)
