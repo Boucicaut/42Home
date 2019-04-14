@@ -17,7 +17,7 @@ int	pusherror(char **str, int argc)
 		{
 			if (strmaxint(str[i]))
 				return (1);
-			if (str[i][j] != ' ' && (str[i][j] < '0' || str[i][j] > '9'))
+			if (str[i][j] != ' ' && str[i][j] != '-' && (str[i][j] < '0' || str[i][j] > '9'))
 				return (1);
 			j++;
 		}
