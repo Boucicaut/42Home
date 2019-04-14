@@ -24,10 +24,11 @@ int	main(int argc, char **argv)
 		pile = inittabs(argc, argv, 1);
 //getchar();
 	//printf("----- %d ----\n", gestionrecursive(pile));
-	gestionrecursive(pile);
-	if (issorted(pile, 0))
-		printf("ISSORTED OK\n");
+	j = gestionrecursive(pile);
 printtab(pile);
+	if (issorted(pile, 0))
+		printf("OK\n");
+printf("\n...... %d ......\n", j);
 	free(pile);
 	return (0);
 }
@@ -49,9 +50,11 @@ int	gestionrecursive(piles *pile)
 //printf("BiggestSorted :   %d -- %d\n", biggestsorted(pile, 0), biggestsorted(pile, 1));
 //printf("Rang          :   %d -- %d\n", rang(pile, 0,biggestsorted(pile, 0)), rang(pile,1,biggestsorted(pile, 1)));
 	}
+printtab(pile);
+getchar();
 	while (pile->bsize)
 	{
-		nb += swapornot(pile, 1);
+		//nb += swapornot(pile, 1);
 		nb++;
 		pusha(pile);
 	}
@@ -88,7 +91,7 @@ int		quicksort2(piles *pile)
 	if (pile->bsize < 40 && pile->asize + pile->bsize < 200)
 		nb += petittrib(pile);
 //printtab(pile);
-//printf("PivotB : %d\n", pivot);
+printf("PivotB : %d\n", pivot);
 //getchar();
 	while (biggest(pile, 1) >= pivot && pile->bsize && !issorted(pile, 1))
 	{
@@ -113,7 +116,7 @@ int		quicksort2(piles *pile)
 		if (!issorted(pile, 1) && biggest(pile, 1) >= pivot && pile->b[0] < pivot)
 		{
 			nb++;
-			rotateb(pile);
+			rotateb(pile); // opti ?
 		}
 		nb += swapornot(pile, 1);
 	}
@@ -121,7 +124,7 @@ int		quicksort2(piles *pile)
 	if (pivot == pile->a[pile->asize - 1])
 	{
 		nb++;
-		revrotatea(pile);
+		revrotatea(pile); // opti ?
 	}
 	return (nb);
 }
