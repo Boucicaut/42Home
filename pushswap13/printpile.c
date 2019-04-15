@@ -90,8 +90,8 @@ piles	*inittabs(int argc, char **argv, int mode)
 			if (argv[2][i] == ' ')
 				j++;
 		j += j > 0 ? 1 : 0;
-printf("J : %d\n", j);
-getchar();
+//printf("J : %d\n", j);
+//getchar();
 		pile->a = (int*)malloc(sizeof(int) * j);
 		pile->b = (int*)malloc(sizeof(int) * j);
 		pile->a = memset(pile->a, 0, (sizeof(int) * j));
@@ -105,8 +105,8 @@ getchar();
 			while (argv[2][i] && (argv[2][i] == ' '))
 				i++;
 			pile->a[j] = ft_atoi(&(argv[2][i]));
-printf("Pile->a[%d] : %d || Qte : %d\n", j, pile->a[j], ft_qtenb(pile->a[j], 'd', 10, 10));
-getchar();
+//printf("Pile->a[%d] : %d || Qte : %d\n", j, pile->a[j], ft_qtenb(pile->a[j], 'd', 10, 10));
+//getchar();
 			i += ft_qtenb(pile->a[j], 'd', 10, 10);
 			j++;
 		}

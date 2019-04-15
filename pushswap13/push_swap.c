@@ -23,14 +23,14 @@ int	main(int argc, char **argv)
 	else
 		pile = inittabs(argc, argv, 1);
 //getchar();
-printtab(pile);
+//printtab(pile);
 	//printf("----- %d ----\n", gestionrecursive(pile));
 
 	j = gestionrecursive(pile);
-printtab(pile);
-	if (issorted(pile, 0))
-		printf("OK\n");
-printf("\n...... %d ......\n", j);
+//printtab(pile);
+	if (!issorted(pile, 0))
+		printf("KO !!!!!! KOKOKOKOKOKOK\nKOKOKOKOKOKO\nKOKOKOKOKOKOKO\n");
+//printf("\n%d )\n", j);
 	free(pile);
 	return (0);
 }
@@ -43,7 +43,7 @@ int	gestionrecursive(piles *pile)
 	/* Gestion recursivite*/
 	while (!issorted(pile, 0) || !issorted(pile, 1))
 	{
-		if (pile->asize < 25)
+		if (pile->asize < 15)
 			nb += sortshortlist(pile);
 		while (issorted(pile, 0) == 0)
 			nb += quicksort(pile, mediumpivot(pile, 0));
@@ -92,11 +92,11 @@ int		quicksort2(piles *pile)
 	i = -1;
 	//pivot = pivotb(pile);
 	pivot = mediumpivot(pile, 1);
-	if (pile->bsize + pile->asize < 25)
+	if (pile->bsize + pile->asize <= 5)
 		nb += sortshortlist(pile);
 	if (pile->bsize < 40 && pile->asize + pile->bsize < 200)
 		nb += petittrib(pile);
-printf("||||    %d, %d   \n", biggestsorted(pile, 0), biggestsorted(pile, 1));
+//printf("||||    %d, %d   \n", biggestsorted(pile, 0), biggestsorted(pile, 1));
 //printtab(pile);
 //printf("PivotB : %d\n", pivot);
 //getchar();
@@ -414,7 +414,6 @@ int		sortshortlist(piles *pile)
 	int	nb;
 
 	nb = 0;
-//getchar();
 	if (pile->a[0] == biggest(pile, 0) && pile->a[pile->asize - 1] == biggestafter(pile, 0, biggest(pile, 0)))
 	{
 		rotatea(pile);
@@ -422,6 +421,8 @@ int		sortshortlist(piles *pile)
 	}
 	while (!issorted(pile, 0))
 	{
+//printtab(pile);
+//getchar();
 		pivot = mediumpivot(pile, 0);
 		nb += swapornot(pile, 1);
 		if (!issorted(pile, 0) && pile->a[0] < pivot)
@@ -431,10 +432,15 @@ int		sortshortlist(piles *pile)
 		}
 		nb += swapornot(pile, 1);
 		if (!issorted(pile, 0) && pile->a[0] > pile->a[pile->asize - 1])
+		{
+			nb++;
 			revrotatea(pile);
-		else
+		}
+		else if (!issorted(pile, 0))
+		{
 			rotatea(pile);
-		nb++;
+			nb++;
+		}
 	}
 	while (pile->bsize)
 	{
