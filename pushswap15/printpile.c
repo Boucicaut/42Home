@@ -8,23 +8,23 @@ int	printtab(piles *pile)
 	j = pile->bsize - 1;
 	i = pile->asize - 1;
 //printf("Size :\t\t\t\t\t\t a %d  b %d\n", pile->asize, pile->bsize);
-	printf("\t\t    |A|\t\t\t|B|\n");
+	ft_printf("\t\t    |A|\t\t\t|B|\n");
 	//while (i < pile->asize || j < pile->bsize)
 	while (i >= 0 || j >= 0)
 	{
 		if (j >= 0 && i >= 0)
-	printf("\t[%2d] :\t ||  %2d  ||\t\t||  %2d  ||\n", i, pile->a[i], pile->b[j]);
+			ft_printf("\t[%2d] :\t ||  %2d  ||\t\t||  %2d  ||\n", i, pile->a[i], pile->b[j]);
 		else if (i >= 0)
-	printf("\t[%2d] :\t ||  %2d  ||\n", i, pile->a[i]);
+			ft_printf("\t[%2d] :\t ||  %2d  ||\n", i, pile->a[i]);
 		else if (j >= 0)
-	printf("\t[%2d] :\t\t\t\t||  %2d  ||\n", j, pile->b[j]);
+			ft_printf("\t[%2d] :\t\t\t\t||  %2d  ||\n", j, pile->b[j]);
 		i--;
 		j--;
 	}
 	return (0);
 }
 
-int	printtabslowmo(piles *pile)
+/*int	printtabslowmo(piles *pile)
 {
 	char	*aa;
 	char	*bb;
@@ -62,7 +62,7 @@ printf("________________________________________________________\n");
 	free(aa);	
 	free(bb);	
 	return (0);
-}
+}*/
 
 piles	*inittabs(int argc, char **argv, int mode)
 {
@@ -70,7 +70,8 @@ piles	*inittabs(int argc, char **argv, int mode)
 	int	j;
 	piles	*pile;
 
-	pile = (piles*)malloc(sizeof(piles));
+	if (!(pile = (piles*)malloc(sizeof(piles))))
+		exit (1);
 	j = 0;
 	i = -1;
 	if (mode == 1)

@@ -50,12 +50,12 @@ int	doublonerror(char **str, int argc, int mode)
 	else
 	{
 		i = 0;
-		while (str[2][i])
+		while (str[2][i] && str[2][j + 1] && str[2][j + 2])
 		{
 			while (str[2][i] && str[2][i] == ' ')
 				i++;
 			j = i + 1;
-			while (str[2][j])
+			while (str[2][j] && str[2][j + 1] && str[2][j + 2])
 			{
 				while (str[2][j] && str[2][j] == ' ')
 					j++;

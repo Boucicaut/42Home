@@ -29,7 +29,7 @@ int	main(int argc, char **argv)
 	j = gestionrecursive(pile);
 //printtab(pile);
 	if (!issorted(pile, 0))
-		printf("KO !!!!!! KOKOKOKOKOKOK\nKOKOKOKOKOKO\nKOKOKOKOKOKOKO\n");
+		ft_printf("KO !!!!!! KOKOKOKOKOKOK\nKOKOKOKOKOKO\nKOKOKOKOKOKOKO\n");
 //printf("\n%d )\n", j);
 	free(pile);
 	return (0);
@@ -208,67 +208,6 @@ int		quicksort(piles *pile, int pivot)
 	return (nb);
 }
 
-/*int		pivota(piles *pile)
-{
-	int	i;
-	int	bigb;
-	int	j;
-
-	i = 0;
-	bigb = biggest(pile, 1);
-	j = pile->a[pile->asize - 1];
-	if (0 >= issortedfrom(pile, 0))
-	{
-		while (i < pile->asize)
-		{
-			if (pile->a[i] == biggest(pile, 0) && i + 1 < pile->asize)
-			{
-				printf("|| %d ||\n", pile->a[i + 1]);
-				return (pile->a[i + 1]);
-			}
-			i++;
-		}
-	}
-	i = pile->asize;
-	while (i-- > 0)
-	{
-		if (j < bigb || j < pile->a[i])
-		{
-			return (j);
-		}
-		j = pile->a[i];
-	}
-	return (pile->a[pile->asize - 1]);
-}
-
-int		pivotb(piles *pile)
-{
-	int	i;
-	int	smaa;
-	int	j;
-
-	//printtab(pile);
-	//getchar();
-	i = 0;
-	smaa = smallest(pile, 0);
-	j = pile->b[pile->bsize - 1];
-	i = pile->bsize;
-	while (i-- > 0)
-	{
-		if (pile->bsize == 1 || (pile->b[0] < smaa && issorted(pile, 1)))
-			return (pile->b[0]);
-		if (j > smaa || j > pile->b[i])
-		{
-			//while (j != pile->b[i])
-			//	j = pile->b[i--];
-			printf("J : %d\n", j);
-			return (j);
-		}
-		j = pile->b[i];
-	}
-	return (pile->b[pile->bsize - 1]);
-}*/
-
 int		petittria(piles *pile)
 {
 	int	i;
@@ -330,80 +269,6 @@ int		petittrib(piles *pile)
 	pusha(pile, 1);
 	nb++;
 	return (nb);
-}
-
-int		swapornot(piles *pile, int i)
-{
-	if ((pile->a[0] > pile->a[1] || pile->b[0] < pile->b[1]))
-	{
-		if (pile->asize > 1 && pile->bsize > 1 && pile->a[0] > pile->a[1] && pile->b[0] < pile->b[1])
-		{
-			swapab(pile, 1);
-		}
-		else if (i && pile->asize > 1 && pile->a[0] > pile->a[1])
-		{
-			swapa(pile, 1);
-		}
-		else if (i && pile->bsize > 1 && pile->b[0] < pile->b[1])
-		{
-			swapb(pile, 1);
-		}
-		return (1);
-	}
-	return (0);
-}
-
-int		mediumpivot(piles *pile, int w)
-{
-	int	i;
-	int	j;
-	int	bigsort;
-
-	j = smallest(pile, 0);
-	if (w == 0)
-	{
-		if (pile->a[pile->asize - 1] == biggest(pile, 0))
-		{
-			if (pile->asize + pile->bsize < 200)
-				bigsort = (rang(pile, 0, biggestsorted(pile, 0)) / 1.8); // 100
-			else
-				bigsort = (rang(pile, 0, biggestsorted(pile, 0)) / 1.2); // 500
-			j = biggestsorted(pile, 0);
-		}
-		else
-		{
-			bigsort = pile->asize / 2;
-			j = biggest(pile, 0);
-		}
-		i = 0;
-		while (i++ < bigsort)
-		{
-			j = biggestafter(pile, 0, j);
-		}
-		return (j);
-	}
-
-	else if (w == 1)
-	{
-		if (pile->b[pile->bsize - 1] == smallest(pile, 1))
-		{
-			if (pile->asize + pile->bsize < 200)
-				bigsort = (rang(pile, 1, biggestsorted(pile, 1)) / 1.8); // 100
-			else
-				bigsort = (rang(pile, 1, biggestsorted(pile, 1)) / 2); // 500
-			j = biggestsorted(pile, 1);
-		}
-		else
-		{
-			bigsort = pile->bsize / 2;
-			j = smallest(pile, 1);
-		}
-		i = 0;
-		while (i++ < bigsort)
-			j = biggestafter(pile, 1, j);
-		return (j);
-	}
-	return (j);
 }
 
 int		sortshortlist(piles *pile)

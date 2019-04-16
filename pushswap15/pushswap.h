@@ -1,9 +1,8 @@
 #ifndef PUSHSWAP_H
 #define PUSHSWAP_H
 
-#include "libft.h"
+#include "./libft/libft.h"
 
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 

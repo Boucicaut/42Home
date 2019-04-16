@@ -13,22 +13,22 @@
 NAMEPUSH = push_swap
 NAMECHECK = checker
 
-SRCPUSH = printpile.c set_1.c set_2.c set_3.c comparetests.c push_swap.c pusherror.c comparetests2.c
-SRCCHECK = checker.c printpile.c set_1.c set_2.c set_3.c comparetests.c pusherror.c comparetests2.c
+SRCPUSH = printpile.c set_1.c set_2.c set_3.c comparetests.c push_swap.c pusherror.c comparetests2.c mediumpivot.c
+SRCCHECK = checker.c printpile.c set_1.c set_2.c set_3.c comparetests.c pusherror.c comparetests2.c mediumpivot.c
 
 CC = gcc
 CFLAGS = -Werror -Wall -Wextra
 OBJ = $(SRCPUSH:.c=.o) $(SRCCHECK:.c=.o)
-LIBFT = libft.a
-LIBFT_PATH = ~/Documents/42Home_Git/libft_full/libft
+LIBFT = ./libft/libft.a
+LIBFT_PATH = ./libft
 
 all : $(NAMEPUSH) $(NAMECHECK)
 
 $(NAMEPUSH): $(OBJ)
-			# @$(MAKE) -C $(LIBFT_PATH)
+			@$(MAKE) -C $(LIBFT_PATH)
 			$(CC) $(FLAGS) $(LIBFT) $(SRCPUSH) -o $(NAMEPUSH)
 $(NAMECHECK): $(OBJ)
-			# @$(MAKE) -C $(LIBFT_PATH)
+			@$(MAKE) -C $(LIBFT_PATH)
 			$(CC) $(FLAGS) $(LIBFT) $(SRCCHECK) -o $(NAMECHECK)
 clean:
 		@make clean -C $(LIBFT_PATH)
