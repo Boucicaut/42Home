@@ -14,9 +14,9 @@ Class	Map
 	}
 	public function init_map()
 	{
-		for ($i = 0; $i < 100; $i++)
+		for ($i = 0; $i < 55; $i++)
 		{
-			for ($j = 0; $j < 150; $j++)
+			for ($j = 0; $j < 180; $j++)
 			{
 				$this->map[$i][$j] = '.';
 			}
@@ -29,9 +29,9 @@ Class	Map
 		{
 			if ($ob->pdv == 0)
 				continue ;
-			for ($i = 0; $i < 100; $i++)
+			for ($i = 0; $i < 55; $i++)
 			{
-				for ($j = 0; $j < 150; $j++)
+				for ($j = 0; $j < 180; $j++)
 				{
 					if ($j >= $ob->pos->x && $j <= ($ob->pos->x + $ob->pos->x_l) && $i >= $ob->pos->y && $i <= ($ob->pos->y + $ob->pos->y_l))
 					{
@@ -47,9 +47,9 @@ Class	Map
 		{
 			if ($ship->pdv == 0)
 				continue ;
-			for ($i = 0; $i < 100; $i++)
+			for ($i = 0; $i < 55; $i++)
 			{
-				for ($j = 0; $j < 150; $j++)
+				for ($j = 0; $j < 180; $j++)
 				{
 					if ($j >= $ship->taille->x && $j <= ($ship->taille->x + $ship->taille->x_l) && $i >= $ship->taille->y && $i <= ($ship->taille->y + $ship->taille->y_l))
 					{
@@ -62,9 +62,9 @@ Class	Map
 	public function display()
 	{
 		echo "<span style=\"letter-spacing: 1px; color: blue;\">";
-		for ($i = 0; $i < 100; $i++)
+		for ($i = 0; $i < 55; $i++)
 		{
-			for ($j = 0; $j < 150; $j++)
+			for ($j = 0; $j < 180; $j++)
 			{
 				echo ($this->map[$i][$j] . " ");
 			}

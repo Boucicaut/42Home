@@ -14,17 +14,17 @@ $map->init_map();
 	/* INIT DES SHIPS */
 $shipApos = new Pos(array('x' => 130, 'y' => 5, 'x_l' => 4, 'y_l' => 4));
 $shipA = new Ship(array('taille' => $shipApos, 'nom' => 'A', 'display' => 'A', 'pdv' => 10, 'shield' => 5, 'speed' => 25));
-$shipBpos = new Pos(array('x' => 10, 'y' => 85, 'x_l' => 4, 'y_l' => 4));
+$shipBpos = new Pos(array('x' => 10, 'y' => 40, 'x_l' => 4, 'y_l' => 4));
 $shipB = new Ship(array('taille' => $shipBpos, 'nom' => 'B', 'display' => 'B', 'pdv' => '10', 'shield' => 5, 'speed' => 25));
 $map->init_ships(array($shipA, $shipB));
 
 	/* INIT DES OBSTACLES */
 $bigpos = new Pos(array('x' => 10, 'y' => 20, 'x_l' => 20, 'y_l' => 10));
 $big = new Obstacle($bigpos, 30);
-$littlepos = new Pos(array('x' => 40, 'y' => 90, 'x_l' => 5, 'y_l' => 10));
+$littlepos = new Pos(array('x' => 100, 'y' => 45, 'x_l' => 10, 'y_l' => 10));
 $little = new Obstacle($littlepos, 10);
 
-$little2pos = new Pos(array('x' => 90, 'y' => 70, 'x_l' => 10, 'y_l' => 10));
+$little2pos = new Pos(array('x' => 130, 'y' => 15, 'x_l' => 10, 'y_l' => 10));
 $little2 = new Obstacle($little2pos, 10);
 $map->init_obs(array(($little), ($big), ($little2)));
 
@@ -161,10 +161,14 @@ else
 		margin-top: 1%;
 		height: 23%;
 	}
-
+	hr {
+		margin-top: 13px;
+		border: 1px black solid;
+	}
 </style>
 	</head>
 	<body>
+<hr>
 		<h1>Tableau de controle du vaisseau</h1>
 		<form method="GET" action='jeu.php'>
 			<button class="but" type="submit" name="reset" value="OK">New game</button>
