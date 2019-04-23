@@ -13,8 +13,8 @@
 NAMEPUSH = push_swap
 NAMECHECK = checker
 
-SRCPUSH = printpile.c set_1.c set_2.c set_3.c comparetests.c push_swap.c pusherror.c comparetests2.c mediumpivot.c
-SRCCHECK = checker.c printpile.c set_1.c set_2.c set_3.c comparetests.c pusherror.c comparetests2.c mediumpivot.c
+SRCPUSH = printpile.c set_1.c set_2.c set_3.c comparetests.c push_swap.c pusherror.c comparetests2.c mediumpivot.c quicksort.c petittri.c
+SRCCHECK = checker.c printpile.c set_1.c set_2.c set_3.c comparetests.c pusherror.c comparetests2.c mediumpivot.c quicksort.c petittri.c
 
 CC = gcc
 CFLAGS = -Werror -Wall -Wextra

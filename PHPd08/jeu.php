@@ -116,14 +116,14 @@ if ($shipA->pdv == '0' || $shipB->pdv == '0')
 {
 	if ($shipA->pdv == 0 && $shipB->pdv == 0)
 	{
-		echo ("<a href='jeu.php'><div style='font-style:9em; margin-top: -1500px; margin-left: 600px; width: 300px; height: 100px; background-color: red; color: yellow; text-decoration: bold; border: 3px black solid'><p>C\'est une egalite, super.</p></div></a>");
+		echo ("<a href='jeu.php'><div style='font-style:9em; margin-top: -200px; margin-left: 600px; width: 300px; height: 100px; background-color: red; color: yellow; text-decoration: bold; border: 3px black solid'><p>C\'est une egalite, super.</p></div></a>");
 	}
 	if ($shipA->pdv == 0)
 	{
-		echo ("<a href='jeu.php'><div style='font-style=9em; margin-top: -1500px; margin-left: 600px; width: 300px; height: 100px; background-color: red; color: yellow; text-decoration: bold; border: 3px black solid'><p>Le ShipB a gagne, super.</p></div></a>");
+		echo ("<a href='jeu.php'><div style='font-style=9em; margin-top: -200px; margin-left: 600px; width: 300px; height: 100px; background-color: red; color: yellow; text-decoration: bold; border: 3px black solid'><p>Le ShipB a gagne, super.</p></div></a>");
 	}
 	else
-		echo ("<a href='jeu.php'><div style='font-style: 9em; margin-top: -1500px; margin-left: 600px; width: 300px; height: 100px; background-color: red; color: yellow; text-decoration: bold; border: 3px black solid'><p>Le ShipA a gagne, genial.</p></div></a>");
+		echo ("<a href='jeu.php'><div style='font-style: 9em; margin-top: -200px; margin-left: 600px; width: 300px; height: 100px; background-color: red; color: yellow; text-decoration: bold; border: 3px black solid'><p>Le ShipA a gagne, genial.</p></div></a>");
 	$_SESSION['save'] = 0;
 }
 }

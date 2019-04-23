@@ -1,7 +1,7 @@
 # Name of the library
 NAME = libft.a
 
-OBJDIR = obj/
+OBJDIR = ./obj
 
 # Source files
 LIBFT_FILES = strmaxint.c ft_tento.c ft_putbignbr.c ft_qtebignb.c ft_convertbase.c ft_bigitoa.c\
@@ -35,8 +35,8 @@ $(NAME): $(OBJ)
 	ranlib $(NAME)
 # echo "=====[$(NAME) generated!]====="
 
-%.o : %.c
-		$(CC) $(FLAGS) -o $@ -c $<
+%.o: %.c
+	$(CC) $(FLAGS) -o $@ -c $<
 
 clean:
 	rm -f $(OBJ)

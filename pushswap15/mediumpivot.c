@@ -12,7 +12,7 @@ int		mediumpivot(piles *pile, int w)
 		if (pile->a[pile->asize - 1] == biggest(pile, 0))
 		{
 			if (pile->asize + pile->bsize < 200)
-				bigsort = (rang(pile, 0, biggestsorted(pile, 0)) / 1.8); // 100
+				bigsort = (rang(pile, 0, biggestsorted(pile, 0)) / 1.5); // 100
 			else
 				bigsort = (rang(pile, 0, biggestsorted(pile, 0)) / 1.2); // 500
 			j = biggestsorted(pile, 0);
@@ -29,7 +29,6 @@ int		mediumpivot(piles *pile, int w)
 		}
 		return (j);
 	}
-
 	else if (w == 1)
 	{
 		if (pile->b[pile->bsize - 1] == smallest(pile, 1))
@@ -37,7 +36,7 @@ int		mediumpivot(piles *pile, int w)
 			if (pile->asize + pile->bsize < 200)
 				bigsort = (rang(pile, 1, biggestsorted(pile, 1)) / 1.8); // 100
 			else
-				bigsort = (rang(pile, 1, biggestsorted(pile, 1)) / 2); // 500
+				bigsort = (rang(pile, 1, biggestsorted(pile, 1)) / 1.9); // 500
 			j = biggestsorted(pile, 1);
 		}
 		else

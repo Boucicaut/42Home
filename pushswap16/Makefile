@@ -18,23 +18,28 @@ SRCCHECK = checker.c printpile.c set_1.c set_2.c set_3.c comparetests.c pusherro
 
 CC = gcc
 CFLAGS = -Werror -Wall -Wextra
-OBJ = $(SRCPUSH:.c=.o) $(SRCCHECK:.c=.o)
+OBJCHECK = $(SRCCHECK:.c=.o)
+OBJPUSH = $(SRCPUSH:.c=.o)
 LIBFT = ./libft/libft.a
 LIBFT_PATH = ./libft
 
 all : $(NAMEPUSH) $(NAMECHECK)
 
-$(NAMEPUSH): $(OBJ)
-			@$(MAKE) -C $(LIBFT_PATH)
+$(NAMEPUSH): $(OBJPUSH)
+			$(MAKE) -C $(LIBFT_PATH)
 			$(CC) $(FLAGS) $(LIBFT) $(SRCPUSH) -o $(NAMEPUSH)
-$(NAMECHECK): $(OBJ)
-			@$(MAKE) -C $(LIBFT_PATH)
+
+$(NAMECHECK): $(OBJCHECK)
+			$(MAKE) -C $(LIBFT_PATH)
 			$(CC) $(FLAGS) $(LIBFT) $(SRCCHECK) -o $(NAMECHECK)
+
 clean:
 		@make clean -C $(LIBFT_PATH)
 		@rm -f $(OBJ)
+
 fclean: clean
-		@rm -f $(NAMEPUSH) $(NAMECHECK)
+		@rm -f $(NAMEPUSH) $(NAMECHECK) $(LIBFT)
+
 re: fclean all
 
 .PHONY: all clean fclean re
