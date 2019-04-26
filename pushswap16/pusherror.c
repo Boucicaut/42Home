@@ -5,10 +5,7 @@ int	pusherror(char **str, int argc, int mode)
 	int	i;
 	int	j;
 
-	if (mode == 1)
-		i = 2;
-	else
-		i = 1;
+	i = mode == 1 ? 2 : 1;
 	while (i < argc)
 	{
 		j = 0;
@@ -17,6 +14,8 @@ int	pusherror(char **str, int argc, int mode)
 			if ((mode == 0 && strmaxint(str[i])) || (mode == 1 && j > 0 && str[i][j - 1] != '-' && strmaxint(&str[i][j])) || (mode == 1 && j == 0 && strmaxint(&str[i][j])))
 				return (1);
 			if ((str[i][j] != ' ' && str[i][j] != '-' && (str[i][j] < '0' || str[i][j] > '9')) || (str[i][j] == '-' && str[i][j + 1] && str[i][j + 1] == '-'))
+				return (1);
+			if (str[i][j] == '-' && (!str[i][j + 1] || !ft_isdigit(str[i][j + 1])))
 				return (1);
 			j++;
 		}
