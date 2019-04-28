@@ -1,6 +1,6 @@
 #include "pushswap.h"
 
-int		smallest(piles *pile, int w)
+int		smallest(t_piles *pile, int w)
 {
 	int	i;
 	int	j;
@@ -22,7 +22,7 @@ int		smallest(piles *pile, int w)
 	return (j);
 }
 
-int		biggest(piles *pile, int w)
+int		biggest(t_piles *pile, int w)
 {
 	int	i;
 	int	j;
@@ -44,7 +44,7 @@ int		biggest(piles *pile, int w)
 	return (j);
 }
 
-int		smallestsorted(piles *pile, int w)
+int		smallestsorted(t_piles *pile, int w)
 {
 	int	i;
 	int	j;

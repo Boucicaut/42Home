@@ -3,7 +3,7 @@
 #include <stdio.h>
 int	main(int argc, char **argv)
 {
-	piles	*pile;
+	t_piles	*pile;
 	int		i;
 
 	i = 0;
@@ -26,7 +26,7 @@ int	main(int argc, char **argv)
 	return (0);
 }
 
-int	gestionrecursive(piles *pile)
+int	gestionrecursive(t_piles *pile)
 {
 	while (!issorted(pile, 0) || !issorted(pile, 1))
 	{
@@ -47,7 +47,7 @@ int	gestionrecursive(piles *pile)
 	return (0);
 }
 
-int		intermediaire(piles *pile)
+int		intermediaire(t_piles *pile)
 {
 	while (issorted(pile, 0) && ((pile->bsize && pile->b[0] == biggest(pile, 1)) || (pile->bsize > 1 && pile->b[1] == biggest(pile, 1))))
 	{

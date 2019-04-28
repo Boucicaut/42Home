@@ -1,6 +1,6 @@
 #include "pushswap.h"
 
-int		quicksort2(piles *pile, int pivot)
+int		quicksort2(t_piles *pile, int pivot)
 {
 	if (pile->bsize < 30 && pile->asize + pile->bsize < 200)
 		petittrib(pile);
@@ -28,7 +28,7 @@ int		quicksort2(piles *pile, int pivot)
 	return (0);
 }
 
-int		quicksort(piles *pile, int pivot)
+int		quicksort(t_piles *pile, int pivot)
 {
 	if (pile->asize < 25 && pile->asize + pile->bsize < 200)
 		petittria(pile);
@@ -45,7 +45,7 @@ int		quicksort(piles *pile, int pivot)
 	return (0);
 }
 
-int		quicksortope(piles *pile, int pivot)
+int		quicksortope(t_piles *pile, int pivot)
 {
 	swapornot(pile, 1);
 	if (!issorted(pile, 0) && smallest(pile, 0) <= pivot && pile->a[0] == pivot)
@@ -66,7 +66,7 @@ int		quicksortope(piles *pile, int pivot)
 	return (0);
 }
 
-int		quicksortbiggestpos(piles *pile)
+int		quicksortbiggestpos(t_piles *pile)
 {
 	while (pile->a[pile->asize - 1] != biggest(pile, 0))
 	{

@@ -1,6 +1,6 @@
 #include "pushswap.h"
 
-int	reducerank(piles *pile, int w)
+int	reducerank(t_piles *pile, int w)
 {
 	int	i;
 
@@ -20,7 +20,7 @@ int	reducerank(piles *pile, int w)
 	return (0);
 }
 
-int	increaserank(piles *pile, int w)
+int	increaserank(t_piles *pile, int w)
 {
 	int	i;
 
@@ -42,7 +42,7 @@ int	increaserank(piles *pile, int w)
 	return (0);
 }
 
-int	swapb(piles *pile, int print)
+int	swapb(t_piles *pile, int print)
 {
 	int	tmp;
 	if (pile->bsize < 2)
@@ -55,7 +55,7 @@ int	swapb(piles *pile, int print)
 	return (0);
 }
 
-int	swapa(piles *pile, int print)
+int	swapa(t_piles *pile, int print)
 {
 	int	tmp;
 	if (pile->asize < 2)
@@ -68,7 +68,7 @@ int	swapa(piles *pile, int print)
 	return (0);
 }
 
-int	swapab(piles *pile, int print)
+int	swapab(t_piles *pile, int print)
 {
 	if (print)
 		ft_printf("ss\n");

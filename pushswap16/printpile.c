@@ -1,6 +1,6 @@
 #include "pushswap.h"
 
-int	printtab(piles *pile)
+int	printtab(t_piles *pile)
 {
 	int	i;
 	int	j;
@@ -22,13 +22,13 @@ int	printtab(piles *pile)
 	return (0);
 }
 
-piles	*inittabs(int argc, char **argv, int mode)
+t_piles	*inittabs(int argc, char **argv, int mode)
 {
 	int	i;
 	int	j;
-	piles	*pile;
+	t_piles	*pile;
 
-	if (!(pile = (piles*)malloc(sizeof(piles))))
+	if (!(pile = (t_piles*)malloc(sizeof(t_piles))))
 		exit (1);
 	j = 0;
 	i = -1;
@@ -48,7 +48,7 @@ piles	*inittabs(int argc, char **argv, int mode)
 	return (pile);
 }
 
-piles	*inittabs2(char **argv, piles *pile)
+t_piles	*inittabs2(char **argv, t_piles *pile)
 {
 	int		i;
 	int		j;
@@ -79,7 +79,7 @@ piles	*inittabs2(char **argv, piles *pile)
 	return (pile);
 }
 
-int		issorted(piles *pile, int w)
+int		issorted(t_piles *pile, int w)
 {
 	int	i;
 	int	j;

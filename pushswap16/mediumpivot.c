@@ -1,6 +1,6 @@
 #include "pushswap.h"
 
-int		mediumpivot(piles *pile, int w)
+int		mediumpivot(t_piles *pile, int w)
 {
 	int	j;
 	int	bigsort;
@@ -29,7 +29,7 @@ int		mediumpivot(piles *pile, int w)
 	return (j);
 }
 
-int		mediumpivotb(piles *pile)
+int		mediumpivotb(t_piles *pile)
 {
 	int	bigsort;
 	int	j;

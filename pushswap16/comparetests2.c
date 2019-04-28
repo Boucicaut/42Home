@@ -1,6 +1,6 @@
 #include "pushswap.h"
 
-int		rang(piles *pile, int w, int nb)
+int		rang(t_piles *pile, int w, int nb)
 {
 	int	vl;
 	int	i;
@@ -29,7 +29,7 @@ int		rang(piles *pile, int w, int nb)
 	return (i);
 }
 
-int		biggestsorted(piles *pile, int w)
+int		biggestsorted(t_piles *pile, int w)
 {
 	int	i;
 	int	j;
@@ -56,7 +56,7 @@ int		biggestsorted(piles *pile, int w)
 	return (j);
 }
 
-int		biggestafter(piles *pile, int w, int nb)
+int		biggestafter(t_piles *pile, int w, int nb)
 {
 	int	i;
 	int	j;

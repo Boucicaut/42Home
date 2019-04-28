@@ -6,7 +6,7 @@
 #    By: bviollet <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/14 14:35:04 by bviollet          #+#    #+#              #
-#    Updated: 2019/04/15 18:25:20 by bviollet         ###   ########.fr        #
+#    Updated: 2019/04/27 15:38:24 by bviollet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ $(NAMECHECK): $(OBJCHECK)
 
 clean:
 		@make clean -C $(LIBFT_PATH)
-		@rm -f $(OBJ)
+		@rm -f $(OBJCHECK) $(OBJPUSH)
 
 fclean: clean
 		@rm -f $(NAMEPUSH) $(NAMECHECK) $(LIBFT)

@@ -2,7 +2,7 @@
 
 int	main(int argc, char **argv)
 {
-	piles	*pile;
+	t_piles	*pile;
 	char	*ins;
 
 	if (argc == 1 || (argc == 2 && !ft_strcmp(argv[1], "-i")))
@@ -25,7 +25,7 @@ int	main(int argc, char **argv)
 	return (0);
 }
 
-int	checkerope(char *ins, piles *pile)
+int	checkerope(char *ins, t_piles *pile)
 {
 	if (!ft_strcmp("pa", ins))
 		pusha(pile, 0);
@@ -48,7 +48,7 @@ int	checkerope(char *ins, piles *pile)
 	return (0);
 }
 
-int	checkerope2(char *ins, piles *pile)
+int	checkerope2(char *ins, t_piles *pile)
 {
 	if (!ft_strcmp("rra", ins))
 		revrotatea(pile, 0);
@@ -65,7 +65,7 @@ int	checkerope2(char *ins, piles *pile)
 	return (0);
 }
 
-int	freechecker(char *ins, piles *pile)
+int	freechecker(char *ins, t_piles *pile)
 {
 	free(ins);
 	free(pile->a);

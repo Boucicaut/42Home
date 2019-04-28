@@ -1,6 +1,6 @@
 #include "pushswap.h"
 
-int		petittria(piles *pile)
+int		petittria(t_piles *pile)
 {
 	while (!issorted(pile, 0))
 	{
@@ -28,7 +28,7 @@ int		petittria(piles *pile)
 	return (0);
 }
 
-int		petittrib(piles *pile)
+int		petittrib(t_piles *pile)
 {
 	int	i;
 
@@ -44,7 +44,7 @@ int		petittrib(piles *pile)
 	return (0);
 }
 
-int		sortshortlist(piles *pile)
+int		sortshortlist(t_piles *pile)
 {
 	int	pivot;
 

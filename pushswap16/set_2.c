@@ -1,6 +1,6 @@
 #include "pushswap.h"
 
-int	pusha(piles *pile, int print)
+int	pusha(t_piles *pile, int print)
 {
 	int	tmp;
 	if (pile->bsize < 1)
@@ -14,7 +14,7 @@ int	pusha(piles *pile, int print)
 	return (0);
 }
 
-int	pushb(piles *pile, int print)
+int	pushb(t_piles *pile, int print)
 {
 	int	tmp;
 	if (pile->asize < 1)
@@ -28,7 +28,7 @@ int	pushb(piles *pile, int print)
 	return (0);
 }
 
-int	revrotatea(piles *pile, int print)
+int	revrotatea(t_piles *pile, int print)
 {
 	int	tmp;
 	int	i;
@@ -46,7 +46,7 @@ int	revrotatea(piles *pile, int print)
 	return (1);
 }
 
-int	revrotateb(piles *pile, int print)
+int	revrotateb(t_piles *pile, int print)
 {
 	int	tmp;
 	int	i;
@@ -63,7 +63,7 @@ int	revrotateb(piles *pile, int print)
 	return (1);
 }
 
-int	revrotateab(piles *pile, int print)
+int	revrotateab(t_piles *pile, int print)
 {
 	if (print)
 		ft_printf("rrr\n");
