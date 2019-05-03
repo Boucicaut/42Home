@@ -25,13 +25,15 @@ int	pusherror(char **s, int argc)
 		{
 			while (s[i][j] && s[i][j] == ' ')
 				j++;
-			if ((strmaxint(s[i])) || (s[i][j] == '-' && ((s[i][j + 1]\
+			if (((strmaxint(s[i])) || (s[i][j] == '-' && ((s[i][j + 1]\
 			&& s[i][j + 1] == '-') || !s[i][j + 1] || s[i][j + 1] == ' '))\
 			|| (s[i][j] >= '0' && s[i][j] <= '9' && s[i][j + 1]\
-			&& s[i][j + 1] == '-'))
+			&& s[i][j + 1] == '-')) || ((s[i][j] && s[i][j] != '-')\
+			 && (s[i][j] < '0' || s[i][j] > '9')))
+			{
+				ft_printf("Error\n");
 				return (1);
-			if (s[i][j] && s[i][j] != '-' && (s[i][j] < '0' || s[i][j] > '9'))
-				return (1);
+			}
 			j++;
 		}
 		i++;

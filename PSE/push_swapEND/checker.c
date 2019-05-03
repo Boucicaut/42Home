@@ -17,11 +17,8 @@ int	main(int argc, char **argv)
 	t_piles	*pile;
 	char	*ins;
 
-	if (pusherror(argv, argc))
-	{
-		ft_printf("Error\n");
+	if (argc < 2 || pusherror(argv, argc))
 		return (1);
-	}
 	pile = inittabs(argc, argv, 0);
 	ins = ft_strnew(5);
 	if (doublonerror(pile))

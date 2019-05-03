@@ -20,10 +20,7 @@ int		main(int argc, char **argv)
 
 	i = 0;
 	if (pusherror(argv, argc))
-	{
-		ft_printf("Error\n");
 		return (1);
-	}
 	pile = inittabs(argc, argv, 0);
 	if (doublonerror(pile))
 		ft_printf("Error\n");
