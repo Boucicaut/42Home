@@ -6,20 +6,18 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 16:07:12 by bviollet          #+#    #+#             */
-/*   Updated: 2019/04/13 18:04:41 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/05/04 19:30:57 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-# define COUNT_OF(ptr) (sizeof(ptr) / sizeof((ptr)[0]))
-# define ABSS(x) x > 0 ? x : -x
-# define BUFF_SIZE 10
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdarg.h>
+# define BUFF_SIZE 10
 # define MAXPOURCENT 12
 # define CBLA "\e[30m"
 # define CRED "\e[31m"

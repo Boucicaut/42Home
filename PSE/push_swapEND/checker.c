@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 17:10:02 by bviollet          #+#    #+#             */
-/*   Updated: 2019/04/28 15:20:40 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/05/04 19:16:19 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,11 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	while (get_next_line(0, &ins))
+	{
+		ft_printf("Instruction : %s\n", ins);
 		if (checkerope(ins, pile))
 			return (1);
+	}
 	if (issorted(pile, 0) && pile->bsize == 0)
 		ft_printf("OK\n");
 	else

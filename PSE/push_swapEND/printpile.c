@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 17:29:18 by bviollet          #+#    #+#             */
-/*   Updated: 2019/04/28 15:23:36 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/05/04 19:09:13 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ t_piles	*inittabs2(int k, char **argv, int argc, t_piles *pile)
 	int	i;
 	int	j;
 
-	pile->a = memset(pile->a, 0, (sizeof(int) * (k)));
-	pile->b = memset(pile->b, 0, (sizeof(int) * (k)));
+	pile->a = ft_memset(pile->a, 0, (sizeof(int) * (k)));
+	pile->b = ft_memset(pile->b, 0, (sizeof(int) * (k)));
 	pile->asize = k;
 	pile->bsize = 0;
 	i = 0;

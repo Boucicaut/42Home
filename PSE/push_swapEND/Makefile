@@ -6,7 +6,7 @@
 #    By: bviollet <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/14 14:35:04 by bviollet          #+#    #+#              #
-#    Updated: 2019/04/27 18:03:21 by bviollet         ###   ########.fr        #
+#    Updated: 2019/05/04 19:08:31 by bviollet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,11 @@ OBJPUSH = $(SRCPUSH:.c=.o)
 LIBFT = ./libft/libft.a
 LIBFT_PATH = ./libft
 
-all : $(LIBFT) $(NAMEPUSH) $(NAMECHECK)
+all: $(NAMEPUSH) $(NAMECHECK) $(LIBFT)
+
+$(NAMEPUSH): $(LIBFT)
+
+$(NAMECHECK): $(LIBFT)
 
 $(LIBFT): $(LIBFT_PATH)
 		@$(MAKE) -C $(LIBFT_PATH)
