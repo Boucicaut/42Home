@@ -17,10 +17,15 @@ int	main(int argc, char **argv)
 	t_piles	*pile;
 	char	*ins;
 
+	pile = inittabs(argc, argv, 0);
 	if (argc < 2 || pusherror(argv, argc))
 		return (1);
-	pile = inittabs(argc, argv, 0);
-	ins = ft_strnew(5);
+	ins = NULL;
+	if (pile->asize == 0 && pile->bsize == 0)
+	{
+		freechecker(ins, pile);
+		return (0);
+	}
 	if (doublonerror(pile))
 	{
 		ft_printf("Error\n");
@@ -28,11 +33,11 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	while (get_next_line(0, &ins))
-	{
-		ft_printf("Instruction : %s\n", ins);
+{
+ft_printf("INS : %s\n", ins);
 		if (checkerope(ins, pile))
 			return (1);
-	}
+}
 	if (issorted(pile, 0) && pile->bsize == 0)
 		ft_printf("OK\n");
 	else

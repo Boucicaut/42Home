@@ -18,24 +18,35 @@ int		ft_nextline(char **str, char **line, int fd, int nbbytes)
 	int		len;
 
 	len = 0;
+ft_printf("newline\n");
 	while (str && str[fd] && str[fd][len] != '\n' && str[fd][len] != '\0')
 		len++;
-	if (str && str[fd] && str[fd][len] && str[fd][len] == '\n')
+	if (str && str[fd] && str[fd][len] && ((str[fd][len] == '\n') || (str[fd][len] == '\0')))
 	{
-		free(*line);
-		*line = ft_strsub(str[fd], 0, len);
-		tmp = ft_strdup(str[fd] + len + 1);
-		free(str[fd]);
-		str[fd] = tmp;
-		if (str[fd][0] == '\0')
-			ft_strdel(&str[fd]);
+		if (str[fd][0] != '\n' && str[fd][len] && str[fd][len] == '\n')
+		{
+			ft_printf("strnew \n");
+			*line = ft_strnew((int)ft_strlen(str[fd]) - (int)ft_strlen((char*)ft_strchr(str[fd], '\n')));
+		}
+		else if (str[fd][len] && (str[fd][len] == '\0'))
+		{
+ft_printf("00l\n");
+			*line = ft_strdup("a");
+			return (1);
+		}
+ft_printf("nnl\n");
+		//*line = ft_strnew((int)ft_strlen(str[fd]) - (int)ft_strlen((char*)ft_strchr(str[fd], '\0')));
+		if (!(nbbytes == 1 && str[fd][0] == '\n'))
+			ft_strncpy(*line, str[fd], len);
+		tmp = str[fd];
+		str[fd] = ft_strdup(str[fd] + len + 1);
+		free(tmp);
 	}
-	else if (str && str[fd] && str[fd][len] && str[fd][len] == '\0')
+	else
 	{
 		if (nbbytes == BUFF_SIZE)
 			return (get_next_line(fd, line));
-		free(*line);
-		*line = ft_strdup(str[fd]);
+		//*line = ft_strdup("shit");
 		ft_strdel(&str[fd]);
 	}
 	return (1);
@@ -48,24 +59,29 @@ int		get_next_line(const int fd, char **line)
 	char		*tmp;
 	int			nbbytes;
 
-	if ((fd < 0) || (!line))
+	if ((fd < 0))// || (!line))
 		return (-1);
 	while ((nbbytes = read(fd, buf, BUFF_SIZE)) > 0)
 	{
-		if (buf[0] == '\0')
-			break ;
+ft_printf("nbytes : %d\n", nbbytes);
 		buf[nbbytes] = '\0';
-		if (str[fd] == NULL)
-			str[fd] = ft_strnew(1);
-		tmp = str[fd];
-		str[fd] = ft_strjoin(tmp, buf);
-		free(tmp);
-		if (ft_strchr(buf, '\n'))
+		if (str[fd] != NULL)
+		{
+			tmp = str[fd];
+			str[fd] = ft_strjoin(str[fd], buf);
+			free(tmp);
+		}
+		else
+			str[fd] = ft_strdup(buf);
+ft_printf("Str[fd] : %s|\n", str[fd]);
+		if (ft_strchr(buf, '\n') || ft_strchr(buf, '\0'))
 			break ;
 	}
-	if (nbbytes < 0)
-		return (-1);
-	else if ((nbbytes == 0) && ((str[fd] == NULL) || (str[fd][0] == '\0')))
+	if ((nbbytes == 0 && (str[fd] == NULL)))// || (str[fd][0] == '\0'))
+	{
+ft_printf("Enddd\n");
+		ft_strdel(&str[fd]);
 		return (0);
+	}
 	return (ft_nextline(str, line, fd, nbbytes));
 }

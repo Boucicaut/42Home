@@ -17,7 +17,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdarg.h>
-# define BUFF_SIZE 10
+# define BUFF_SIZE 1
 # define MAXPOURCENT 12
 # define CBLA "\e[30m"
 # define CRED "\e[31m"
