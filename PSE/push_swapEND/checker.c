@@ -20,7 +20,7 @@ int	main(int argc, char **argv)
 	if (pusherror(argv, argc))
 		return (1);
 	pile = inittabs(argc, argv, 0);
-	ins = ft_strnew(1);
+	ins = NULL;
 	if (pile->asize == 0 && pile->bsize == 0)
 	{
 		freechecker(ins, pile);
@@ -37,12 +37,13 @@ int	main(int argc, char **argv)
 ft_printf("INS : %s\n", ins);
 		if (checkerope(ins, pile))
 			return (1);
+		free(ins);
 	}
 	if (issorted(pile, 0) && pile->bsize == 0)
 		ft_printf("OK\n");
 	else
 		ft_printf("KO\n");
-	freechecker(ins, pile);
+	freechecker(NULL, pile);
 	return (0);
 }
 
@@ -89,7 +90,7 @@ int	checkerope2(char *ins, t_piles *pile)
 int	freechecker(char *ins, t_piles *pile)
 {
 	if (ins)
-		;//free(ins);
+		free(ins);
 	free(pile->a);
 	free(pile->b);
 	free(pile);

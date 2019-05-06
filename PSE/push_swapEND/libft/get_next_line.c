@@ -47,6 +47,7 @@ ft_printf("nnl\n");
 		if (nbbytes == BUFF_SIZE)
 			return (get_next_line(fd, line));
 		//*line = ft_strdup("shit");
+//free(*line);
 		ft_strdel(&str[fd]);
 	}
 	return (1);
@@ -80,7 +81,7 @@ ft_printf("Str[fd] : %s|\n", str[fd]);
 ft_printf("nbytes : %d\n", nbbytes);
 	if ((nbbytes == 0 && (str[fd] == NULL)) || (str[fd][0] == '\0' && 1 >= (int)ft_strlen(str[fd])))
 	{
-free(*line);
+//free(*line);
 ft_printf("Enddd\n");
 		ft_strdel(&str[fd]);
 		return (0);
