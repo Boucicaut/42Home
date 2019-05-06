@@ -77,8 +77,10 @@ ft_printf("Str[fd] : %s|\n", str[fd]);
 		if (ft_strchr(buf, '\n') || ft_strchr(buf, '\0'))
 			break ;
 	}
-	if ((nbbytes == 0 && (str[fd] == NULL)))// || (str[fd][0] == '\0'))
+ft_printf("nbytes : %d\n", nbbytes);
+	if ((nbbytes == 0 && (str[fd] == NULL)) || (str[fd][0] == '\0' && 1 >= (int)ft_strlen(str[fd])))
 	{
+free(*line);
 ft_printf("Enddd\n");
 		ft_strdel(&str[fd]);
 		return (0);

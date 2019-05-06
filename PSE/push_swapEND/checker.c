@@ -17,10 +17,10 @@ int	main(int argc, char **argv)
 	t_piles	*pile;
 	char	*ins;
 
-	pile = inittabs(argc, argv, 0);
-	if (argc < 2 || pusherror(argv, argc))
+	if (pusherror(argv, argc))
 		return (1);
-	ins = NULL;
+	pile = inittabs(argc, argv, 0);
+	ins = ft_strnew(1);
 	if (pile->asize == 0 && pile->bsize == 0)
 	{
 		freechecker(ins, pile);
@@ -33,11 +33,11 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	while (get_next_line(0, &ins))
-{
+	{
 ft_printf("INS : %s\n", ins);
 		if (checkerope(ins, pile))
 			return (1);
-}
+	}
 	if (issorted(pile, 0) && pile->bsize == 0)
 		ft_printf("OK\n");
 	else
@@ -88,7 +88,8 @@ int	checkerope2(char *ins, t_piles *pile)
 
 int	freechecker(char *ins, t_piles *pile)
 {
-	free(ins);
+	if (ins)
+		;//free(ins);
 	free(pile->a);
 	free(pile->b);
 	free(pile);
