@@ -21,6 +21,9 @@ int		ft_nextline(char **str, char **line, int fd, int nbbytes)
 ft_printf("newline\n");
 	while (str && str[fd] && str[fd][len] != '\n' && str[fd][len] != '\0')
 		len++;
+	if (ft_strchr(str[fd] + len, '\n'))
+		while (str[fd][len] != '\n')
+			len++;
 	if (str && str[fd] && str[fd][len] && ((str[fd][len] == '\n') || (str[fd][len] == '\0')))
 	{
 		if (str[fd][0] != '\n' && str[fd][len] && str[fd][len] == '\n')
@@ -36,8 +39,8 @@ ft_printf("00l\n");
 		}
 ft_printf("nnl\n");
 		//*line = ft_strnew((int)ft_strlen(str[fd]) - (int)ft_strlen((char*)ft_strchr(str[fd], '\0')));
-		if (!(nbbytes == 1 && str[fd][0] == '\n'))
-			ft_strncpy(*line, str[fd], len);
+		//if (!(nbbytes == 1 && str[fd][0] == '\n'))
+			ft_memcpy(*line, str[fd], nbbytes);
 		tmp = str[fd];
 		str[fd] = ft_strdup(str[fd] + len + 1);
 		free(tmp);
@@ -48,8 +51,9 @@ ft_printf("nnl\n");
 			return (get_next_line(fd, line));
 		//*line = ft_strdup("shit");
 //free(*line);
-		ft_strdel(&str[fd]);
+		//ft_strdel(&str[fd]);
 	}
+		ft_strdel(&str[fd]);
 	return (1);
 }
 
@@ -65,6 +69,7 @@ int		get_next_line(const int fd, char **line)
 	while ((nbbytes = read(fd, buf, BUFF_SIZE)) > 0)
 	{
 ft_printf("nbytes : %d\n", nbbytes);
+ft_printf("read : %s\n", buf);
 		buf[nbbytes] = '\0';
 		if (str[fd] != NULL)
 		{
