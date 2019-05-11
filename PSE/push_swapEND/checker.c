@@ -32,7 +32,7 @@ int	main(int argc, char **argv)
 		freechecker(ins, pile);
 		return (1);
 	}
-	while (get_next_line(0, &ins))
+	while (get_next_line(0, &ins) && ins)
 	{
 ft_printf("INS : %s\n", ins);
 		if (checkerope(ins, pile))
