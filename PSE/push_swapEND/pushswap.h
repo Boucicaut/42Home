@@ -25,11 +25,11 @@ typedef struct	s_piles
 	int			bsize;
 }				t_piles;
 
-int				freechecker(char *ins, t_piles *pile);
+int				freechecker(char **ins, t_piles *pile, char **str);
 int				quicksortbiggestpos(t_piles *pile);
 int				quicksortope(t_piles *pile, int pivot);
-int				checkerope(char *ins, t_piles *pile);
-int				checkerope2(char *ins, t_piles *pile);
+int				checkerope(char *ins, t_piles *pile, char **str);
+int				checkerope2(char *ins, t_piles *pile, char **str);
 int				sortshortlist(t_piles *pile);
 int				pusherror(char **s, int argc);
 int				doublonerror(t_piles *pile);

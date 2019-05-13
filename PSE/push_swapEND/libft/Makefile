@@ -16,16 +16,16 @@ LIBFT_FILES = strmaxint.c ft_tento.c ft_putbignbr.c ft_qtebignb.c ft_convertbase
 		 ft_strsplit.c ft_itoa.c ft_putchar.c ft_putstr.c ft_putendl.c ft_putnbr.c \
 		 ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_lstnew.c \
 		 ft_lstdelone.c ft_lstdel.c ft_lstadd.c ft_lstiter.c ft_lstmap.c ft_findreplace.c \
-		 ft_freeptr.c ft_freestr.c ft_swap.c ft_runthrough.c get_next_line.c hexatoupper.c\
+		 ft_freeptr.c ft_freestr.c ft_swap.c ft_runthrough.c hexatoupper.c\
 		 convunsigned.c ft_printf.c pourcentd.c pourcentf.c pourcento.c pourcentp.c setlim.c\
 		 initmatchpat.c pourcentu.c pourcentx.c roundf.c setflaglim.c pourcentb.c colors.c\
-		 pourcenta.c
+		 pourcenta.c gnl.c #get_next_line.c 
 
 # Objects
 OBJ = $(LIBFT_FILES:.c=.o)
 
 # Flags
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -g3 -Wall -Wextra -Werror
 CC = gcc
 
 all: $(NAME)

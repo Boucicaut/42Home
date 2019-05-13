@@ -15,39 +15,45 @@
 int	main(int argc, char **argv)
 {
 	t_piles	*pile;
-	char	*ins;
+	char	**ins;
+	char	**str;
 
 	if (pusherror(argv, argc))
 		return (1);
 	pile = inittabs(argc, argv, 0);
-	ins = NULL;
 	if (pile->asize == 0 && pile->bsize == 0)
 	{
-		freechecker(ins, pile);
+		freechecker(NULL, pile, NULL);
 		return (0);
 	}
 	if (doublonerror(pile))
 	{
 		ft_printf("Error\n");
-		freechecker(ins, pile);
+		freechecker(NULL, pile, NULL);
 		return (1);
 	}
-	while (get_next_line(0, &ins) && ins)
+	if (!(str = (char**)malloc(sizeof(char*))))
+		return (1);
+	if (!(ins = (char**)malloc(sizeof(char*))))
+		return (1);
+	*ins = NULL;
+	*str = NULL;
+	while (get_next_line(ins, str))
 	{
-ft_printf("INS : %s\n", ins);
-		if (checkerope(ins, pile))
+ft_printf("\t\t\tINS : %s\n", *ins);
+		if (checkerope(*ins, pile, str))
 			return (1);
-		free(ins);
+		free(*ins);
 	}
 	if (issorted(pile, 0) && pile->bsize == 0)
 		ft_printf("OK\n");
 	else
 		ft_printf("KO\n");
-	freechecker(NULL, pile);
+	freechecker(ins, pile, str);
 	return (0);
 }
 
-int	checkerope(char *ins, t_piles *pile)
+int	checkerope(char *ins, t_piles *pile, char **str)
 {
 	if (!ft_strcmp("pa", ins))
 		pusha(pile, 0);
@@ -66,11 +72,11 @@ int	checkerope(char *ins, t_piles *pile)
 	else if (!ft_strcmp("rr", ins))
 		rotateab(pile, 0);
 	else
-		return (checkerope2(ins, pile));
+		return (checkerope2(ins, pile, str));
 	return (0);
 }
 
-int	checkerope2(char *ins, t_piles *pile)
+int	checkerope2(char *ins, t_piles *pile, char **str)
 {
 	if (!ft_strcmp("rra", ins))
 		revrotatea(pile, 0);
@@ -81,16 +87,21 @@ int	checkerope2(char *ins, t_piles *pile)
 	else
 	{
 		ft_putstr_fd("Error\n", 2);
-		freechecker(ins, pile);
+		freechecker(&ins, pile, str);
 		return (1);
 	}
 	return (0);
 }
 
-int	freechecker(char *ins, t_piles *pile)
+int	freechecker(char **ins, t_piles *pile, char **str)
 {
 	if (ins)
 		free(ins);
+	if (str)
+	{
+		free(*str);
+		free(str);
+	}
 	free(pile->a);
 	free(pile->b);
 	free(pile);
