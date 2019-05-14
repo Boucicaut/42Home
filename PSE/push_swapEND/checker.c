@@ -16,32 +16,27 @@ int	main(int argc, char **argv)
 {
 	t_piles	*pile;
 	char	**ins;
-	char	**str;
 
 	if (pusherror(argv, argc))
 		return (1);
 	pile = inittabs(argc, argv, 0);
 	if (pile->asize == 0 && pile->bsize == 0)
 	{
-		freechecker(NULL, pile, NULL);
+		freechecker(NULL, pile);
 		return (0);
 	}
 	if (doublonerror(pile))
 	{
 		ft_printf("Error\n");
-		freechecker(NULL, pile, NULL);
+		freechecker(NULL, pile);
 		return (1);
 	}
-	if (!(str = (char**)malloc(sizeof(char*))))
-		return (1);
 	if (!(ins = (char**)malloc(sizeof(char*))))
 		return (1);
-	*ins = NULL;
-	*str = NULL;
-	while (get_next_line(ins, str))
+	while (get_next_line(0, ins))
 	{
 ft_printf("\t\t\tINS : %s\n", *ins);
-		if (checkerope(*ins, pile, str))
+		if (checkerope(ins, pile))
 			return (1);
 		free(*ins);
 	}
@@ -49,59 +44,53 @@ ft_printf("\t\t\tINS : %s\n", *ins);
 		ft_printf("OK\n");
 	else
 		ft_printf("KO\n");
-	freechecker(ins, pile, str);
+	freechecker(ins, pile);
 	return (0);
 }
 
-int	checkerope(char *ins, t_piles *pile, char **str)
+int	checkerope(char **ins, t_piles *pile)
 {
-	if (!ft_strcmp("pa", ins))
+	if (!ft_strcmp("pa", *ins))
 		pusha(pile, 0);
-	else if (!ft_strcmp("pb", ins))
+	else if (!ft_strcmp("pb", *ins))
 		pushb(pile, 0);
-	else if (!ft_strcmp("sa", ins))
+	else if (!ft_strcmp("sa", *ins))
 		swapa(pile, 0);
-	else if (!ft_strcmp("sb", ins))
+	else if (!ft_strcmp("sb", *ins))
 		swapb(pile, 0);
-	else if (!ft_strcmp("ss", ins))
+	else if (!ft_strcmp("ss", *ins))
 		swapab(pile, 0);
-	else if (!ft_strcmp("ra", ins))
+	else if (!ft_strcmp("ra", *ins))
 		rotatea(pile, 0);
-	else if (!ft_strcmp("rb", ins))
+	else if (!ft_strcmp("rb", *ins))
 		rotateb(pile, 0);
-	else if (!ft_strcmp("rr", ins))
+	else if (!ft_strcmp("rr", *ins))
 		rotateab(pile, 0);
 	else
-		return (checkerope2(ins, pile, str));
+		return (checkerope2(ins, pile));
 	return (0);
 }
 
-int	checkerope2(char *ins, t_piles *pile, char **str)
+int	checkerope2(char **ins, t_piles *pile)
 {
-	if (!ft_strcmp("rra", ins))
+	if (!ft_strcmp("rra", *ins))
 		revrotatea(pile, 0);
-	else if (!ft_strcmp("rrb", ins))
+	else if (!ft_strcmp("rrb", *ins))
 		revrotateb(pile, 0);
-	else if (!ft_strcmp("rrr", ins))
+	else if (!ft_strcmp("rrr", *ins))
 		revrotateab(pile, 0);
 	else
 	{
 		ft_putstr_fd("Error\n", 2);
-		freechecker(&ins, pile, str);
+		freechecker(ins, pile);
 		return (1);
 	}
 	return (0);
 }
 
-int	freechecker(char **ins, t_piles *pile, char **str)
+int	freechecker(char **ins, t_piles *pile)
 {
-	if (ins)
-		free(ins);
-	if (str)
-	{
-		free(*str);
-		free(str);
-	}
+	free(ins);
 	free(pile->a);
 	free(pile->b);
 	free(pile);

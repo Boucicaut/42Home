@@ -59,8 +59,8 @@ int	swapornot(t_piles *pile, int i)
 {
 	if ((pile->a[0] > pile->a[1] || pile->b[0] < pile->b[1]))
 	{
-		if (pile->asize > 1 && pile->bsize > 1 &&\
-		pile->a[0] > pile->a[1] && pile->b[0] < pile->b[1])
+		if (pile->asize > 1 && pile->bsize > 1\
+		&& pile->a[0] > pile->a[1] && pile->b[0] < pile->b[1])
 			swapab(pile, 1);
 		else if (i && pile->asize > 1 && pile->a[0] > pile->a[1])
 			swapa(pile, 1);
