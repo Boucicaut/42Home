@@ -28,6 +28,7 @@ typedef struct	s_piles
 int				freechecker(char *ins, t_piles *pile);
 int				quicksortbiggestpos(t_piles *pile);
 int				quicksortope(t_piles *pile, int pivot);
+int				execute_ins(t_piles *pile, char *ins);
 int				checkerope(char *ins, t_piles *pile);
 int				checkerope2(char *ins, t_piles *pile);
 int				sortshortlist(t_piles *pile);

@@ -14,7 +14,7 @@ NAMEPUSH = push_swap
 NAMECHECK = checker
 
 SRCPUSH = printpile.c set_1.c set_2.c set_3.c comparetests.c push_swap.c pusherror.c comparetests2.c mediumpivot.c quicksort.c petittri.c
-SRCCHECK = checker.c printpile.c set_1.c set_2.c set_3.c comparetests.c pusherror.c comparetests2.c mediumpivot.c quicksort.c petittri.c
+SRCCHECK = checker.c printpile.c set_1.c set_2.c set_3.c pusherror.c 
 
 CC = gcc
 CFLAGS = -g3 -Werror -Wall -Wextra
@@ -26,13 +26,13 @@ LIBFT_PATH = ./libft
 all : $(LIBFT) $(NAMEPUSH) $(NAMECHECK)
 
 $(LIBFT): $(LIBFT_PATH)
-		@$(MAKE) -C $(LIBFT_PATH)
+		$(MAKE) -C $(LIBFT_PATH)
 
-$(NAMEPUSH): $(OBJPUSH) $(LIBFT_PATH)
-			$(CC) $(FLAGS) $(LIBFT) $(SRCPUSH) -o $(NAMEPUSH)
+$(NAMEPUSH): $(OBJPUSH) $(LIBFT)
+			$(CC) $(CFLAGS) $(LIBFT) $(OBJPUSH) -o $(NAMEPUSH)
 
-$(NAMECHECK): $(OBJCHECK) $(LIBFT_PATH)
-			$(CC) $(FLAGS) $(LIBFT) $(SRCCHECK) -o $(NAMECHECK)
+$(NAMECHECK): $(OBJCHECK) $(LIBFT)
+			$(CC) $(CFLAGS) $(LIBFT) $(OBJCHECK) -o $(NAMECHECK)
 
 clean:
 		@make clean -C $(LIBFT_PATH)

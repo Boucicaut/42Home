@@ -25,7 +25,7 @@ LIBFT_FILES = strmaxint.c ft_tento.c ft_putbignbr.c ft_qtebignb.c ft_convertbase
 OBJ = $(LIBFT_FILES:.c=.o)
 
 # Flags
-FLAGS = -g3 -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 CC = gcc
 
 all: $(NAME)
@@ -33,9 +33,6 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
-
-%.o: %.c
-	@$(CC) $(FLAGS) -o $@ -c $<
 
 clean:
 	@rm -f $(OBJ)

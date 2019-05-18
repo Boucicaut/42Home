@@ -31,11 +31,23 @@ int	main(int argc, char **argv)
 		freechecker(NULL, pile);
 		return (1);
 	}
-	while (get_next_line(0, &ins))
+	ins = NULL;
+	return (execute_ins(pile, ins));
+}
+
+int	execute_ins(t_piles *pile, char *ins)
+{
+	while (get_next_line(0, &ins, 0))
 	{
+		if (!ins || !ins[0])
+		{
+			freechecker(NULL, pile);
+			return (1);
+		}
 		if (checkerope(ins, pile))
 			return (1);
 		free(ins);
+		ins = NULL;
 	}
 	if (issorted(pile, 0) && pile->bsize == 0)
 		ft_printf("OK\n");

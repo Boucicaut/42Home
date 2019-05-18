@@ -60,7 +60,7 @@ char				*ft_convertbase(long long unsigned int nb, int base);
 void				ft_freeptr(void **ptr);
 void				runthrough(char **ptr, void(*f)(char **ptr, int i, int j));
 int					ft_nextline(char **str, char **line, int fd, int nbbytes);
-int					get_next_line(const int fd, char **line);
+int					get_next_line(const int fd, char **line, int i);
 void				ft_findreplace(char *str, char find, char replace);
 void				ft_freestr(char **ptr, int nb);
 void				ft_swap(void *s, void *s2, int size);

@@ -32,14 +32,14 @@ int		ft_nextline(char **str, char **line, int fd, int nbbytes)
 	else if (str && str[fd] && str[fd][len] && str[fd][len] == '\0')
 	{
 		if (nbbytes == BUFF_SIZE)
-			return (get_next_line(fd, line));
+			return (get_next_line(fd, line, 0));
 		*line = ft_strdup(str[fd]);
 		ft_strdel(&str[fd]);
 	}
 	return (1);
 }
 
-int		get_next_line(const int fd, char **line)
+int		get_next_line(const int fd, char **line, int i)
 {
 	static char	*str[200];
 	char		buf[BUFF_SIZE + 1];
@@ -48,6 +48,7 @@ int		get_next_line(const int fd, char **line)
 
 	if ((fd < 0) || (!line))
 		return (-1);
+	str[fd] = NULL;
 	while ((nbbytes = read(fd, buf, BUFF_SIZE)) > 0)
 	{
 		if (buf[0] == '\0')
@@ -58,12 +59,13 @@ int		get_next_line(const int fd, char **line)
 		tmp = str[fd];
 		str[fd] = ft_strjoin(tmp, buf);
 		free(tmp);
-		if (ft_strchr(buf, '\n'))
+		if (ft_strchr(buf, '\n') || i++ > 10)
 			break ;
 	}
+	ft_strdel(&str[fd]);
 	if (nbbytes < 0)
 		return (-1);
-	else if ((nbbytes == 0) && ((str[fd] == NULL) || (str[fd][0] == '\0')))
+	else if ((nbbytes == 0) || (str[fd] == NULL) || (str[fd][0] == '\0'))
 		return (0);
 	return (ft_nextline(str, line, fd, nbbytes));
 }
