@@ -6,7 +6,7 @@
 /*   By: bviollet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 18:41:34 by bviollet          #+#    #+#             */
-/*   Updated: 2019/05/18 15:17:14 by bviollet         ###   ########.fr       */
+/*   Updated: 2019/05/18 16:26:42 by bviollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		get_next_line(const int fd, char **line, int i)
 	char		*tmp;
 	int			nbbytes;
 
-	if ((fd < 0) || (!line))
+	if (fd < 0)
 		return (-1);
 	str[fd] = NULL;
 	while ((nbbytes = read(fd, buf, BUFF_SIZE)) > 0)
@@ -62,10 +62,17 @@ int		get_next_line(const int fd, char **line, int i)
 		if (ft_strchr(buf, '\n') || i++ > 10)
 			break ;
 	}
-	ft_strdel(&str[fd]);
+	return (gnl(nbbytes, str, fd, line));
+}
+
+int		gnl(int nbbytes, char *str[200], int fd, char **line)
+{
 	if (nbbytes < 0)
 		return (-1);
-	else if ((nbbytes == 0) || (str[fd] == NULL) || (str[fd][0] == '\0'))
+	else if ((nbbytes == 0 && !str[fd]) || (str[fd] && str[fd][0] == '\0'))
+	{
+		ft_strdel(&str[fd]);
 		return (0);
+	}
 	return (ft_nextline(str, line, fd, nbbytes));
 }
