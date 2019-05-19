@@ -26,8 +26,7 @@ int		ft_nextline(char **str, char **line, int fd, int nbbytes)
 		tmp = ft_strdup(str[fd] + len + 1);
 		free(str[fd]);
 		str[fd] = tmp;
-		if (str[fd][0] == '\0')
-			ft_strdel(&str[fd]);
+		ft_strdel(&str[fd]);
 	}
 	else if (str && str[fd] && str[fd][len] && str[fd][len] == '\0')
 	{
@@ -71,6 +70,7 @@ int		gnl(int nbbytes, char *str[200], int fd, char **line)
 		return (-1);
 	else if ((nbbytes == 0 && !str[fd]) || (str[fd] && str[fd][0] == '\0'))
 	{
+ft_printf("End 0\n");
 		ft_strdel(&str[fd]);
 		return (0);
 	}
