@@ -52,6 +52,8 @@ int		get_next_line(const int fd, char **line)
 		return (-1);
 	while ((nbbytes = read(fd, buf, BUFF_SIZE)) > 0)
 	{
+		if (buf[0] == '\0')
+			break ;
 		buf[nbbytes] = '\0';
 		if (str[fd] == NULL)
 			str[fd] = ft_strnew(1);
@@ -63,7 +65,7 @@ int		get_next_line(const int fd, char **line)
 	}
 	if (nbbytes < 0)
 		return (-1);
-	else if ((nbbytes == 0) && ((str[fd] == NULL) || (str[fd][0] == '\0')))
+	else if ((nbbytes == 0 || buf[0] == '\0') && ((str[fd] == NULL) || (str[fd][0] == '\0')))
 		return (0);
 	return (ft_nextline(str, line, fd, nbbytes));
 }

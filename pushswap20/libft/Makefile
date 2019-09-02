@@ -25,7 +25,7 @@ LIBFT_FILES = strmaxint.c ft_tento.c ft_putbignbr.c ft_qtebignb.c ft_convertbase
 OBJ = $(LIBFT_FILES:.c=.o)
 
 # Flags
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -g3 -Wall -Wextra -Werror
 CC = gcc
 
 all: $(NAME)

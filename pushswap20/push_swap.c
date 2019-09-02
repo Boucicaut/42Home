@@ -6,8 +6,8 @@ int	main(int argc, char **argv)
 	int		i;
 
 	i = 0;
-	if (argc == 1 || (argc == 2 && !ft_strcmp(argv[1], "-i")))
-		return (0);
+	//if (argc == 1 || (argc == 2 && !ft_strcmp(argv[1], "-i")))
+	//	return (0);
 	i = (argc == 3 && !ft_strcmp("-i", argv[1])) ? 1 : 0;
 	if (pusherror(argv, argc, i))
 	{
@@ -18,7 +18,10 @@ int	main(int argc, char **argv)
 		pile = inittabs(argc, argv, 0);
 	else
 		pile = inittabs(argc, argv, 1);
-	gestionrecursive(pile);
+	if (doublonerror(pile))
+		ft_printf("Error\n");
+	else
+		gestionrecursive(pile);
 	free(pile->a);
 	free(pile->b);
 	free(pile);

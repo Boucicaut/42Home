@@ -21,17 +21,61 @@ int	printtab(piles *pile)
 	}
 	return (0);
 }
-
+#include <stdio.h>
 piles	*inittabs(int argc, char **argv, int mode)
 {
 	int	i;
 	int	j;
+	int	k;
 	piles	*pile;
 
 	if (!(pile = (piles*)malloc(sizeof(piles))))
 		exit (1);
-	j = 0;
-	i = -1;
+	i = 0;
+	k = 0;
+	while (i++ < argc)
+	{
+		j = 0;
+		while (j < (int)ft_strlen(argv[i]))
+		{
+			if (argv[i][j] && (argv[i][j] == '-' || (argv[i][j] <= '9' && argv[i][j] >= '0')))
+				k++;
+			while (argv[i][j] && (argv[i][j] == '-' || (argv[i][j] <= '9' && argv[i][j] >= '0')))
+				j++;
+			while (argv[i][j] && (argv[i][j] == ' '))
+				j++;
+		}
+	}
+	pile->a = (int*)malloc(sizeof(int) * (k - 1));
+	pile->b = (int*)malloc(sizeof(int) * (k - 1));
+	pile->a = memset(pile->a, 0, (sizeof(int) * (k)));
+	pile->b = memset(pile->b, 0, (sizeof(int) * (k)));
+	pile->asize = k;
+	pile->bsize = 0;
+	i = 0;
+	k = 0;
+	while (++i < argc)
+	{
+		j = 0;
+		while (j < (int)ft_strlen(argv[i]))
+		{
+			while (argv[i][j] && (argv[i][j] == ' '))
+				j++;
+			if (argv[i][j] && (argv[i][j] == '-' || (argv[i][j] <= '9' && argv[i][j] >= '0')))
+			{
+				pile->a[k++] = ft_atoi(&argv[i][j]);
+				j++;
+			}
+			while (argv[i][j] && (argv[i][j] == '-' || (argv[i][j] <= '9' && argv[i][j] >= '0')))
+				j++;
+		}
+	}
+(void)mode;
+//printtab(pile);
+//getchar();
+	return (pile);
+}
+/*
 	if (mode == 1)
 	{
 		pile->a = (int*)malloc(sizeof(int) * argc);
@@ -78,6 +122,7 @@ piles	*inittabs2(char **argv, piles *pile)
 	}
 	return (pile);
 }
+*/
 
 int		issorted(piles *pile, int w)
 {

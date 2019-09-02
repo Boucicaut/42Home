@@ -44,20 +44,31 @@ int		petittrib(t_piles *pile)
 	return (0);
 }
 
+<<<<<<< Updated upstream
 int		sortshortlist(t_piles *pile)
+=======
+#include <stdio.h>
+int		sortshortlist(piles *pile)
+>>>>>>> Stashed changes
 {
 	int	pivot;
 
+//printtab(pile);
 	if (pile->a[0] == biggest(pile, 0) && pile->a[pile->asize - 1] == biggestafter(pile, 0, biggest(pile, 0)))
 		rotatea(pile, 1);
 	while (!issorted(pile, 0))
 	{
+//printtab(pile);
 		pivot = mediumpivot(pile, 0);
+//printf("\tPivot : %d\n", pivot);
+//getchar();
 		swapornot(pile, 1);
-		if (!issorted(pile, 0) && pile->a[0] < pivot)
+		if (!issorted(pile, 0) && (pile->a[0] < pivot))// || (pile->a[0] == 0 && pivot == 0)))
 			pushb(pile, 1);
 		swapornot(pile, 1);
-		if (!issorted(pile, 0) && pile->a[0] > pile->a[pile->asize - 1])
+//printtab(pile);
+//printf("Pile->a[0] : %d, a[-1] : %d\n", pile->a[0], pile->a[pile->asize - 1]);
+		if (!issorted(pile, 0) && pile->a[0] > pile->a[pile->asize - 1] && ((pile->a[pile->asize - 1] < pivot && pile->asize % 2 == 0) || pile->asize < 6))
 			revrotatea(pile, 1);
 		else if (!issorted(pile, 0))
 			rotatea(pile, 1);

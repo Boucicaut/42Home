@@ -13,6 +13,8 @@ int	pusherror(char **str, int argc, int mode)
 		{
 			if ((mode == 0 && strmaxint(str[i])) || (mode == 1 && j > 0 && str[i][j - 1] != '-' && strmaxint(&str[i][j])) || (mode == 1 && j == 0 && strmaxint(&str[i][j])))
 				return (1);
+//			if (mode == 0 && str[i][j] >= '0' && str[i][j] <= '9' && str[i][j + 1] && str[i][j + 1] == ' ' && str[i][j + 2] && str[i][j + 2] != ' ')
+//				return (1);
 			if ((str[i][j] != ' ' && str[i][j] != '-' && (str[i][j] < '0' || str[i][j] > '9')) || (str[i][j] == '-' && str[i][j + 1] && str[i][j + 1] == '-'))
 				return (1);
 			if (str[i][j] == '-' && (!str[i][j + 1] || !ft_isdigit(str[i][j + 1])))
@@ -38,9 +40,12 @@ int	doublonerror(char **str, int argc, int mode)
 		while (i < argc)
 		{
 			j = i;
-			while (++j < argc)
-				if (ft_strcmp(str[i], str[j]) == 0)
+//if ((ft_strcmp(str[i], str[j]) == 0) || (str[j][0] == '0' && ft_strcmp(str[i], str[j + 1])))
+			while (++j < argc && str[i] && str[j])
+			{
+				if (ft_atoi(str[i]) == ft_atoi(str[j]))
 					return (1);
+			}
 			i++;
 		}
 	}
@@ -56,26 +61,23 @@ int	doublonerror2(char **str)
 	int	j;
 
 	i = 0;
-	str[2][(int)ft_strlen(str[2]) - 1] = str[2][(int)ft_strlen(str[2]) - 1] == ' ' ? '\0' : str[2][(int)ft_strlen(str[2]) - 1];
-	j = str[2][i + 1] ? i + 1 : i;
-	while (str[2][i] && i != j)// && str[2][j] && str[2][j + 1])
+	j = i;
+	while (str[2][i])
 	{
-		while (str[2][i] && (str[2][i] == ' ' || (str[2][i] == '-' && str[2][i + 1] && str[2][i + 1] == '0')))
-			i++;
-		//j = str[2][i + 1] ? i + 1 : i;
-		j = i + ft_qtenb(ft_atoi(&str[2][i]), 'd', 10, 12);
-		while (str[2][j] && i < j)// && str[2][j + 1] && str[2][j + 2])
+		while (str[2][j])
 		{
-			while (str[2][j] && str[2][j] == ' ')
+			while (str[2][j] && str[2][j] != ' ')
 				j++;
-			if (str[2][j] && j > i && ft_atoi(&str[2][j]) == ft_atoi(&str[2][i]))
+			if (str[2][j] == ' ')
+				j++;
+			if (str[2][i] && str[2][j] && ft_atoi(&str[2][i]) == ft_atoi(&str[2][j]))
 				return (1);
-			if (str[2][j])
-			{
-				j += ft_qtenb(ft_atoi(&str[2][j]), 'd', 10, 12);
-			}
 		}
-		i += ft_qtenb(ft_atoi(&str[2][i]), 'd', 10, 12);
+		while (str[2][i] && str[2][i] != ' ')
+			i++;
+		if (str[2][i] == ' ')
+			i++;
+		j = i;
 	}
 	return (0);
 }

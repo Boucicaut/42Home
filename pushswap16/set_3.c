@@ -57,3 +57,18 @@ int		swapornot(t_piles *pile, int i)
 	}
 	return (0);
 }
+
+int		checkvalue(piles *pile)
+{
+	int	i;
+	int	k;
+
+	k = 0;
+	i = -1;
+	while (++i < pile->asize)
+	{
+		if (pile->a[i] < 0)
+			k++;
+	}
+	return (k);
+}

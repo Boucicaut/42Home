@@ -17,7 +17,7 @@ SRCPUSH = printpile.c set_1.c set_2.c set_3.c comparetests.c push_swap.c pusherr
 SRCCHECK = checker.c printpile.c set_1.c set_2.c set_3.c comparetests.c pusherror.c comparetests2.c mediumpivot.c quicksort.c petittri.c
 
 CC = gcc
-CFLAGS = -Werror -Wall -Wextra
+CFLAGS = -g3 -Werror -Wall -Wextra
 OBJCHECK = $(SRCCHECK:.c=.o)
 OBJPUSH = $(SRCPUSH:.c=.o)
 LIBFT = ./libft/libft.a

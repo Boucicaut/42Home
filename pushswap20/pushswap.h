@@ -23,7 +23,7 @@ int		checkerope(char *ins, piles *pile);
 int		checkerope2(char *ins, piles *pile);
 int		sortshortlist(piles *pile);
 int		pusherror(char **str, int argc, int mode);
-int		doublonerror(char **str, int argc, int mode);
+int		doublonerror(piles *pile);//char **str, int argc, int mode);
 int		doublonerror2(char **str);
 int		intermediaire(piles *pile);
 int		gestionrecursive(piles *pile);

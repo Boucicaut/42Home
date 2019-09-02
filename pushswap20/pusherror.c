@@ -11,27 +11,35 @@ int	pusherror(char **str, int argc, int mode)
 		j = 0;
 		while (str[i][j])
 		{
-			if ((mode == 0 && strmaxint(str[i])) || (mode == 1 && j > 0 && str[i][j - 1] != '-' && strmaxint(&str[i][j])) || (mode == 1 && j == 0 && strmaxint(&str[i][j])))
+			if ((strmaxint(str[i])) || (str[i][j] == '-' && str[i][j + 1] && str[i][j + 1] == '-'))
 				return (1);
-			if ((str[i][j] != ' ' && str[i][j] != '-' && (str[i][j] < '0' || str[i][j] > '9')) || (str[i][j] == '-' && str[i][j + 1] && str[i][j + 1] == '-'))
-				return (1);
-			if (str[i][j] == '-' && (!str[i][j + 1] || !ft_isdigit(str[i][j + 1])))
+			while (str[i][j] && str[i][j] == ' ')
+				j++;
+			if (str[i][j] && str[i][j] != '-' && (str[i][j] < '0' || str[i][j] > '9'))
 				return (1);
 			j++;
 		}
 		i++;
 	}
-	if (doublonerror(str, argc, mode))
-		return (1);
 	return (0);
 }
 
-int	doublonerror(char **str, int argc, int mode)
+int	doublonerror(piles *pile)
 {
 	int	i;
 	int	j;
 
-	i = 1;
+	i = -1;
+	while (++i < pile->asize)
+	{
+		j = i;
+		while (++j < pile->asize)
+			if (pile->a[i] == pile->a[j])
+				return (1);
+	}
+	return (0);
+}
+/*
 	j = i + 1;
 	if (mode == 0)
 	{
@@ -51,7 +59,7 @@ int	doublonerror(char **str, int argc, int mode)
 		if (doublonerror2(str))
 			return (1);
 	return (0);
-}
+}*/
 
 int	doublonerror2(char **str)
 {

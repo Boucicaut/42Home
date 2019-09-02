@@ -23,14 +23,15 @@ OBJPUSH = $(SRCPUSH:.c=.o)
 LIBFT = ./libft/libft.a
 LIBFT_PATH = ./libft
 
-all : $(NAMEPUSH) $(NAMECHECK)
+all : $(LIBFT) $(NAMEPUSH) $(NAMECHECK)
 
-$(NAMEPUSH): $(OBJPUSH) $(LIBFT_PATH)
-			$(MAKE) -C $(LIBFT_PATH)
+$(LIBFT): $(LIBFT_PATH)
+		$(MAKE) -C $(LIBFT_PATH)
+
+$(NAMEPUSH): $(OBJPUSH)
 			$(CC) $(FLAGS) $(LIBFT) $(SRCPUSH) -o $(NAMEPUSH)
 
-$(NAMECHECK): $(OBJCHECK) $(LIBFT_PATH)
-			$(MAKE) -C $(LIBFT_PATH)
+$(NAMECHECK): $(OBJCHECK) 
 			$(CC) $(FLAGS) $(LIBFT) $(SRCCHECK) -o $(NAMECHECK)
 
 clean:

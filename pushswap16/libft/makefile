@@ -33,7 +33,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	ar rc $(NAME) $(OBJ)
 	ranlib $(NAME)
-# echo "=====[$(NAME) generated!]====="
+echo "=====[$(NAME) generated!]====="
 
 %.o: %.c
 	$(CC) $(FLAGS) -o $@ -c $<

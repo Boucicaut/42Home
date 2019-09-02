@@ -1,15 +1,15 @@
 #include "pushswap.h"
 
-#include <stdio.h>
 int	main(int argc, char **argv)
 {
 	t_piles	*pile;
 	int		i;
 
 	i = 0;
-	if (argc == 1 || (argc == 2 && !ft_strcmp(argv[1], "-i")))
-		return (0);
+	//if (argc == 1 || (argc == 2 && !ft_strcmp(argv[1], "-i")))
+		//return (0);
 	i = (argc == 3 && !ft_strcmp("-i", argv[1])) ? 1 : 0;
+	ft_printf("Error\n");
 	if (pusherror(argv, argc, i))
 	{
 		ft_printf("Error\n");
@@ -19,7 +19,10 @@ int	main(int argc, char **argv)
 		pile = inittabs(argc, argv, 0);
 	else
 		pile = inittabs(argc, argv, 1);
-	gestionrecursive(pile);
+	if (doublonerror(pile))
+		ft_printf("Error\n");
+	else
+		gestionrecursive(pile);
 	free(pile->a);
 	free(pile->b);
 	free(pile);
@@ -30,7 +33,7 @@ int	gestionrecursive(t_piles *pile)
 {
 	while (!issorted(pile, 0) || !issorted(pile, 1))
 	{
-		if (pile->asize < 10)
+		if (pile->asize < 8)// && checkvalue(pile) != 2)
 			sortshortlist(pile);
 		while (issorted(pile, 0) == 0)
 			quicksort(pile, mediumpivot(pile, 0));

@@ -13,9 +13,10 @@ l=0
 status=""
 while [ $i -lt $2 ]
 do
-ARG=`ruby -e "puts (1..$1).to_a.shuffle.join(' ')"`
+ARG=`ruby -e "puts (-2..$1).to_a.shuffle.join(' ')"`
+	echo $ARG
 	((l=$(./push_swap $(echo $ARG) | wc -l)))
-	status="$(./push_swap $(printf $ARG) | ./checker $(printf $ARG))"
+	status="$(./push_swap $(echo $ARG) | ./checker $(echo $ARG))"
 	if [ "$status" = "OK" ]; then
 		echo "Test #$i : ${BLUE}$l${NC} instructions || ${GREEN}$status${NC}"
 	else
