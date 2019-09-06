@@ -4,120 +4,120 @@ import math
 import re
 from functools import reduce
 from operator import mul
+import itertools
+from red_divx import *
 
-def red_add(expr):
-    ''' Reduit les entiers simples de l'equation. Les supprime et ajoute
-    la somme a la fin de la liste en place. '''
-    to_rm = []
-    total = 0
-    for i,ex in enumerate(expr):
-        if ex.strip('+-').isdigit():# or ex.startswith('-'):
-            total += int(ex)
-            to_rm.append(i)
-    nb_rm = 0
-    for i in sorted(to_rm)[::-1]:
-        expr.pop(i)
-    if total != 0:
-        expr.append(str(total))
+#regex to identify float number
+isfloat = re.compile('^\d+(\.\d+)?$')
 
-def red_sub(expr):
-    op = []
+def red_xmul_add(expr):
+    ''' On reduit en aggregeant les expressions x simples (ex 5 * x + 4 * x MAIS PAS 5 * x / 2 NI 5 * x * x)'''
     to_rm = []
-    #this part split the sub
-    sub = []
-    for ind,i in enumerate(expr):
-        if len(i.split('-')) > 1:
-            sub.append(i.split('-'))
+    to_add = []
+    to_add2 = []
+    for ind,exp in enumerate(expr):
+        print('Exp : ',exp)
+        if exp.lower().count('x^2') == 1 and exp.count('/') == 0 and exp.count('*') == 1:
+            for i in exp.split('*'):
+                if 'x' not in i.lower():
+                    to_add2.append(float(i.strip()))
             to_rm.append(ind)
+        elif exp.lower().count('x') == 1 and exp.count('/') == 0 and exp.count('*') == 1:
+            for i in exp.split('*'):
+                if 'x' not in i.lower():
+                    to_add.append(float(i.strip()))
+            to_rm.append(ind)
+        elif exp.lower().strip() == 'x':
+            to_add.append(1)
+            to_rm.append(ind)
+        elif exp.lower().strip() == 'x^2':
+            to_add2.append(1)
+            to_rm.append(ind)
+        print('ToAdd : ',to_add)
+        print('ToAdd2 : ',to_add2)
     for i in sorted(to_rm)[::-1]:
         expr.pop(i)
-    for i in sub:
-        for ind,j in enumerate(i):
-            if len(j.strip()) and ind == 0:
-                expr.append(j.strip())
-            elif len(j.strip()):
-                expr.append('-' + j.strip())
-    #resolve the sub
-    to_rm = []
-    for i,ex in enumerate(expr):
-        if not ex.strip('-+').isdigit() and not '*' in ex and not '/' in ex and not '^' in ex:
-            op.append(ex.split('- '))
+    if to_add:
+        expr.append(str(sum(to_add)) + ' * X')
+    if to_add2:
+        expr.append(str(sum(to_add2)) + ' * X^2')
+
+def red_xmulshit(expr):
+    to_mul = []
+    to_div = []
+    for i,d in enumerate(to_div):
+        if d in to_mul:
             to_rm.append(i)
-    if to_rm:
-        for i in sorted(to_rm)[::-1]:
-            expr.pop(i)
-    total = 0
-    cantadd = []
-    for oo in op:
-        for i,pp in enumerate(oo):
-            if not pp.strip().isdigit():
-                if i == 0:
-                    cantadd.append(pp)
-                else:
-                    cantadd.append('-' + pp)
-            else:
-                if i == 0:
-                    total += int(pp)
-                    continue
-                total -= int(pp)
-    for i in cantadd:
-        expr.append(i)
-    if total != 0:
-        expr.append(str(total))
-
-def red_ent(expr_liste):
-    ''' Reduit entiers de la liste en place'''
-    total = 0
-    to_rm = []
-    for i,e in enumerate(expr_liste):
-        if e.strip('-+').isdigit():
-            total += int(e)
-            to_rm.append(i)
+            to_mul.pop(to_mul.index(d))
     for i in sorted(to_rm)[::-1]:
-        expr_liste.pop(i)
-    if total != 0:
-        expr_liste.append(str(total))
+        to_div.pop(i)
+    x = 0
+    nb = 1
+    neg = 0
+    for i in to_mul:
+        if i.strip().startswith('-') and neg == 0:
+            neg = 1
+        elif i.strip().startswith('-') and neg == 1:
+            neg = 0
+        if 'x^2' in i.lower():
+            x += 2
+        elif 'x' in i.lower():
+            x += 1
+        else:
+            nb *= float(i.strip())
+    for i in to_div:
+        if i.strip().startswith('-') and neg == 0:
+            neg = 1
+        elif i.strip().startswith('-') and neg == 1:
+            neg = 0
+        if 'x^2' in i.lower():
+            x -= 2
+        elif 'x' in i.lower():
+            x -= 1
+        else:
+            nb /= float(i.strip())
+    print('x : ',x,'|| nb : ',nb)
+    if x == -2:
+        x = " / X^2"
+    elif x == -1:
+        x = " / X"
+    elif x == 1:
+        x = " * X"
+    elif x == 2:
+        x = " * X^2"
+    elif x == 0:
+        x = ""
+    else:
+        print('Bad exponent for X')
+        x = ""
+        #quit()
+    if x and neg:
+        expr.append(str(nb) + '-' + x)
+    elif x:
+        expr.append(str(nb) + x)
+    else:
+        expr.append(str(nb))
 
-def red_mul(expr):
-    total = 0
-    to_rm = []
-    for i,e in enumerate(expr):
-        if '*' in e and not 'x' in e.lower() and not '^' in e and not '/' in e:
-           new_e = list(map(int,e.split('*')))
-           total = reduce(mul,new_e)
-           to_rm.append(i)
-    for i in sorted(to_rm)[::-1]:
-        expr.pop(i)
-    if total:
-        expr.append(str(total))
+def chain_red(expr):
+    red_add(expr)
+    print(expr)
+    red_sub(expr)
+    print(expr)
+    red_mul(expr)
+    red_div(expr)
+    red_pow(expr)
+    red_ent(expr)
+    print(expr)
+    red_xmul_add(expr)
+    red_divx(expr)
 
-def red_div(expr):
-    nb = []
-    to_rm = []
-    for i,e in enumerate(expr):
-        if '/' in e and not 'x' in e.lower():
-           nb.append(e)
-           to_rm.append(i)
-    for i in sorted(to_rm)[::-1]:
-        expr.pop(i)
-    total = 0
-    curr = 0
-    for i in nb:
-        for ind,j in enumerate(i.split('/')):
-            if ind == 0:
-                curr = int(j.strip())
-            else:
-                curr /= int(j.strip())
-        total += curr
-    if total:
-        expr.append(str(int(total)))
+
+
 
 def red_x(expr):
-    '''Reduit les multiplications et division avec des x'''
     total = 0
     to_rm = []
     to_add = []
-#penser au cas 3* x * 4 * x / 3 * x^2 = 0
     for ind_expr,e in enumerate(expr):
         nb = 1
         x = 0
@@ -125,18 +125,22 @@ def red_x(expr):
         if 'x' in e.lower() and not '/' in e and '*' in e:
             elems = e.split('*')
             for i in elems :
+                print('i tofloat : ',i)
                 if i.strip().lower().startswith('x'):
                     i = 'x'
                 elif i.strip().lower().startswith('-x'):
                     i = '-x'
                 if 'x^2' in i.lower():
                     x += 2
-                    nb *= int(i.lower().strip('x^2 '))
+                    if any(aa.isdigit() for aa in i):
+                        nb *= float(i.lower().strip('x^2 '))
                 elif 'x' in i.lower():
                     x += 1
-                    nb *= int(i.lower().strip('x '))
-                else:
-                    nb *= int(i)
+                    print('Ipb : ',i)
+                    if any(aa.isdigit() for aa in i):
+                        nb *= float(i.lower().strip('x '))
+                elif any(aa.isdigit() for aa in i):
+                    nb *= float(i)
             if nb != 0 and x == 2:
                 to_add.append(str(nb) + 'X^2')
             elif nb != 0 and x == 1:
@@ -154,22 +158,26 @@ def red_x(expr):
                 if 'x^2' in i.lower():
                     if ind == 0:
                         x = 2
-                        nb = int(i.lower().strip('x^2 '))
+                        if any(aa.isdigit() for aa in i):
+                            nb = float(i.lower().strip('x^2 '))
                     else:
                         x -= 2
-                        nb /= int(i.lower().strip('x^2 '))
+                        if any(aa.isdigit() for aa in i):
+                            nb /= float(i.lower().strip('x^2 '))
                 elif 'x' in i.lower():
                     if ind == 0:
                         x = 1
-                        nb = int(i.lower().strip('x '))
+                        if any(aa.isdigit() for aa in i):
+                            nb = float(i.lower().strip('x '))
                     else:
                         x -= 1
-                        nb /= int(i.lower().strip('x '))
+                        if any(aa.isdigit() for aa in i):
+                            nb /= float(i.lower().strip('x '))
                 else:
                     if ind == 0:
-                        nb = int(i)
+                        nb = float(i)
                     else:
-                        nb /= int(i)
+                        nb /= float(i)
             if nb != 0 and x == 2:
                 to_add.append(str(nb) + 'X^2')
             elif nb != 0 and x == 1:
@@ -186,61 +194,3 @@ def red_x(expr):
     for i in to_add:
         expr.append(i)
 
-def red_x2(expr):
-    for exp in expr:
-        print('Expr : ', expr)
-        if 'x' in exp.lower():
-            last_digit = 0
-            x = []
-            mul_nb = []
-            div_nb = []
-            for i,e in enumerate(exp.split('*')):
-                print('Ee : ', e)
-                if e.strip(' ').isdigit():
-                    cur_digit = 1
-                elif e == '*':
-                    op = 1
-                elif e == '/':
-                    op = 2
-                elif e.lower() == 'x':
-                    if first_digit:
-                        nb = 1
-                        x = 1
-                        first_digit = 0
-                    elif op == 1:
-                        x += 1
-                    elif op == 2:
-                        x -= 1
-
-def red_pow(expr):
-    total = 0
-    totalx = 0
-    to_rm = []
-    for i,e in enumerate(expr):
-        if '^' in e and not 'x' in e.lower():
-            total += pow(int(e.split('^')[0]), int(e.split('^')[1]))
-            to_rm.append(i)
-        elif '^' in e and 'x' in e.lower() and e.lower().find('x') > e.find('^'):
-            totalx += pow(int(e.split('^')[0]), int(e.split('^')[1].lower().strip('x')))
-            to_rm.append(i)
-    for i in sorted(to_rm)[::-1]:
-        expr.pop(i)
-    if total:
-        expr.append(str(total))
-    if totalx:
-        expr.append(str(totalx) + 'X')
-
-def res_to_0(expr, res):
-    for i,r in enumerate(res):
-        expr.append('-' + r)
-
-def chain_red(expr):
-    print('Expr to see : ',expr)
-    red_add(expr)
-    red_sub(expr)
-    red_mul(expr)
-    print('Expr to see : ',expr)
-    red_div(expr)
-    red_pow(expr)
-    red_ent(expr)
-    red_x2(expr)

@@ -1,72 +1,3 @@
-# -*- encoding=utf8 -*-
-
-import math
-import re
-from functools import reduce
-from operator import mul
-from red_ope import *
-
-def red_start(expr):
-    ''' Reduit l'expression si le premier terme est un entier en place '''
-    first = expr[0]
-    digit = 0
-    neg = 0
-
-def calcul_abc(expr):
-    a = 0
-    b = 0
-    c = 0
-    for i in expr:
-        if 'x' in i.lower() and '^' in i:
-            a = int(i.lower().strip('x^2'))
-        elif 'x' in i.lower():
-            b = int(i.lower().strip('x'))
-        elif i.isdigit():
-            c = int(i)
-    return a,b,c
-
-def calcul_delta(expr):
-    '''Calcul le delta du polynome, b^2 - 4ac'''
-    a,b,c = calcul_abc(expr)
-    return (pow(b,2) - (4 * a * c))
-
-def calcul_res(expr):
-    a,b,c = calcul_abc(expr)
-    if a == 0:
-        return calcul_sol1(expr)
-    delta = calcul_delta(expr)
-    if delta < 0:
-        print('Pas de solution')
-        return None
-    '''Deux solutions : x =( −b + √Δ ) / 2a et x =( −b − √Δ ) / 2a '''
-    if delta > 0:
-        print('Deux solutions')
-        return (-delta + math.sqrt(delta) / (2 * a), -delta + math.sqrt(delta) / (2 * a))
-    elif delta == 0:
-        '''Une solution, x = −b/2a'''
-        print('Une solution')
-        return (-delta / (2 * a),)
-
-def calcul_sol1(expr):
-    a,b,c = calcul_abc(expr)
-    print('ABC :',a,b,c)
-
-pol = input('Entrer : \n')
-ert = pol.split('=')
-ert = list(map(lambda x:x.strip(),ert))
-
-result = ert.pop(1)
-
-#oth = re.split(r'\\+',ert.pop())
-oth = ert.pop().split('+')
-#oth = list(filter(lambda x: x and x != ' ', oth))
-result = re.split(r'\\+',result)
-
-result = list(map(lambda x:x.strip(),result))
-oth = list(map(lambda x:x.strip(),oth))
-
-
-# den num
 #___________ RED DIV AVEC X
 def red_divx(expr):
     to_rm = []
@@ -88,18 +19,30 @@ def red_divx(expr):
     #chain_red(num)
     print("DEN : ", den)
     print("NUM : ", num)
-    nb = ""
+    save = 0
+    x = 0
     for i,n in enumerate(num):
-        nb += n
-        if i != len(num) - 1:
-            nb += ' + '
-    print(nb)
-    expr.append(nb + ' / ' + den[0])
+        nb = 1
+        for j in n.split('*'):
+            if 'x^2' in j.lower():
+                x += 2
+            elif 'x' in j.lower():
+                x += 1
+            else:
+                nb *= float(j.strip())
+        save += nb
+    if x == 0:
+        expr.append(str(save) + ' / ' + den[0])
+    elif x == 1:
+        expr.append(str(save) + '* x' + ' / ' + den[0])
+    elif x == 2:
+        expr.append(str(save) + '* x^2' + ' / ' + den[0])
 
 def find_com_ent(ent):
     if len(set(ent)) == 1:
         return ent[0]
     ent = sorted(ent)[::-1]
+    print('Findcoment : ',ent)
     nb = ent[0]
     for i in ent[1:]:
         if nb % i != 0:
@@ -143,16 +86,4 @@ def common_den(den, num):
             den[ind] += (' * ' + str(new) + ' * X^2')
             num[ind] += (' * ' + str(new) + ' * X^2')
     return den, num
-
-
-#chain_red(oth)
-red_divx(oth)
-print('\nAfter red_divx : ',oth)
-
-delta = calcul_delta(oth)
-print('Calcul DELTa : ', delta)
-print('Result is : ',calcul_res2(oth))
-print('All expressions : ', oth,'\nResult : ', result)
-
-
 
